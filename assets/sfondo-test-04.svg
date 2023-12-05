@@ -3,9 +3,17 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 7200 1200" style="enable-background:new 0 0 7200 1200;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#CFFF00;}
-	.st1{fill:#526000;}
+	.st0{fill:#FF6EF8;}
+	.st1{fill:#662D66;}
 </style>
+<rect class="st0" width="450" height="1200"/>
+<rect x="450" class="st1" width="450" height="1200"/>
+<rect x="900" class="st0" width="450" height="1200"/>
+<rect x="1350" class="st1" width="450" height="1200"/>
+<rect x="1800" class="st0" width="450" height="1200"/>
+<rect x="2250" class="st1" width="450" height="1200"/>
+<rect x="2700" class="st0" width="450" height="1200"/>
+<rect x="3150" class="st1" width="450" height="1200"/>
 <rect class="st0" width="450" height="1200"/>
 <rect x="450" class="st1" width="450" height="1200"/>
 <rect x="900" class="st0" width="450" height="1200"/>

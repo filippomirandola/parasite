@@ -7,6 +7,7 @@ var figure = scrolly.select("figure");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
 
+
 // initialize the scrollama
 var scroller = scrollama();
 
@@ -33,33 +34,31 @@ function handleProgress(response) {
     console.log(response);
 
 
-    var backContainer = d3.select("#chart");
+    var backContainer = d3.select("#sfondo");
+   var linea = d3.select("#the_line");
     console.log("response progress: "+response.progress);
     // Calculate the translation amount based on the scroll progress
-    var translation = 10+ response.progress * window.innerWidth;
-
+    // var translation = (response.progress) * window.innerWidth;
+    var translation = (response.progress) * window.innerWidth;
+    var translationL =  (response.progress+response.index) * window.innerWidth;
     // Apply the translation to the back container
     backContainer.style("transform", "translateX(" + -translation + "px)");
+    linea.style("transform", "translateX(" + -translationL + "px)");
+   
+
 
 
     switch(response.index){
         case 0:
-            if(response.direction === "up"){
-                if(response.progress == 0) {}
-
-            }else{ // we are going down the page
-                if(response.progress == 1) {}
-                 //   animations.drawBubbles()
-                   
-            }
-            break;
-        case 1:
             if(response.direction === "up"){
                 animations.drawLinePath(response.progress);
             } else { // we are going down the page
                 animations.drawLinePath(response.progress);
 
             }
+            break;
+        case 1:
+            
             break;
         case 2:
            // animations.mapOpacity(response.progress);

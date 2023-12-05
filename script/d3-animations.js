@@ -4,14 +4,38 @@ const cities = await d3.json("./data/cities.json")
 
 const datatest = await d3.dsv(",","./data/test_dataset.csv");
 
+let unit = window.innerHeight/4;
+
+console.log(datatest)
+
+let datatest_linea = [];
+let p, l;
+
+function calcolaY(piano,livello) {
+
+    return (3-piano)*unit + (unit/5)*(5-livello);
+}
+let scaleX = d3.scaleLinear().range([100,6*unit]).domain(d3.extent(datatest, (d)=>d["tempo"]));
+
+for (const elem of datatest) {
+    /* datatest_linea[riga].t = (d)=> (datatest, d["tempo"]);
+    datatest_linea[riga].y = (d)=> (datatest, d["piano"]); */
+    // datatest_linea.push({"tempo":elem.tempo, "y":calcolaY(elem.piano, elem.livello)});
+    datatest_linea.push([scaleX(elem.tempo), calcolaY(elem.piano, elem.livello)]);
+}
+
+console.log(datatest_linea);
+
 // Set the width and height of the SVG container
 const width = 600;
 const height = 500;
 
+
 // Create an SVG element
 const sfondo = d3.select("#chart")
     .append("svg")
-    .attr("width",2*window.innerWidth)
+   // .attr("viewBox", "0 0 "+ 2*window.innerWidth +" "+ window.innerHeight)
+    .attr("width", 12 * unit)
     .attr("height", window.innerHeight)
     .style("display", "block")
     .style("margin", "auto");
@@ -22,32 +46,80 @@ let svg = sfondo;
 // Set the  height of the background
 
 
-let gruppo = svg.append("g");
+let gruppo = svg.append("g").attr("id","sfondo");
+
+
 gruppo
    .append("image")
-   .attr("id","sopra")
+   .attr("id","livello0")
    .attr("x",0)
-   .attr("y",-window.innerHeight)
-   //.attr("width","100%")
-   .attr("height","33%")
+   .attr("y",unit*3)
+   .attr("width",unit*6)
+   .attr("height",unit)
    .attr("href","./assets/sfondo-test-01.svg");
 
    gruppo
    .append("image")
-   .attr("id","medio")
+   .attr("id","livello1")
    .attr("x",0)
-   .attr("y",0)
-   //.attr("width","100%")
-   .attr("height","33%")
+   .attr("y",unit*2)
+   .attr("width",unit*6)
+   .attr("height",unit)
    .attr("href","./assets/sfondo-test-02.svg");
 
    gruppo
    .append("image")
-   .attr("id","sotto")
+   .attr("id","livello2")
    .attr("x",0)
-   .attr("y",window.innerHeight)
-   .attr("height","33%")
+   .attr("y",unit*1)
+   .attr("width",unit*6)
+   .attr("height",unit)
    .attr("href","./assets/sfondo-test-03.svg");
+   gruppo
+   .append("image")
+   .attr("id","livello3")
+   .attr("x",0)
+   .attr("y",0)
+   .attr("width",unit*6)
+   .attr("height",unit)
+   .attr("href","./assets/sfondo-test-04.svg");
+
+   gruppo
+   .append("image")
+   .attr("id","livello0")
+   .attr("x",unit*6)
+   .attr("y",unit*3)
+   .attr("width",unit*6)
+   .attr("height",unit)
+   .attr("href","./assets/sfondo-test-01.svg");
+
+   gruppo
+   .append("image")
+   .attr("id","livello1")
+   .attr("x",unit*6)
+   .attr("y",unit*2)
+   .attr("width",unit*6)
+   .attr("height",unit)
+   .attr("href","./assets/sfondo-test-02.svg");
+
+   gruppo
+   .append("image")
+   .attr("id","livello2")
+   .attr("x",unit*6)
+   .attr("y",unit*1)
+   .attr("width",unit*6)
+   .attr("height",unit)
+   .attr("href","./assets/sfondo-test-03.svg");
+   gruppo
+   .append("image")
+   .attr("id","livello3")
+   .attr("x",unit*6)
+   .attr("y",0)
+   .attr("width",unit*6)
+   .attr("height",unit)
+   .attr("href","./assets/sfondo-test-04.svg");
+
+
 
 
 
@@ -110,17 +182,19 @@ for(let point of journeyPath){
 // #########################      CREAZIONE PATH      #########################
 // ############################################################################
 
-let scaleX = d3.scaleLinear().range([100,window.innerWidth]).domain(d3.extent(datatest, (d)=>d["tempo"]));
-let scaleY = d3.scaleLinear().range([window.innerHeight-100,0]).domain(d3.extent(datatest, (d)=>d["y"]));
+// let scaleX = d3.scaleLinear().range([100,24*unit]).domain(d3.extent(datatest_linea, (d)=>d[0]));
 
-let lineFunction = d3.line().x((d) => scaleX(d["tempo"])).y((d)=> scaleY(d["y"]));  
+console.log("haha");
+let lineFunction = d3.line().x((d) => scaleX(d[0])).y(datatest_linea, (d)=> d[1]);
+console.log(datatest_linea, (d)=>d["y"]);  
 
 
 // once we have created the path we need to add it to the svg
 const line = svg.append("path")
                 .datum(datatest)
                 .attr("id","the_line")
-                .attr("d", lineFunction)
+               // .attr("d", lineFunction)
+               .attr("d", d3.line()(datatest_linea))
                 .attr("stroke", "white")
                 .attr("fill", "none")
                 .attr("stroke-width", 10);
@@ -302,7 +376,7 @@ export function setOpacityAxes(toggleX, toggleY, progress){
             .transition()
             .duration(10)
             .attr("opacity", progress)
-}
+} 
 
 export function selezionaSfondo(x) {
    let y;
@@ -315,8 +389,8 @@ export function selezionaSfondo(x) {
         break;
 
     case 1: // poveri+ricchi
-        gruppo.select("#medio").attr("y",window.innerHeight/2).attr("height","50%");
-        gruppo.select("#sopra").attr("y",0).attr("height","50%");
+        gruppo.select("#medio").attr("y",0).attr("height","%");
+        gruppo.select("#sopra").attr("y",window.innerHeight).attr("height","100%");
         gruppo.select("#sotto").attr("y",window.innerHeight).attr("height","100%");
 
         break;
