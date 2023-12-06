@@ -1,5 +1,24 @@
 html {
   overflow-x:hidden;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#obj {
+  background: blue;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  position: absolute;
+  /* Align center */
+  top:-10px;
+  left: -10px;
+  opacity: 0.5;
 }
 
 g #sfondo {

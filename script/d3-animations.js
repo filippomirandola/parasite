@@ -3,19 +3,23 @@ const usaGeojson = await d3.json("./data/usa.json")
 const cities = await d3.json("./data/cities.json")
 
 const datatest = await d3.dsv(",","./data/test_dataset.csv");
+//const datatest2 = await d3.dsv(",","./data/test_dataset_2.csv");
 
 let unit = window.innerHeight/4;
 
 console.log(datatest)
 
 let datatest_linea = [];
+let datatest_linea_2 = [];
 let p, l;
 
 function calcolaY(piano,livello) {
 
     return (3-piano)*unit + (unit/5)*(5-livello);
 }
-let scaleX = d3.scaleLinear().range([100,6*unit]).domain(d3.extent(datatest, (d)=>d["tempo"]));
+let scaleX = d3.scaleLinear().range([100,4*unit]).domain(d3.extent(datatest, (d)=>d["tempo"]));
+//let scaleX_2 = d3.scaleLinear().range([100,4*unit]).domain(d3.extent(datatest2, (d)=>d["tempo"]));
+
 
 for (const elem of datatest) {
     /* datatest_linea[riga].t = (d)=> (datatest, d["tempo"]);
@@ -23,6 +27,13 @@ for (const elem of datatest) {
     // datatest_linea.push({"tempo":elem.tempo, "y":calcolaY(elem.piano, elem.livello)});
     datatest_linea.push([scaleX(elem.tempo), calcolaY(elem.piano, elem.livello)]);
 }
+
+/* for (const elem2 of datatest2) {
+    /* datatest_linea[riga].t = (d)=> (datatest, d["tempo"]);
+    datatest_linea[riga].y = (d)=> (datatest, d["piano"]); */
+    // datatest_linea.push({"tempo":elem.tempo, "y":calcolaY(elem.piano, elem.livello)});*/
+ /*   datatest_linea.push([scaleX(elem2.tempo), calcolaY(elem2.piano, elem2.livello)]);
+} */
 
 console.log(datatest_linea);
 
@@ -188,22 +199,45 @@ console.log("haha");
 let lineFunction = d3.line().x((d) => scaleX(d[0])).y(datatest_linea, (d)=> d[1]);
 console.log(datatest_linea, (d)=>d["y"]);  
 
+let mascheraContainer = svg.append("clipPath").attr("id","myMask");
+let maschera = mascheraContainer.append("rect").attr("width","300").attr("height",window.innerHeight).attr("fill","black").attr("style","position: sticky;");
 
 // once we have created the path we need to add it to the svg
-const line = svg.append("path")
+//const line = svg.append("path")
+const linesGroup = svg.append("g").attr("clip-path","url(#myMask)");
+const line = linesGroup.append("path")
                 .datum(datatest)
                 .attr("id","the_line")
                // .attr("d", lineFunction)
                .attr("d", d3.line()(datatest_linea))
                 .attr("stroke", "white")
                 .attr("fill", "none")
-                .attr("stroke-width", 10);
+                .attr("stroke-width", 5);
+                
 
 const totalLength = line.node().getTotalLength()
 
-line
-    .attr("stroke-dasharray", totalLength + " " + totalLength) // controlls the pattern of the dashed line
-    .attr("stroke-dashoffset", totalLength) // shifts the dashed line so that it starts at the end of the line --> invisible
+//line
+ //   .attr("stroke-dasharray", totalLength + " " + totalLength) // controlls the pattern of the dashed line
+ //   .attr("stroke-dashoffset", totalLength) // shifts the dashed line so that it starts at the end of the line --> invisible
+
+
+ var obj = document.getElementById('obj');
+ var path = document.getElementById("the_line");
+
+ export function moveObj(prcnt, translation)
+ {
+   prcnt = (prcnt*totalLength) / 100;
+ 
+   // Get x and y values at a certain point in the line
+  let pt = path.getPointAtLength(prcnt);
+   pt.x = Math.round(pt.x);
+   pt.y = Math.round(pt.y);
+   
+   let translationX = pt.x - translation; 
+   obj.style.webkitTransform = 'translate3d('+translationX+'px,'+pt.y+'px, 0)'; }
+
+
 
 
 // ############################################################################
@@ -273,6 +307,13 @@ svg.append("g")
 // ############################################################################
 // #########################    FUNCTIONS                   ###################
 // ############################################################################
+
+export function mostraLivelli(x) {
+    if (x == 1) {
+
+    }
+}
+
 
 export function drawJourneyCities(){
     journeyCities
