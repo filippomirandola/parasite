@@ -10,7 +10,6 @@ let unit = window.innerHeight/4;
 console.log(datatest)
 
 let datatest_linea = [];
-let datatest_linea_2 = [];
 let p, l;
 
 function calcolaY(piano,livello) {
@@ -25,7 +24,8 @@ for (const elem of datatest) {
     /* datatest_linea[riga].t = (d)=> (datatest, d["tempo"]);
     datatest_linea[riga].y = (d)=> (datatest, d["piano"]); */
     // datatest_linea.push({"tempo":elem.tempo, "y":calcolaY(elem.piano, elem.livello)});
-    datatest_linea.push([scaleX(elem.tempo), calcolaY(elem.piano, elem.livello)]);
+   // datatest_linea.push(scaleX(elem.tempo), calcolaY(elem.piano, elem.livello)]);
+   datatest_linea.push({"x":scaleX(elem.tempo), "y":calcolaY(elem.piano, elem.livello)});
 }
 
 /* for (const elem2 of datatest2) {
@@ -204,18 +204,64 @@ let maschera = mascheraContainer.append("rect").attr("width","300").attr("height
 
 // once we have created the path we need to add it to the svg
 //const line = svg.append("path")
+
+var Gen = d3.line() 
+  .x((p) => p.x) 
+  .y((p) => p.y); 
+
 const linesGroup = svg.append("g").attr("clip-path","url(#myMask)");
 const line = linesGroup.append("path")
-                .datum(datatest)
+            //    .datum(datatest)
                 .attr("id","the_line")
                // .attr("d", lineFunction)
-               .attr("d", d3.line()(datatest_linea))
+              // .attr("d", d3.line()(datatest_linea))
+              .attr("d",Gen(datatest_linea))
                 .attr("stroke", "white")
                 .attr("fill", "none")
                 .attr("stroke-width", 5);
                 
 
-const totalLength = line.node().getTotalLength()
+const totalLength = line.node().getTotalLength();
+
+console.log("Tot = "+totalLength);
+
+console.log(datatest_linea.length);
+
+function  calcolaPercentuale() {
+    const lunghezzaTotale = line.node().getTotalLength();
+
+ // inizializza la lunghezza “accumulata” fino a quel punto 
+ let lunghezzaAccumulata= 0;
+
+ for (let i = 0; i < datatest_linea.length; i++) {
+     // serve a calcolare la lunghezza della linea fino al punto corrente in teoria
+     let subPath = linesGroup.append("path")
+                    .attr("d",Gen(datatest_linea.slice(0, i+1)))
+                    .attr("stroke","black")
+                    .attr("fill", "none")
+                    .attr("stroke-width", 5)
+                    .attr("style","display:none");
+
+    console.log(datatest_linea.slice(0, i+1));
+
+     const lunghezzaTratto = i > 0 ? subPath.node().getTotalLength() : 0;
+
+     // così si aggiorna la lunghezza accumulata
+     // lunghezzaAccumulata += lunghezzaTratto;
+
+     // calcola la percentuale
+     const percentuale= (lunghezzaTratto / lunghezzaTotale) * 100;
+
+    // console.log(`Punto ${i + 1}: Coordinate ${datatest_linea[i]}, Percentuale ${percentuale.toFixed(2)}%`);
+    datatest_linea[i].progresso=percentuale;
+ }
+}
+
+
+calcolaPercentuale(); 
+console.log(datatest_linea);
+
+
 
 //line
  //   .attr("stroke-dasharray", totalLength + " " + totalLength) // controlls the pattern of the dashed line
@@ -225,6 +271,37 @@ const totalLength = line.node().getTotalLength()
  var obj = document.getElementById('obj');
  var path = document.getElementById("the_line");
 
+ //funzione per ottenere la percentuale nella linea a partire dalla x
+ export function moveObjFromXProgress(progresso, translation) {
+
+    let numPunti = datatest_linea.length; // ottieni il numero di punti che definiscono la linea
+    let ampiezza = datatest_linea[numPunti-1].x - datatest_linea[0].x; // ottieni l'ampiezza in x del progresso
+    let pt = {}; // crea l'oggetto pt che definirà la posizione della faccia
+    pt.x = datatest_linea[0].x + progresso * ampiezza; // x della faccia è proporzionale al progresso
+    console.log("ptX: "+pt.x);
+    let i = 0;
+    // cerca i due punti tra cui è compresa la x
+    while (i < numPunti && datatest_linea[i].x < pt.x) { // esce quando x è maggiore (o quando la linea è finita)
+        i++; 
+    }
+
+    let pt0 = datatest_linea[i-1]; //punto precedente
+    let pt1 = datatest_linea[i]; //punto successivo
+
+    // calcolo la percentuale di progresso (da 0 a 1) lungo il tratto e la differenza tra le Y
+    let progressoTratto = (pt.x-pt0.x) / (pt1.x - pt0.x); 
+    let diffY = progressoTratto * (pt1.y - pt0.y);
+
+    // calcolo la y della faccia
+    pt.y =  pt0.y + diffY;
+
+    // traslo la faccia
+    let translationX = pt.x - translation; 
+    obj.style.webkitTransform = 'translate3d('+translationX+'px,'+pt.y+'px, 0)'; 
+
+ }
+
+ // VECCHIA FUNZIONE 
  export function moveObj(prcnt, translation)
  {
    prcnt = (prcnt*totalLength) / 100;

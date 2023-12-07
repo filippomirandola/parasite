@@ -50,7 +50,7 @@ function handleProgress(response) {
 linea.style("transform", "translateX(" + -translation + "px)");
 
    
-animations.moveObj(response.progress*100,translation);
+animations.moveObjFromXProgress(response.progress,translation);
 
 
 
