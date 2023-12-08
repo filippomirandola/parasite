@@ -37,8 +37,7 @@ function handleProgress(response) {
 
 
     var backContainer = d3.select("#sfondo");
-    var linea = d3.select("#the_line");
-    var linea2 = d3.select("#the_line_2");
+   var linea = d3.select("#the_line");
     console.log("response progress: "+response.progress);
     // Calculate the translation amount based on the scroll progress
     // var translation = (response.progress) * window.innerWidth;
@@ -49,45 +48,85 @@ function handleProgress(response) {
 //    linea.style("transform", "translateX(" + -translationL + "px)");
 
 linea.style("transform", "translateX(" + -translation + "px)");
-linea2.style("transform", "translateX(" + -translation + "px)");
 
    
 animations.moveObjFromXProgress(response.progress,translation);
-animations.moveObjFromXProgress2(response.progress,translation);
 
 
 
-switch (response.index) {
-    case 0:
-        if (response.direction === "up") {
-            // animations.drawLinePath(response.progress);
-        } else {
-            // animations.drawLinePath(response.progress);
-        }
-        break;
-    case 1:
-        break;
-    case 2:
-        // animations.mapOpacity(response.progress);
-        break;
-    case 3:
-        // animations.increaseJourney(response.progress);
-        // animations.allCitiesOpacity(response.progress);
-        break;
-    case 4:
-        // animations.setOpacityAxes(true, true, response.progress)
-        break;
-    case 5:
-        // animations.drawLinePath(response.progress)
-        // animations.increaseJourney(1 - response.progress)
-        break;
-    case 6:
-        break;
-    case 7:
-        break;
-    default:
-        break;
+    switch(response.index){
+        case 0:
+            if(response.direction === "up"){
+            //    animations.drawLinePath(response.progress);
+            } else { // we are going down the page
+             //   animations.drawLinePath(response.progress);
+
+            }
+            break;
+        case 1:
+            
+            break;
+        case 2:
+           // animations.mapOpacity(response.progress);
+            break;
+        case 3:
+         //   animations.increaseJourney(response.progress);
+         //   animations.allCitiesOpacity(response.progress);
+            break;
+        case 4:
+         //   animations.setOpacityAxes(true, true, response.progress)
+            break;
+        case 5:
+         //   animations.drawLinePath(response.progress)
+        //    animations.increaseJourney(1-response.progress)
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        default:
+            break;
+    }
 }
+
+function handleStepEnter(response){
+    //console.log(response);
+
+    switch(response.index){
+        case 0:
+            animations.selezionaSfondo(0);
+            if(response.direction === "down") {}
+            
+            else if(response.direction === "up") {}
+                //animations.hideBubbles();
+
+            break;
+        case 1:
+            if(response.direction === "down"){
+                animations.selezionaSfondo(1);
+
+            }
+            else if(response.direction === "up")
+            animations.selezionaSfondo(1);
+
+                
+            break;
+        case 2:
+            animations.selezionaSfondo(2);
+            break;
+        case 3:
+            break;
+            case 4:
+                break;        
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        default:
+            break;
+    }
 }
 
 function setupStickyfill() {
@@ -101,7 +140,6 @@ function init() {
 
 
     // 1. force a resize on load to ensure proper dimensions are sent to scrollama
-
     handleResize();
 
     // 2. setup the scroller passing options

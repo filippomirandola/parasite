@@ -4,15 +4,12 @@ const cities = await d3.json("./data/cities.json")
 
 const datatest = await d3.dsv(",","./data/test_dataset.csv");
 //const datatest2 = await d3.dsv(",","./data/test_dataset_2.csv");
-const datatest2 = await d3.dsv(",","./data/test_dataset_prova2.csv");
 
 let unit = window.innerHeight/4;
 
 console.log(datatest)
-console.log(datatest2)
 
 let datatest_linea = [];
-let datatest_linea2 = []; 
 let p, l;
 
 function calcolaY(piano,livello) {
@@ -20,7 +17,7 @@ function calcolaY(piano,livello) {
     return (3-piano)*unit + (unit/5)*(5-livello);
 }
 let scaleX = d3.scaleLinear().range([100,4*unit]).domain(d3.extent(datatest, (d)=>d["tempo"]));
-let scaleX_2 = d3.scaleLinear().range([100,4*unit]).domain(d3.extent(datatest2, (d)=>d["tempo"]));
+//let scaleX_2 = d3.scaleLinear().range([100,4*unit]).domain(d3.extent(datatest2, (d)=>d["tempo"]));
 
 
 for (const elem of datatest) {
@@ -31,12 +28,14 @@ for (const elem of datatest) {
    datatest_linea.push({"x":scaleX(elem.tempo), "y":calcolaY(elem.piano, elem.livello)});
 }
 
-for (const elem2 of datatest2) {
-    datatest_linea2.push({"x": scaleX_2(elem2.tempo), "y": calcolaY(elem2.piano, elem2.livello)});
-}
+/* for (const elem2 of datatest2) {
+    /* datatest_linea[riga].t = (d)=> (datatest, d["tempo"]);
+    datatest_linea[riga].y = (d)=> (datatest, d["piano"]); */
+    // datatest_linea.push({"tempo":elem.tempo, "y":calcolaY(elem.piano, elem.livello)});*/
+ /*   datatest_linea.push([scaleX(elem2.tempo), calcolaY(elem2.piano, elem2.livello)]);
+} */
 
 console.log(datatest_linea);
-console.log(datatest_linea2);
 
 // Set the width and height of the SVG container
 const width = 600;
@@ -219,13 +218,14 @@ const line = linesGroup.append("path")
               .attr("d",Gen(datatest_linea))
                 .attr("stroke", "white")
                 .attr("fill", "none")
-                .attr("stroke-width", 5);                
+                .attr("stroke-width", 5);
+                
 
 const totalLength = line.node().getTotalLength();
 
 console.log("Tot = "+totalLength);
-console.log(datatest_linea.length);
 
+console.log(datatest_linea.length);
 
 function  calcolaPercentuale() {
     const lunghezzaTotale = line.node().getTotalLength();
@@ -236,14 +236,13 @@ function  calcolaPercentuale() {
  for (let i = 0; i < datatest_linea.length; i++) {
      // serve a calcolare la lunghezza della linea fino al punto corrente in teoria
      let subPath = linesGroup.append("path")
-                    .attr("id","temp_path")
                     .attr("d",Gen(datatest_linea.slice(0, i+1)))
                     .attr("stroke","black")
                     .attr("fill", "none")
                     .attr("stroke-width", 5)
                     .attr("style","display:none");
 
- //   console.log(datatest_linea.slice(0, i+1));
+    console.log(datatest_linea.slice(0, i+1));
 
      const lunghezzaTratto = i > 0 ? subPath.node().getTotalLength() : 0;
 
@@ -255,12 +254,13 @@ function  calcolaPercentuale() {
 
     // console.log(`Punto ${i + 1}: Coordinate ${datatest_linea[i]}, Percentuale ${percentuale.toFixed(2)}%`);
     datatest_linea[i].progresso=percentuale;
-    d3.select("#temp_path").remove();
  }
 }
 
+
 calcolaPercentuale(); 
 console.log(datatest_linea);
+
 
 
 //line
@@ -268,7 +268,7 @@ console.log(datatest_linea);
  //   .attr("stroke-dashoffset", totalLength) // shifts the dashed line so that it starts at the end of the line --> invisible
 
 
- var obj = document.getElementById('obj1');
+ var obj = document.getElementById('obj');
  var path = document.getElementById("the_line");
 
  //funzione per ottenere la percentuale nella linea a partire dalla x
@@ -283,9 +283,7 @@ console.log(datatest_linea);
     // cerca i due punti tra cui è compresa la x
     while (i < numPunti && datatest_linea[i].x < pt.x) { // esce quando x è maggiore (o quando la linea è finita)
         i++; 
-    } 
-
-
+    }
 
     let pt0 = datatest_linea[i-1]; //punto precedente
     let pt1 = datatest_linea[i]; //punto successivo
@@ -302,85 +300,6 @@ console.log(datatest_linea);
     obj.style.webkitTransform = 'translate3d('+translationX+'px,'+pt.y+'px, 0)'; 
 
  }
-
-//SECONDA LINEA
-const line2 = linesGroup.append("path")
-    .attr("id", "the_line_2")
-    .attr("d", Gen(datatest_linea2))
-    .attr("stroke", "red")
-    .attr("fill", "none")
-    .attr("stroke-width", 5);
-
-const totalLength2 = line2.node().getTotalLength();
-//hideSecondLine();
-
-function calcolaPercentualeLinea2() {
-    const lunghezzaTotale = line2.node().getTotalLength();
-
-    let lunghezzaAccumulata = 0;
-
-    for (let i = 0; i < datatest_linea2.length; i++) {
-        let subPath = linesGroup.append("path")
-             .attr("id","temp_path")
-            .attr("d", Gen(datatest_linea2.slice(0, i + 1)))
-            .attr("stroke", "black")
-            .attr("fill", "none")
-            .attr("stroke-width", 5)
-            .attr("style","display:none");
-
-        const lunghezzaTratto = i > 0 ? subPath.node().getTotalLength() : 0;
-
-        const percentuale = (lunghezzaTratto / lunghezzaTotale) * 100;
-
-        datatest_linea2[i].progresso = percentuale;
-        d3.select("#temp_path").remove();
-        
-    }
-}
-
-calcolaPercentualeLinea2();
-console.log(datatest_linea2);
-
-function hideSecondLine() {
-    line2
-        .attr("stroke-dasharray", totalLength2 + " " + totalLength2)
-        .attr("stroke-dashoffset", totalLength2);
-}
-
-function drawSecondLinePath(offset) {
-    line2
-        .transition()
-        .duration(100)
-        .attr("stroke-dashoffset", totalLength2 * (1 - offset));
-}
-
-var obj2 = document.getElementById('obj2');
-var path2 = document.getElementById("the_line_2");
-
-export function moveObjFromXProgress2(progresso, translation) {
-    let numPunti2 = datatest_linea2.length;
-    let ampiezza2 = datatest_linea2[numPunti2 - 1].x - datatest_linea2[0].x;
-    let pt2 = {};
-    pt2.x = datatest_linea2[0].x + progresso * ampiezza2;
-    console.log("ptX: " + pt2.x);
-    let i = 0;
-
-    while (i < numPunti2 && datatest_linea2[i].x < pt2.x) {
-        i++;
-    }
-
-    let pt0_2 = datatest_linea2[i - 1];
-    let pt1_2 = datatest_linea2[i];
-
-    let progressoTratto2 = (pt2.x - pt0_2.x) / (pt1_2.x - pt0_2.x);
-    let diffY2 = progressoTratto2 * (pt1_2.y - pt0_2.y);
-
-    pt2.y = pt0_2.y + diffY2;
-
-    let translationX2 = pt2.x - translation;
-    obj2.style.webkitTransform = 'translate3d(' + translationX2 + 'px,' + pt2.y + 'px, 0)';
-}
-
 
  // VECCHIA FUNZIONE 
  export function moveObj(prcnt, translation)
@@ -611,4 +530,3 @@ export function selezionaSfondo(x) {
    // gruppo.select("#back").attr("y",y).attr("height",height);
 
 }
-
