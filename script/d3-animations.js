@@ -10,52 +10,50 @@ export const zoomProgressoFinale = 0.2;
 
 
 // Dataset piani  bunker / casaPoveri / strada / casaRicchi1 / casaRicchi2
-const livelli = [5, 5, 1, 5, 5];
+const livelli = [5, 5, 2, 5, 5];
 let coordinateLivelli = [];
-const personaggi = [4];
-const riferimentiPersonaggi = [
+//const personaggi = [4];
+const personaggi = [
     {
-        nome: "a",
-        famiglia: "",
-        dataset: "./data/data_dasong.csv",
-        faccia: "./assets/facce/mamma-kim.svg"
+        nome: "Jessica",
+        famiglia: "Kim",
+        dataset: "./data/test/data_p1.csv",
+        faccia: "./assets/facce/jessica.svg"
     },
     {
-        nome: "b",
-        famiglia: "",
-        dataset: "./data/data_moongwang.csv",
-        faccia: "./assets/facce/mamma-kim.svg"
+        nome: "Papà Kim",
+        famiglia: "Kim",
+        dataset: "./data/test/data_p2.csv",
+        faccia: "./assets/facce/papaKim.svg"
     },
     {
-        nome: "c",
-        famiglia: "",
-        dataset: "./data/data_dahye.csv",
-        faccia: "./assets/facce/mamma-kim.svg"
+        nome: "Mamma Kim",
+        famiglia: "Kim",
+        dataset: "./data/test/data_p3.csv",
+        faccia: "./assets/facce/mammaKim.svg"
     },
     {
-        nome: "d",
-        famiglia: "",
-        dataset: "./data/data_yeonkyo.csv",
-        faccia: "./assets/facce/mamma-kim.svg"
+        nome: "Kevin",
+        famiglia: "Kim",
+        dataset: "./data/test/data_p4.csv",
+        faccia: "./assets/facce/mammaparks.svg"
     }
 ];
 
 
 // Dataset personaggi: scena, tempo, livello, sottolivello
-const dataP1 = await d3.dsv(",",riferimentiPersonaggi[0].dataset);
-const dataP2 = await d3.dsv(",",riferimentiPersonaggi[1].dataset);
-const dataP3 = await d3.dsv(",",riferimentiPersonaggi[2].dataset);
-const dataP4 = await d3.dsv(",",riferimentiPersonaggi[3].dataset);
-
-
+const dataP1 = await d3.dsv(",",personaggi[0].dataset);
+const dataP2 = await d3.dsv(",",personaggi[1].dataset);
+const dataP3 = await d3.dsv(",",personaggi[2].dataset);
+const dataP4 = await d3.dsv(",",personaggi[3].dataset);
 
 const spessoreLinee = 5;
 const xMaschera = 300;
 
 
-// ############################################################################
-// #########################    CREAZIONE DATASET    ##########################
-// ############################################################################
+// #################################################################################
+// #########################     CREAZIONE DATA-PUNTI     ##########################
+// #################################################################################
 
 
 let puntiP1 = [];
@@ -66,8 +64,9 @@ let puntiP4 = [];
                 // array che all'indice scena dà l'ampiezza della scena (il numero di sottostep di "tempo")
                 //  [00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16..] 
 const ampiezzaScene = [];
- ampiezzaScene[0]=21;
- ampiezzaScene[1]=21;
+ ampiezzaScene[0]=20;
+ ampiezzaScene[1]=20;
+ ampiezzaScene[2]=20;
 const numeroScene = ampiezzaScene.length;
 
 // calcola l'ampiezza della linea calcolando il multiplo dell'ampiezza del modulo dello sfondo più vicino (e maggiore) nell'ampiezza degli step * numero Step
@@ -84,6 +83,9 @@ function calcolaScalaX(scena) {
     console.log(ampiezzaScene[scena]);
     return d3.scaleLinear().range([xMaschera,xMaschera+stabilisciAmpiezzaLinea(scena)]).domain([0,ampiezzaScene[parseInt(scena)]-1]);
 }
+
+
+// CALCOLO ESTREMI LIVELLI E COORDINATE SOTTOLIVELLI
 
 function calcolaMinYLivello(piano) {
     if (piano == 2 || piano == 3 || piano == 4 ) {
@@ -144,8 +146,9 @@ function calcolaY(piano,livello) {
   
     return coordinateLivelli[piano].max - (parseFloat(livello)-0.5) * (unit / (livelli[piano]));
 
-    }
+}
    
+// CREAZIONE DATASET VERI E PROPRI
 
 // calcola e pusha nell'array i punti della linea di ogni personaggio sulla base del suo csv
 function creaDatabase(dataPersonaggio, puntiPersonaggio){
@@ -153,6 +156,7 @@ function creaDatabase(dataPersonaggio, puntiPersonaggio){
         puntiPersonaggio.push({"scena":elem.scena,"x":calcolaScalaX(elem.scena)(elem.tempo), "y":calcolaY(elem.livello, elem.sottolivello)});
      }
 }
+
 
 creaDatabase(dataP1, puntiP1);
 creaDatabase(dataP2, puntiP2);
@@ -176,7 +180,7 @@ const height = 500;
 const svg = d3.select("#chart")
     .append("svg")
     .attr("id", "container")
-    .attr("width", 2 * k * unit) // sfondo grande 2*numero di moduli
+    .attr("width", 3 * k * unit) // sfondo grande 2*numero di moduli
     .attr("height", window.innerHeight)
     .style("display", "block")
     .style("margin", "auto")
@@ -210,7 +214,7 @@ function generaSfondoModulo(rip) {
     .attr("width",unit*k)
     .attr("height",unit)
     .attr("href","./assets/casa-kim.svg");
- 
+
     gruppo
     .append("image")
     .attr("class","livello2")
@@ -236,7 +240,8 @@ function generaSfondoModulo(rip) {
 // genera gli sfondi in modo che si raggiunga almeno il doppio dell'ampiezza delle linee della scena più ampia
 function generaSfondi() {
     let n = 0;
-    while (n*unit*k < 2*stabilisciAmpiezzaLinea(d3.maxIndex(ampiezzaScene))) {
+    while (n*unit*k <= 2*stabilisciAmpiezzaLinea(d3.maxIndex(ampiezzaScene))) {
+        console.log("sfondo " +n);
         generaSfondoModulo(n);
         n++;
     }
@@ -246,30 +251,34 @@ function generaSfondi() {
 generaSfondi();
 
 
-// ############################################################################
-// #########################      CREAZIONE PATH      #########################
-// ############################################################################
+// #####################################################################################
+// #########################      CREAZIONE LINEE & FACCE      #########################
+// #####################################################################################
+
+// MASCHERA 
 
 let mascheraContainer = svg.append("clipPath").attr("id","myMask");
 let maschera = mascheraContainer.append("rect").attr("width",xMaschera).attr("height",window.innerHeight).attr("fill","black").attr("style","position: sticky;");
+
+
+// LINEE
 
 // metodo per ottenere x e y per attributo "d" dei path dai dataset con le coordinate
 var Gen = d3.line() 
   .x((p) => p.x) 
   .y((p) => p.y); 
 
+
 // crea gruppo dei gruppi delle linee
 const gruppoLinee = svg.append("g").attr("id","linee").attr("clip-path","url(#myMask)");
-
-
 
 //inizializzo l'array che raccoglie la lunghezza di tutte le linee. 
 // l'indice dell'array è l'id della scena, e contiene al suo interno l'id del personaggio
 let lunghezzaLinee = [];
 
-
+// crea un dataset per una singola scena
 function datasetPerScena(dataset, numScena){
- //    console.log(d3.groups(dataset, d=>d.scena)[numScena]);
+  //  console.log(d3.groups(dataset, d=>d.scena)[numScena]);
     let x = d3.groups(dataset, d=>d.scena)[numScena][1]; //raggruppo il dataset per il numero di scena e prendo l'array corrispondente
     return x; // riduci il dataset in base alla scena
 }
@@ -283,6 +292,7 @@ function creaLineeScena(gruppo, scena) {
 
 }
 
+// Funzione che calcola la percentuale di ogni punto della linea (per ora non ancora usata)
 function  calcolaPercentuale(punti, lunghezza) {
     for (let i = 0; i < punti.length; i++) {
         // serve a calcolare la lunghezza della linea fino al punto corrente in teoria
@@ -318,16 +328,16 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
     calcolaPercentuale(puntiScena,lunghezzaLinee[scena][idPersonaggio]); 
 }
 
-
-
 // crea tutte le linee
-
 for (let scena = 0; scena<numeroScene; scena++) {
     let id = "linee_"+scena;
     lunghezzaLinee[scena]=[]; //inizializza l'array della lunghezza delle linee per quella scena specifica
     let gruppoLineeScena = gruppoLinee.append("g").attr("id",id);
     creaLineeScena(gruppoLineeScena, scena);
 }
+
+
+// FACCE
 
 function creaFaccia(idPersonaggio) {
     console.log(personaggi[idPersonaggio].faccia);
@@ -339,7 +349,7 @@ function creaFaccia(idPersonaggio) {
         .attr("height",30)
         .attr("x",-15)
         .attr("y",-15)
-        .attr("href", riferimentiPersonaggi[idPersonaggio].faccia);
+        .attr("href", personaggi[idPersonaggio].faccia);
 }
 
 /* .append("image")
@@ -354,6 +364,7 @@ function creaFaccia(idPersonaggio) {
 
 // crea facce 
 function creaFacce (){
+    console.log("personaggi: "+personaggi.length);
     for (let i = 0; i<personaggi.length; i++) {
         creaFaccia(i);
     }
@@ -362,37 +373,7 @@ function creaFacce (){
 creaFacce();
 
 
-// MUOVI LA FACCIA A PARTIRE DALLA % PROGRESSO (funzione per ora non usata)
- function muoviFacciaDaProgresso (idFaccia, puntiP, progresso, traslazione) {
-    let obj = document.getElementById(idFaccia);
-    let numPunti = puntiP.length; // ottieni il numero di punti che definiscono la linea
-    let ampiezza = puntiP[numPunti-1].x - puntiP[0].x; // ottieni l'ampiezza in x del progresso
-    let pt = {}; // crea l'oggetto pt che definirà la posizione della faccia
-    pt.x = puntiP[0].x + progresso * ampiezza; // x della faccia è proporzionale al progresso
-  
-    let i = 0;
-    // cerca i due punti tra cui è compresa la x
-    while (i < numPunti && puntiP[i].x < pt.x) { // esce quando x è maggiore (o quando la linea è finita)
-        i++; 
-    } 
 
-
-    let pt0 = puntiP[i-1]; //punto precedente
-    let pt1 = puntiP[i]; //punto successivo
-
-    console.log(pt0);
-    // calcolo la percentuale di progresso (da 0 a 1) lungo il tratto e la differenza tra le Y
-    let progressoTratto = (pt.x-pt0.x) / (pt1.x - pt0.x); 
-    let diffY = progressoTratto * (pt1.y - pt0.y);
-
-    // calcolo la y della faccia
-    pt.y =  pt0.y + diffY;
-
-    // traslo la faccia
-    let traslazioneX = pt.x - traslazione; 
-    obj.style.webkitTransform = 'translate3d('+traslazioneX+'px,'+pt.y+'px, 0)'; 
-    
- }
 
  // POSIZIONA LA FACCIA IN BASE ALLA X DATA COME PARAMETRO
  function muoviFacciaDaX (idFaccia, puntiP, x, traslazione) {
@@ -413,7 +394,8 @@ creaFacce();
     while (i < numPunti && puntiP[i].x < xLinea) { // esce quando x è maggiore (o quando la linea è finita)
         i++; 
     } 
-    console.log(i); // il prossimo
+
+    if (idFaccia=="faccia0") {console.log("il prossimo è "+ i);} // il prossimo
     let pt0, pt1;
     if (i< (numPunti-1)) {
          pt0 = puntiP[i-1]; //punto precedente
@@ -443,14 +425,46 @@ creaFacce();
  //funzione per ottenere la percentuale nella linea a partire dalla x
  export function muoviFacce(scena, progresso, traslazione) {   
     muoviFacciaDaX("faccia0", datasetPerScena(puntiP1,scena), xMaschera, traslazione);
-    muoviFacciaDaX("faccia0", datasetPerScena(puntiP2,scena), xMaschera, traslazione);
-    muoviFacciaDaX("faccia0", datasetPerScena(puntiP3,scena), xMaschera, traslazione);
-    muoviFacciaDaX("faccia0", datasetPerScena(puntiP4,scena), xMaschera, traslazione);
+    muoviFacciaDaX("faccia1", datasetPerScena(puntiP2,scena), xMaschera, traslazione);
+    muoviFacciaDaX("faccia2", datasetPerScena(puntiP3,scena), xMaschera, traslazione);
+    muoviFacciaDaX("faccia3", datasetPerScena(puntiP4,scena), xMaschera, traslazione);
    
     //...
    
  }
 
+
+ // MUOVI LA FACCIA A PARTIRE DALLA % PROGRESSO (funzione per ora non usata)
+ function muoviFacciaDaProgresso (idFaccia, puntiP, progresso, traslazione) {
+    let obj = document.getElementById(idFaccia);
+    let numPunti = puntiP.length; // ottieni il numero di punti che definiscono la linea
+    let ampiezza = puntiP[numPunti-1].x - puntiP[0].x; // ottieni l'ampiezza in x del progresso
+    let pt = {}; // crea l'oggetto pt che definirà la posizione della faccia
+    pt.x = puntiP[0].x + progresso * ampiezza; // x della faccia è proporzionale al progresso
+  
+    let i = 0;
+    // cerca i due punti tra cui è compresa la x
+    while (i < numPunti && puntiP[i].x < pt.x) { // esce quando x è maggiore (o quando la linea è finita)
+        i++; 
+    } 
+
+
+    let pt0 = puntiP[i-1]; //punto precedente
+    let pt1 = puntiP[i]; //punto successivo
+
+
+    // calcolo la percentuale di progresso (da 0 a 1) lungo il tratto e la differenza tra le Y
+    let progressoTratto = (pt.x-pt0.x) / (pt1.x - pt0.x); 
+    let diffY = progressoTratto * (pt1.y - pt0.y);
+
+    // calcolo la y della faccia
+    pt.y =  pt0.y + diffY;
+
+    // traslo la faccia
+    let traslazioneX = pt.x - traslazione; 
+    obj.style.webkitTransform = 'translate3d('+traslazioneX+'px,'+pt.y+'px, 0)'; 
+    
+ }
 
  // VECCHIA FUNZIONE 
  export function moveObj(prcnt, translation)
@@ -469,57 +483,9 @@ creaFacce();
 
 
 // ############################################################################
-// #########################    FUNCTIONS                   ###################
+// #########################         ZOOM         #############################
 // ############################################################################
 
-
-
-export function drawLinePath(offset){
-    line
-      .transition()
-      .duration(100)
-      .attr("stroke-dashoffset", totalLength*(1-offset)) // shift it back to the beginning --> making a transition 
-}
-
-export function hideLinePath(){
-    line
-        .transition()
-        .duration(1500)
-        .attr("stroke-dashoffset", totalLength)
-}
-
-function randomIntFromInterval(min, max) { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-
-export function setOpacityProgressive(element, progress){
-    element
-        .transition()
-        .duration(10)
-        .attr("opacity", progress) 
-}
-
-export function setOpacityUniqueTransition(element, progress){
-    element
-        .transition()
-        .duration(1000)
-        .attr("opacity", progress) 
-}
-
-export function setOpacityAxes(toggleX, toggleY, progress){
-    if(toggleX)
-        svg.selectAll(".Xaxis")
-            .transition()
-            .duration(10)
-            .attr("opacity", progress)
-
-    if(toggleY)
-        svg.selectAll(".Yaxis")
-            .transition()
-            .duration(10)
-            .attr("opacity", progress)
-} 
 
 export function impostaZoom(rapporto,traslazioneY) {
     svg
@@ -530,15 +496,25 @@ export function calcolaZoom(progresso, nuovo, vecchio) {
     let deltaAltezza = coordinateLivelli[nuovo[0]].max - coordinateLivelli[nuovo[1]].min;
     let rapportoFinale = altezzaPagina / deltaAltezza;
     let rapporto, traslazioneY;
+    let ritardoZoom=0.05;
 
     if (progresso <= zoomProgressoFinale) // quando deve progredire
      {
+        console.log("zoom in")
+
         let deltaAltezzaOld = coordinateLivelli[vecchio[0]].max - coordinateLivelli[vecchio[1]].min;
         let rapportoIniziale = altezzaPagina / deltaAltezzaOld;
-
-        let calcolaRapporto = d3.scaleLinear().domain([0,zoomProgressoFinale]).range([rapportoIniziale,rapportoFinale]);
+        console.log("zoom deltaAltezzaOld "+deltaAltezzaOld);
+        console.log("zoom rapporotiniziale "+rapportoIniziale);
+        if (progresso > zoomProgressoFinale*ritardoZoom){
+            let calcolaRapporto = d3.scaleLinear().domain([zoomProgressoFinale*ritardoZoom,zoomProgressoFinale]).range([rapportoIniziale,rapportoFinale]);
+            rapporto = calcolaRapporto(progresso);    
+        } else {
+            rapporto = rapportoIniziale;
+        }
+        console.log("progresso zoom: "+rapporto);
         let calcolaTraslazioneY = d3.scaleLinear().domain([0,zoomProgressoFinale]).range([-coordinateLivelli[vecchio[1]].min, -coordinateLivelli[nuovo[1]].min]);
-        rapporto = calcolaRapporto(progresso);    
+        //rapporto = calcolaRapporto(progresso);    
         traslazioneY = calcolaTraslazioneY(progresso);
      } else {
         rapporto = rapportoFinale;
@@ -562,3 +538,15 @@ export function impostaZoom(progresso, pianoInferiore, pianoSuperiore) {
     svg.attr("transform","scale("+2+")");
 } */
 
+export function mostraLineeScena(scena, direzione) {
+    d3.select("#linee_"+scena).attr("visibility","visible");
+    let x;
+    if (direzione == "up") {
+        x=parseInt(scena)+1;
+    }
+    if (direzione == "down") 
+        x=parseInt(scena)-2;
+
+    d3.select("#linee_"+x).attr("visibility","hidden")
+
+}

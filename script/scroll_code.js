@@ -4,8 +4,6 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import * as animations from "./d3-animations.js"
 
 
-
-// using d3 for convenience
 var main = d3.select("main");
 var scrolly = main.select("#scrolly");
 var figure = scrolly.select("figure");
@@ -16,8 +14,20 @@ const percentualeAltezzaStanze = 0.23
 const unit = altezzaPagina*percentualeAltezzaStanze; //unità di altezza
 const k = 3047/900; // lunghezza / altezza csv stanze
 const ampiezzaScene = [];
- ampiezzaScene[0]=21;
- ampiezzaScene[1]=21;
+ ampiezzaScene[0]=20;
+ ampiezzaScene[1]=20;
+ ampiezzaScene[2]=20;
+
+ // VALORI ZOOM PER SCENA
+ const zoomScena = [
+    [1,1],
+    [1,3],
+    [0,4]
+ ];
+ 
+ var oraZoom=[1,1];
+ var nuovoZoom=[1,1];
+ 
 
 const numPersonaggi = 4; 
 
@@ -45,91 +55,94 @@ function handleResize() {
     scroller.resize();
 }
 
+
 // scrollama event handlers
 function handleProgress(response) {
-    console.log("altezza:"+window.innerHeight);
-    console.log(response);
-    
 
+    // CALCOLO TRASLAZIONE
+    var translation = (response.progress) * animations.stabilisciAmpiezzaLinea(response.index);
+
+    // APPLICO TRASLAZIONE A SFONDO
     var backContainer = d3.select("#sfondo");
-   //  var linea = d3.select("#the_line");
-    console.log("response progress: "+response.progress);
-     // var translation = (response.progress) * k * unit;
-     var translation = (response.progress) * animations.stabilisciAmpiezzaLinea(response.index);
     backContainer.style("transform", "translateX(" + -translation + "px)");
 
-// trasla la linea dato l'id passato come parametro
-function traslaLinea(id, translation) {
-    let linea = d3.select("#"+id);
-    linea.style("transform", "translateX(" + translation + "px)");
-};
+    // APPLICO TRASLAZIONE A LINEE
 
-    
+    // trasla la linea dato l'id passato come parametro
+    function traslaLinea(id, translation) {
+        let linea = d3.select("#"+id);
+        linea.style("transform", "translateX(" + translation + "px)");
+    };
 
-for (let idPersonaggio=1; idPersonaggio<=numPersonaggi; idPersonaggio++){
-    console.log("idPersonaggio "+idPersonaggio);
-    traslaLinea("linea_"+response.index+"_P"+idPersonaggio, -translation); // l'id viene calcolato come composizione di stringhe
-    if (response.index != 0 ) { // continua a traslare la linea precedente di un modulo in più
-        traslaLinea("linea_"+(response.index-1)+"_P"+idPersonaggio, (-translation)-(animations.stabilisciAmpiezzaLinea(response.index-1)));
+    for (let idPersonaggio=1; idPersonaggio<=numPersonaggi; idPersonaggio++){
+        console.log("idPersonaggio "+idPersonaggio);
+        traslaLinea("linea_"+response.index+"_P"+idPersonaggio, -translation); // l'id viene calcolato come composizione di stringhe
+        if (response.index != 0 ) { // continua a traslare la linea precedente di un modulo in più
+            traslaLinea("linea_"+(response.index-1)+"_P"+idPersonaggio, (-translation)-(animations.stabilisciAmpiezzaLinea(response.index-1)));
+        }
+
+        animations.muoviFacce(response.index, response.progress, translation);
+
     }
 
-    animations.muoviFacce(response.index, response.progress, translation);
-
-}
+    animations.mostraLineeScena(response.index,response.direction);
 
 
 
-
-var oraZoom = [3,3];
-var nuovoZoom;
-
-function zoom(pianoInferiore, pianoSuperiore) {
-   
-    console.log("AAA ora "+ oraZoom);
-    console.log("AAA nuovo "+ nuovoZoom);
-  //  if (response.progress <= animations.zoomProgressoFinale) {
-     //   console.log("dentro zoom");
-        nuovoZoom = [pianoInferiore, pianoSuperiore];
-        animations.calcolaZoom(response.progress,nuovoZoom,oraZoom);
-        oraZoom = nuovoZoom;
-        console.log("AAA nuovo2 "+nuovoZoom);
-
-        console.log("AAA nuovo2 "+nuovoZoom);
-  //  }
-//    else {}
+    // FUNZIONE PER RICHIAMARE GLI ZOOM in "up" e in "down"
+    function zoom() {
     
-}
+    //  if (response.progress <= animations.zoomProgressoFinale) {
+        //   console.log("dentro zoom");
+        // nuovoZoom = [pianoInferiore, pianoSuperiore];
 
-switch (response.index) {
-    case 0:
-        zoom(3,3);
-        //A SCATTI animations.impostaZoom(3,3);
+        nuovoZoom = zoomScena[response.index];
 
-        if (response.direction === "up") {
-        } else {
+        animations.calcolaZoom(response.progress,nuovoZoom,oraZoom);
+
+        if(response.direction === "down" && response.progress>0.2) {
+                oraZoom = nuovoZoom;
         }
-        break;
-    case 1:
-        zoom(3,4);
-            
-        break;
-    case 2:
-        break;
-    case 3:
-      
-        break;
-    case 4:
-        break;
-    case 5:
 
-        break;
-    case 6:
-        break;
-    case 7:
-        break;
-    default:
-        break;
-}
+        if(response.direction === "up" && response.progress<0.2 && response.index>0) {
+            nuovoZoom = zoomScena[response.index];
+            oraZoom = zoomScena[response.index-1];
+        }
+
+        
+    }
+
+    switch (response.index) {
+        case 0:
+            zoom();
+            //A SCATTI animations.impostaZoom(3,3);
+
+            if (response.direction === "up") {
+            } else {
+            }
+            break;
+        case 1:
+            zoom();
+                
+            break;
+        case 2:
+            zoom();
+            break;
+        case 3:
+        
+            break;
+        case 4:
+            break;
+        case 5:
+
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        default:
+            break;
+    }
 }
 
 function setupStickyfill() {
