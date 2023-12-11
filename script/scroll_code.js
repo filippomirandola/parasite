@@ -1,3 +1,6 @@
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+
 import * as animations from "./d3-animations.js"
 
 
@@ -16,7 +19,7 @@ const ampiezzaScene = [];
  ampiezzaScene[0]=21;
  ampiezzaScene[1]=21;
 
-const numPersonaggi = 2; 
+const numPersonaggi = 4; 
 
 
 // initialize the scrollama
@@ -77,30 +80,48 @@ for (let idPersonaggio=1; idPersonaggio<=numPersonaggi; idPersonaggio++){
 
 
 
+var oraZoom = [3,3];
+var nuovoZoom;
+
+function zoom(pianoInferiore, pianoSuperiore) {
+   
+    console.log("AAA ora "+ oraZoom);
+    console.log("AAA nuovo "+ nuovoZoom);
+  //  if (response.progress <= animations.zoomProgressoFinale) {
+     //   console.log("dentro zoom");
+        nuovoZoom = [pianoInferiore, pianoSuperiore];
+        animations.calcolaZoom(response.progress,nuovoZoom,oraZoom);
+        oraZoom = nuovoZoom;
+        console.log("AAA nuovo2 "+nuovoZoom);
+
+        console.log("AAA nuovo2 "+nuovoZoom);
+  //  }
+//    else {}
+    
+}
 
 switch (response.index) {
     case 0:
+        zoom(3,3);
+        //A SCATTI animations.impostaZoom(3,3);
+
         if (response.direction === "up") {
-            // animations.drawLinePath(response.progress);
         } else {
-            // animations.drawLinePath(response.progress);
         }
         break;
     case 1:
+        zoom(3,4);
+            
         break;
     case 2:
-        // animations.mapOpacity(response.progress);
         break;
     case 3:
-        // animations.increaseJourney(response.progress);
-        // animations.allCitiesOpacity(response.progress);
+      
         break;
     case 4:
-        // animations.setOpacityAxes(true, true, response.progress)
         break;
     case 5:
-        // animations.drawLinePath(response.progress)
-        // animations.increaseJourney(1 - response.progress)
+
         break;
     case 6:
         break;

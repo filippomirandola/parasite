@@ -1,17 +1,53 @@
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
 const altezzaPagina = window.innerHeight;
-const percentualeAltezzaStanze = 0.23
+const percentualeAltezzaStanze = 0.23;
 const unit = altezzaPagina*percentualeAltezzaStanze; //unità di altezza
 const k = 3047/900; // lunghezza/altezza csv stanze
 const ampiezzaStep = 50;
+const zoomX = ampiezzaStep * 2;
+export const zoomProgressoFinale = 0.2;
 
-const numPersonaggi = 2; 
 
 // Dataset piani  bunker / casaPoveri / strada / casaRicchi1 / casaRicchi2
 const livelli = [5, 5, 1, 5, 5];
+let coordinateLivelli = [];
+const personaggi = [4];
+const riferimentiPersonaggi = [
+    {
+        nome: "a",
+        famiglia: "",
+        dataset: "./data/data_dasong.csv",
+        faccia: "./assets/facce/mamma-kim.svg"
+    },
+    {
+        nome: "b",
+        famiglia: "",
+        dataset: "./data/data_moongwang.csv",
+        faccia: "./assets/facce/mamma-kim.svg"
+    },
+    {
+        nome: "c",
+        famiglia: "",
+        dataset: "./data/data_dahye.csv",
+        faccia: "./assets/facce/mamma-kim.svg"
+    },
+    {
+        nome: "d",
+        famiglia: "",
+        dataset: "./data/data_yeonkyo.csv",
+        faccia: "./assets/facce/mamma-kim.svg"
+    }
+];
+
 
 // Dataset personaggi: scena, tempo, livello, sottolivello
-const dataP1 = await d3.dsv(",","./data/data_p1.csv");
-const dataP2 = await d3.dsv(",","./data/data_p2.csv");
+const dataP1 = await d3.dsv(",",riferimentiPersonaggi[0].dataset);
+const dataP2 = await d3.dsv(",",riferimentiPersonaggi[1].dataset);
+const dataP3 = await d3.dsv(",",riferimentiPersonaggi[2].dataset);
+const dataP4 = await d3.dsv(",",riferimentiPersonaggi[3].dataset);
+
+
 
 const spessoreLinee = 5;
 const xMaschera = 300;
@@ -24,6 +60,8 @@ const xMaschera = 300;
 
 let puntiP1 = [];
 let puntiP2 = []; 
+let puntiP3 = [];
+let puntiP4 = []; 
 
                 // array che all'indice scena dà l'ampiezza della scena (il numero di sottostep di "tempo")
                 //  [00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16..] 
@@ -47,6 +85,54 @@ function calcolaScalaX(scena) {
     return d3.scaleLinear().range([xMaschera,xMaschera+stabilisciAmpiezzaLinea(scena)]).domain([0,ampiezzaScene[parseInt(scena)]-1]);
 }
 
+function calcolaMinYLivello(piano) {
+    if (piano == 2 || piano == 3 || piano == 4 ) {
+        return (4-piano)*unit;
+    }
+    else if (piano == 0 || piano == 1) {
+        return altezzaPagina - ((piano+1) * (unit));
+    }
+}
+
+function calcolaMaxYLivello(piano) {
+    if (piano == 3 || piano == 4 ) {
+        return (4-piano+1)*(unit);
+    }
+    else if (piano == 0 || piano == 1 || piano == 2) {
+        return altezzaPagina - (piano * unit);
+    }
+}
+
+function calcolaYLivelli() {
+    for (let piano = 0; piano < 5; piano++) {
+        let y = {};
+        switch (piano) {
+            case 0:
+                y.descrizione = "Bunker";
+                break;
+            case 1:
+                y.descrizione = "Casa Kim";
+                break;
+            case 2:
+                y.descrizione = "Strada";
+                break;
+            case 3:
+                y.descrizione = "Casa Park - Piano Terra";
+                break;
+            case 4:
+                y.descrizione = "Casa Park - Piano Rialzato";
+                break;
+        }
+        y.min = calcolaMinYLivello(piano);
+        y.max = calcolaMaxYLivello(piano);
+
+        coordinateLivelli.push(y);
+    }
+}
+
+calcolaYLivelli();
+console.log(coordinateLivelli);
+
 // Funzione per calcolare la Y dei vari punti (compresa la strada)
 function calcolaY(piano,livello) {
    
@@ -55,15 +141,11 @@ function calcolaY(piano,livello) {
     // piano 2: strada
     // piano 3: casa ricchi - 01
     // piano 4: casa ricchi - 02
+  
+    return coordinateLivelli[piano].max - (parseFloat(livello)-0.5) * (unit / (livelli[piano]));
 
-    if (piano == 2 || piano == 3 || piano == 4 ) {
-        return (4-piano)*unit + (unit/livelli[piano])*(livelli[piano]-livello);
-    }
-    if (piano == 0 || piano == 1) {
-        return altezzaPagina - (piano * unit) - (livello)*(unit/livelli[piano]);
     }
    
-}
 
 // calcola e pusha nell'array i punti della linea di ogni personaggio sulla base del suo csv
 function creaDatabase(dataPersonaggio, puntiPersonaggio){
@@ -74,6 +156,8 @@ function creaDatabase(dataPersonaggio, puntiPersonaggio){
 
 creaDatabase(dataP1, puntiP1);
 creaDatabase(dataP2, puntiP2);
+creaDatabase(dataP3, puntiP3);
+creaDatabase(dataP4, puntiP4);
 //...
 
 
@@ -91,10 +175,12 @@ const height = 500;
 // Create an SVG element
 const svg = d3.select("#chart")
     .append("svg")
+    .attr("id", "container")
     .attr("width", 2 * k * unit) // sfondo grande 2*numero di moduli
     .attr("height", window.innerHeight)
     .style("display", "block")
-    .style("margin", "auto");
+    .style("margin", "auto")
+    .attr("transform-origin", "0 0");
 
 
 // Set the  height of the background
@@ -192,6 +278,8 @@ function datasetPerScena(dataset, numScena){
 function creaLineeScena(gruppo, scena) { 
      creaLineaScena(gruppo,"1", puntiP1, scena);
      creaLineaScena(gruppo,"2", puntiP2, scena);
+     creaLineaScena(gruppo,"3", puntiP3, scena);
+     creaLineaScena(gruppo,"4", puntiP4, scena);
 
 }
 
@@ -241,6 +329,38 @@ for (let scena = 0; scena<numeroScene; scena++) {
     creaLineeScena(gruppoLineeScena, scena);
 }
 
+function creaFaccia(idPersonaggio) {
+    console.log(personaggi[idPersonaggio].faccia);
+    let faccia = svg
+        .append("image")
+        .attr("class","faccia")
+        .attr("id","faccia"+idPersonaggio)
+        .attr("width",30)
+        .attr("height",30)
+        .attr("x",-15)
+        .attr("y",-15)
+        .attr("href", riferimentiPersonaggi[idPersonaggio].faccia);
+}
+
+/* .append("image")
+.attr("class","livello2")
+.attr("id","livello0-"+rip)
+.attr("x",x)
+.attr("y",(percentualeAltezzaStanze)*altezzaPagina)
+.attr("width",unit*k)
+.attr("height",unit)
+.attr("href","./assets/casa-park-1.svg"); */
+
+
+// crea facce 
+function creaFacce (){
+    for (let i = 0; i<personaggi.length; i++) {
+        creaFaccia(i);
+    }
+}
+
+creaFacce();
+
 
 // MUOVI LA FACCIA A PARTIRE DALLA % PROGRESSO (funzione per ora non usata)
  function muoviFacciaDaProgresso (idFaccia, puntiP, progresso, traslazione) {
@@ -288,6 +408,7 @@ for (let scena = 0; scena<numeroScene; scena++) {
     let i = 0;
     console.log("x linea "+ xLinea);
     console.log("num punti: "+numPunti);
+
     // cerca i due punti tra cui è compresa la x
     while (i < numPunti && puntiP[i].x < xLinea) { // esce quando x è maggiore (o quando la linea è finita)
         i++; 
@@ -321,9 +442,11 @@ for (let scena = 0; scena<numeroScene; scena++) {
 
  //funzione per ottenere la percentuale nella linea a partire dalla x
  export function muoviFacce(scena, progresso, traslazione) {   
-    muoviFacciaDaX("faccia01", datasetPerScena(puntiP1,scena), xMaschera, traslazione);
-    muoviFacciaDaX("faccia02", datasetPerScena(puntiP2,scena), xMaschera, traslazione);
-
+    muoviFacciaDaX("faccia0", datasetPerScena(puntiP1,scena), xMaschera, traslazione);
+    muoviFacciaDaX("faccia0", datasetPerScena(puntiP2,scena), xMaschera, traslazione);
+    muoviFacciaDaX("faccia0", datasetPerScena(puntiP3,scena), xMaschera, traslazione);
+    muoviFacciaDaX("faccia0", datasetPerScena(puntiP4,scena), xMaschera, traslazione);
+   
     //...
    
  }
@@ -385,7 +508,6 @@ export function setOpacityUniqueTransition(element, progress){
 }
 
 export function setOpacityAxes(toggleX, toggleY, progress){
-
     if(toggleX)
         svg.selectAll(".Xaxis")
             .transition()
@@ -398,4 +520,45 @@ export function setOpacityAxes(toggleX, toggleY, progress){
             .duration(10)
             .attr("opacity", progress)
 } 
+
+export function impostaZoom(rapporto,traslazioneY) {
+    svg
+    .attr("transform","scale("+rapporto+") "+"translate("+-100*(rapporto / 2)+" "+traslazioneY+") ");
+}
+
+export function calcolaZoom(progresso, nuovo, vecchio) {
+    let deltaAltezza = coordinateLivelli[nuovo[0]].max - coordinateLivelli[nuovo[1]].min;
+    let rapportoFinale = altezzaPagina / deltaAltezza;
+    let rapporto, traslazioneY;
+
+    if (progresso <= zoomProgressoFinale) // quando deve progredire
+     {
+        let deltaAltezzaOld = coordinateLivelli[vecchio[0]].max - coordinateLivelli[vecchio[1]].min;
+        let rapportoIniziale = altezzaPagina / deltaAltezzaOld;
+
+        let calcolaRapporto = d3.scaleLinear().domain([0,zoomProgressoFinale]).range([rapportoIniziale,rapportoFinale]);
+        let calcolaTraslazioneY = d3.scaleLinear().domain([0,zoomProgressoFinale]).range([-coordinateLivelli[vecchio[1]].min, -coordinateLivelli[nuovo[1]].min]);
+        rapporto = calcolaRapporto(progresso);    
+        traslazioneY = calcolaTraslazioneY(progresso);
+     } else {
+        rapporto = rapportoFinale;
+        traslazioneY = -coordinateLivelli[nuovo[1]].min;
+    }
+    
+    impostaZoom(rapporto,traslazioneY);
+   
+} 
+
+/* TRANSIZIONE (A SCATTI..)
+export function impostaZoom(progresso, pianoInferiore, pianoSuperiore) {
+    let deltaAltezza = coordinateLivelli[pianoInferiore].max - coordinateLivelli[pianoSuperiore].min;
+    let rapportoFinale = altezzaPagina / deltaAltezza;
+ 
+    let yCentrale = coordinateLivelli[pianoSuperiore].min + (deltaAltezza / 2);
+    svg
+        .transition()
+        .duration(200)
+        .attr("transform","scale("+rapporto+") "+"translate("+-100*(rapporto / 2)+" "+-coordinateLivelli[pianoSuperiore].min+") ");
+    svg.attr("transform","scale("+2+")");
+} */
 
