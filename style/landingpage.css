@@ -1,0 +1,48 @@
+/* stile del testo principale*/
+body {
+    font-family: "futura-pt-bold", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.5vw;
+    background-color: #121A1C;
+    color: #C1976B;
+    font-family:'Futura', sans-serif; 
+    margin:0%;
+    }
+/* stile dell'immagine di copertina*/
+#parasiteimg {
+    display: block;
+    margin: auto;
+    height: 100vh;
+    overflow: hidden;
+
+}
+#divimage {
+    display: block;
+    margin: auto;
+    height: 100vh;
+    overflow: hidden;
+}
+/* stile del titolo di copertina*/
+#divtitolo {
+    font-size: 0.8em;
+    color: #C30400;
+    position: absolute;
+    text-align: right;
+    bottom: 3em;
+    right: 3em;
+}
+/* stile dei testi successivi*/
+.centeredText {
+    text-align: center;
+padding: 25%;
+}
+.rightText {
+    padding-top: 7%;
+    padding-left: 45%;
+    padding-bottom: 40%;
+}
+/* stile dell'immagine che spiega la viz*/
+#introLinesimg {
+    float: left;
+}

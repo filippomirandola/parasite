@@ -1,6 +1,4 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-
-
 import * as animations from "./d3-animations.js"
 
 
@@ -19,17 +17,13 @@ const ampiezzaScene = [];
  ampiezzaScene[2]=20;
 
  // VALORI ZOOM PER SCENA
- const zoomScena = [
-    [1,1],
-    [1,3],
-    [0,4]
- ];
+ var zoomScena = animations.zoomScena;
  
  var oraZoom=[1,1];
  var nuovoZoom=[1,1];
  
 
-const numPersonaggi = 4; 
+const numPersonaggi = 12; 
 
 
 // initialize the scrollama
@@ -58,7 +52,7 @@ function handleResize() {
 
 // scrollama event handlers
 function handleProgress(response) {
-
+    console.log("indice: "+response.index);
     // CALCOLO TRASLAZIONE
     var translation = (response.progress) * animations.stabilisciAmpiezzaLinea(response.index);
 
@@ -98,7 +92,7 @@ function handleProgress(response) {
 
         nuovoZoom = zoomScena[response.index];
 
-        animations.calcolaZoom(response.progress,nuovoZoom,oraZoom);
+        animations.calcolaZoom(response.progress,response.index,nuovoZoom,oraZoom);
 
         if(response.direction === "down" && response.progress>0.2) {
                 oraZoom = nuovoZoom;
@@ -113,8 +107,10 @@ function handleProgress(response) {
     }
 
     switch (response.index) {
+
+
         case 0:
-            zoom();
+        //    zoom();
             //A SCATTI animations.impostaZoom(3,3);
 
             if (response.direction === "up") {
@@ -122,11 +118,13 @@ function handleProgress(response) {
             }
             break;
         case 1:
-            zoom();
-                
+       //     zoom();
+
+            mostraDopoSoglia("intro", response, 0.5);
+          
             break;
         case 2:
-            zoom();
+        //    zoom();
             break;
         case 3:
         
@@ -178,3 +176,31 @@ function init() {
 
 // kick things off
 init();
+
+
+// FUNZIONI
+
+
+function mostraDopoSoglia(id, response, soglia) {
+    console.log("mostra in");
+
+    let oggetto = document.getElementById(id);
+   /*  if (response.index < index) {
+        oggetto.style.visibility = "hidden";
+    } */
+
+    if (response.progress >= soglia) {
+        oggetto.style.visibility = "visible";
+        } 
+    
+    if (response.progress <= soglia) {
+        oggetto.style.visibility = "hidden";
+            } 
+
+
+    /* if (response.index > index) {
+                oggetto.style.visibility = "visible";
+            } */
+    }
+
+

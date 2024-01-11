@@ -8,17 +8,18 @@ body {
   margin: 0;
   padding: 0;
 }
-/* 
+
+#inizio {
+  width:100vh;
+  height:100vw;
+  background-color: red;
+}
+
 .faccia {
-  background: blue;
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  position: absolute;
-  top:-10px;
-  left: -10px;
-  opacity: 0.5;
-} */
+  
+    filter: drop-shadow(0px 0px 10px rgb(250, 250, 250)); 
+
+} 
 
 g #sfondo {
   width: 100%;
@@ -42,7 +43,7 @@ g #sfondo {
 article {
   position: relative;
   padding: 0;
-  max-width: 1px;
+  max-width: 100px;
 }
 
 figure {
@@ -109,3 +110,12 @@ figure p {
 #the_line {
   position: fixed;
 }
+
+/* #intro {
+height: 100vh;
+width: 100%;
+position: fixed;
+ z-index:100;
+ visibility: hidden;
+ 
+} */
