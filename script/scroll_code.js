@@ -80,7 +80,7 @@ function handleProgress(response) {
     }
 
     animations.mostraLineeScena(response.index,response.direction);
-
+    nascondiLineaTutta(12,response.index);
 
 
     // FUNZIONE PER RICHIAMARE GLI ZOOM in "up" e in "down"
@@ -108,7 +108,7 @@ function handleProgress(response) {
 
     switch (response.index) {
 
-
+   
         case 0:
         //    zoom();
             //A SCATTI animations.impostaZoom(3,3);
