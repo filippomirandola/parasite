@@ -9,8 +9,11 @@ const ampiezzaStep = 50;
 const zoomX = ampiezzaStep * 2;
 export const zoomProgressoFinale = 0.2;
 let dimensioneFacce = 20;
+let dimensioneOggetti = 20;
+
 const tratt = 10;
 const trattS = 5;
+const mostraDebug = false;
 
 
 
@@ -100,8 +103,13 @@ const personaggi = [
         dataset: "./data/data_testLivelli.csv",
         faccia: "./assets/facce/boh.png"
     }
-    
+];
 
+const oggetti = [
+    {
+        id: "mutande",
+        src: "./assets/oggetti/mutande.png"
+    }
 ];
 
 
@@ -385,11 +393,8 @@ creaDatabase(dataP12, puntiP12);
 
 
 console.log("INIZIO PUNTI");
-console.log(dataP4);
-
-console.log(puntiP4);
+console.log(dataP11);
 console.log(dataP12);
-console.log(puntiP12);
 
 
 console.log("FINE PUNTI");
@@ -400,6 +405,26 @@ creaDatabase(dataP4, puntiP4);
 creaDatabase(dataP5, puntiP5); */
 //console.log(puntiP5);
 
+
+export function ottieniPuntiP(id) {
+    let x;
+    switch (id) {
+        case 1: x = puntiP1; break;
+        case 2: x = puntiP2; break;
+        case 3: x = puntiP3; break;
+        case 4: x = puntiP4; break;
+        case 5: x = puntiP5; break;
+        case 6: x = puntiP6; break;
+        case 7: x = puntiP7; break;
+        case 8: x = puntiP8; break;
+        case 9: x = puntiP9; break;
+        case 10: x = puntiP10; break;
+        case 11: x = puntiP11; break;
+        case 12: x = puntiP12; break;
+    }
+    console.log(x);
+    return x;
+}
 
 
 
@@ -526,8 +551,8 @@ const gruppoLinee = svg.append("g").attr("id","linee").attr("clip-path","url(#my
 let lunghezzaLinee = [];
 
 // crea un dataset per una singola scena
-function datasetPerScena(dataset, numScena){
-    console.log(d3.groups(dataset, d=>d.scena)[numScena]);
+export function datasetPerScena(dataset, numScena){
+   // console.log(d3.groups(dataset, d=>d.scena)[numScena]);
     let x = d3.groups(dataset, d=>d.scena)[numScena][1]; //raggruppo il dataset per il numero di scena e prendo l'array corrispondente
     return x; // riduci il dataset in base alla scena
 }
@@ -545,7 +570,7 @@ function creaLineeScena(gruppo, scena) {
      creaLineaScena(gruppo,"9", puntiP9, scena);
      creaLineaScena(gruppo,"10", puntiP10, scena);
      creaLineaScena(gruppo,"11", puntiP11, scena);
-     creaLineaScena(gruppo,"12", puntiP11, scena);
+     creaLineaScena(gruppo,"12", puntiP12, scena);
 
 }
 
@@ -585,10 +610,22 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
     lunghezzaLinee[scena][idPersonaggio] = line.node().getTotalLength();
     calcolaPercentuale(puntiScena,lunghezzaLinee[scena][idPersonaggio]); 
 
+    if (idPersonaggio == 12) {
+        if (mostraDebug === false) {
+            line.style.display = "none";
+        }
+    }
+
     /* INSERIRE TRATTEGGI */
-     if (scena == 2 && idPersonaggio == 2 ) {
+     if (idPersonaggio == 4) {
+        if (scena == 1) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 5));
+        }
+        if (scena == 2) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 1,2));
+
+        }
        //console.log("tratt in");
-        line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 8, 15));
 
    }
  
@@ -646,15 +683,14 @@ creaFacce();
 
 
  // POSIZIONA LA FACCIA IN BASE ALLA X DATA COME PARAMETRO
- function muoviFacciaDaX (idFaccia, puntiP, x, traslazione, scena) {
-    console.log("in facce id "+idFaccia);
+ function muoviFacciaDaX (idFaccia, puntiP, x, traslazione, scena, deltaX, deltaY) {
     let obj = document.getElementById(idFaccia);
     let numPunti = puntiP.length; // ottieni il numero di punti che definiscono la linea
    // let ampiezza = puntiP[numPunti-1].x - puntiP[0].x; // ottieni l'ampiezza in x del progresso
     let pt = {}; // crea l'oggetto pt che definirà la posizione della faccia
    // pt.x = puntiP[0].x + progresso * ampiezza;  x della faccia è proporzionale al progresso
     
-    pt.x = x;
+    pt.x = x + deltaX;
     let xLinea = x + traslazione;
     //console.log("dentro");
     let i = 0;
@@ -662,33 +698,41 @@ creaFacce();
     //console.log("num punti: "+numPunti);
 
     // cerca i due punti tra cui è compresa la x
-    while (i < numPunti && puntiP[i].x < xLinea) { // esce quando x è maggiore (o quando la linea è finita)
+    while (i < numPunti-1 && puntiP[i].x < xLinea) { // esce quando x è maggiore (o quando la linea è finita)
         i++; 
     } 
 
-    if (idFaccia=="faccia0") {
-      //  console.log("il prossimo è "+ i);
-    } // il prossimo
+    /* if (idFaccia=="faccia11") {
+        console.log("il prossimo è "+ i);
+    }  */// il prossimo
+
     let pt0, pt1;
-    if (i< (numPunti-1)) {
+
+   /*  if (i< (numPunti-1)) {
          pt0 = puntiP[i-1]; //punto precedente
          pt1 = puntiP[i]; //punto successivo
-    }
+    } */
+
+  /*   if (i< (numPunti-1)) {
+        pt0 = puntiP[i-1]; //punto precedente
+        pt1 = puntiP[i]; //punto successivo
+   }
     else if (i == (numPunti-1)) {
       //  console.log("in ultimo");
          pt0 = puntiP[i];
          pt1 = puntiP[i];
-    }
+    } */
+
+    pt0 = puntiP[i-1]; //punto precedente
+    pt1 = puntiP[i]; //punto successivo
    
-    
-    console.log(pt0);
-    console.log(pt1);
+
     // calcolo la percentuale di progresso (da 0 a 1) lungo il tratto e la differenza tra le Y
     let progressoTratto = (xLinea-pt0.x) / (pt1.x - pt0.x); 
     let diffY = progressoTratto * (pt1.y - pt0.y);
 
     // calcolo la y della faccia
-    pt.y =  pt0.y + diffY;
+    pt.y =  pt0.y + diffY + deltaY;
 
 
     // calcolo il fattore di scala della faccia
@@ -701,26 +745,24 @@ creaFacce();
     obj.setAttribute("y",-nuovaDimensione/2); */
 
     // traslo la faccia
-    console.log("trasl "+pt.x+" "+pt.y);
-
     obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)'; 
     
  }
 
  //funzione per ottenere la percentuale nella linea a partire dalla x
  export function muoviFacce(scena, progresso, traslazione) {   
-    muoviFacciaDaX("faccia1", datasetPerScena(puntiP1,scena), xMaschera, traslazione, scena);
-    muoviFacciaDaX("faccia2", datasetPerScena(puntiP2,scena), xMaschera, traslazione, scena);
-    muoviFacciaDaX("faccia3", datasetPerScena(puntiP3,scena), xMaschera, traslazione, scena);
-    muoviFacciaDaX("faccia4", datasetPerScena(puntiP4,scena), xMaschera, traslazione, scena); 
-    muoviFacciaDaX("faccia5", datasetPerScena(puntiP5,scena), xMaschera, traslazione, scena);
-    muoviFacciaDaX("faccia6", datasetPerScena(puntiP6,scena), xMaschera, traslazione, scena);
-    muoviFacciaDaX("faccia7", datasetPerScena(puntiP7,scena), xMaschera, traslazione, scena);
-    muoviFacciaDaX("faccia8", datasetPerScena(puntiP8,scena), xMaschera, traslazione, scena); 
-    muoviFacciaDaX("faccia9", datasetPerScena(puntiP9,scena), xMaschera, traslazione, scena); 
-    muoviFacciaDaX("faccia10", datasetPerScena(puntiP10,scena), xMaschera, traslazione, scena); 
-    muoviFacciaDaX("faccia11", datasetPerScena(puntiP11,scena), xMaschera, traslazione, scena); 
-    muoviFacciaDaX("faccia11", datasetPerScena(puntiP12,scena), xMaschera, traslazione, scena); 
+    muoviFacciaDaX("faccia1", datasetPerScena(puntiP1,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("faccia2", datasetPerScena(puntiP2,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("faccia3", datasetPerScena(puntiP3,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("faccia4", datasetPerScena(puntiP4,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("faccia5", datasetPerScena(puntiP5,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("faccia6", datasetPerScena(puntiP6,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("faccia7", datasetPerScena(puntiP7,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("faccia8", datasetPerScena(puntiP8,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("faccia9", datasetPerScena(puntiP9,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("faccia10", datasetPerScena(puntiP10,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("faccia11", datasetPerScena(puntiP11,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("faccia12", datasetPerScena(puntiP12,scena), xMaschera, traslazione, scena, 0, 0); 
 
     //...
    
@@ -737,7 +779,7 @@ creaFacce();
   
     let i = 0;
     // cerca i due punti tra cui è compresa la x
-    while (i < numPunti && puntiP[i].x < pt.x) { // esce quando x è maggiore (o quando la linea è finita)
+    while ((i < numPunti-1) && puntiP[i].x < pt.x) { // esce quando x è maggiore (o quando la linea è finita)
         i++; 
     } 
 
@@ -773,6 +815,48 @@ creaFacce();
    obj.style.webkitTransform = 'translate3d('+translationX+'px,'+pt.y+'px, 0)'; }
 
 
+
+// ############################################################################
+// #########################        OGGETTI        ############################
+// ############################################################################
+
+
+function creaOggetto(id) {
+    let oggetto = svg
+        .append("image")
+        .attr("class","oggetto")
+        .attr("id",oggetti[parseInt(id)].id)
+        .attr("width",dimensioneOggetti)
+        .attr("height",dimensioneOggetti)
+        .attr("x",-dimensioneOggetti/2)
+        .attr("y",-dimensioneOggetti/2)
+        .attr("href", oggetti[parseInt(id)].src)
+        .attr("style","opacity: 100");
+}
+
+for (let i = 0; i < oggetti.length; i++){
+    creaOggetto(i);
+}
+
+
+
+function agganciaOggettoAPersonaggio(idOggetto, idPersonaggio,scena, progresso0, progresso1) {
+    let oggetto = document.getElementById(idOggetto);
+
+
+}
+
+export function muoviOggetto(idOggetto, response, idPersonaggio, traslazione, deltaX, deltaY) {
+
+    
+    let progresso = response.progress;
+    let scena = response.index;
+    let puntiP;
+    puntiP = ottieniPuntiP(parseInt(idPersonaggio));
+    // console.log(puntiP);
+    muoviFacciaDaX(idOggetto, datasetPerScena(puntiP,scena), xMaschera, traslazione, scena, deltaX, deltaY);
+
+}
 
 
 // ############################################################################
@@ -886,8 +970,11 @@ console.log(sottoarray);
    /*  var a = l * sottoarray[idInizio].progresso/100;
     var b = l * sottoarray[idFine].progresso/100; */
 
-    var a = l * sottoarray[0].progresso/100;
-    var b = l * sottoarray[idFine-idInizio-1].progresso/100;
+    var a = l * sottoarray[idInizio].progresso/100;
+    var b = l * sottoarray[idFine].progresso/100;
+    
+    console.log("a: "+a);
+    console.log("b: "+b);
 
     // crea stringa del dasharray
     var dasharray = a + " ";
@@ -896,9 +983,68 @@ console.log(sottoarray);
         usedlen += tratt+trattS;
     }
     dasharray += tratt + " " + (l-b);
- //   console.log("tratteggio: "+ dasharray);
+   console.log("tratteggio: "+ dasharray);
     return dasharray;
-    
 
 
+}
+
+
+// ############################################################################
+// #########################        NASCONDI LINEE        ##############################
+// ############################################################################
+
+
+
+// nasconde parte iniziale linea e fa comparire faccia
+export function nascondiLineaInizio(personaggio, scena, puntoInizio){
+    let id = "linea_"+scena+"_P"+personaggio;
+    console.log(id);
+    let linea = document.getElementById(id);
+
+    var punti = ottieniPuntiP(parseInt(personaggio));
+    var sottoarray = punti.filter(el => el.scena == scena);
+    console.log(sottoarray);
+    var l = lunghezzaLinee[scena][personaggio];
+ //   console.log("tratt lunghezza tot: "+l);
+    //lunghezza per i punti
+   /*  var a = l * sottoarray[idInizio].progresso/100;
+    var b = l * sottoarray[idFine].progresso/100; */
+
+    var a = l * sottoarray[parseInt(puntoInizio)].progresso/100;
+
+    // crea stringa del dasharray
+    var dasharray = "0 " + a + " " + (l-a);
+
+   let style = linea.getAttribute("style");
+   style = style + " stroke-dasharray: "+dasharray;
+
+   linea.setAttribute("style",style);
+}
+
+// nasconde parte finale linea e fa cambiare faccia
+
+export function nascondiLineaFine(personaggio, scena, puntoInizio){
+    let id = "linea_"+scena+"_P"+personaggio;
+    console.log(id);
+    let linea = document.getElementById(id);
+
+    var punti = ottieniPuntiP(parseInt(personaggio));
+    var sottoarray = punti.filter(el => el.scena == scena);
+    console.log(sottoarray);
+    var l = lunghezzaLinee[scena][personaggio];
+ //   console.log("tratt lunghezza tot: "+l);
+    //lunghezza per i punti
+   /*  var a = l * sottoarray[idInizio].progresso/100;
+    var b = l * sottoarray[idFine].progresso/100; */
+
+    var a = l * sottoarray[parseInt(puntoInizio)].progresso/100;
+
+    // crea stringa del dasharray
+    var dasharray = a + " " + (l-a);
+
+   let style = linea.getAttribute("style");
+   style = style + " stroke-dasharray: "+dasharray;
+
+   linea.setAttribute("style",style);
 }

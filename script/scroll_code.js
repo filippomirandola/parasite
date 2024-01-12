@@ -120,14 +120,20 @@ function handleProgress(response) {
         case 1:
        //     zoom();
 
-            mostraDopoSoglia("intro", response, 0.5);
+           //  mostraDopoSoglia("intro", response, 0.5);
+         //   animations.muoviOggetto("mutande", response, 12,translation,-15,15);
+            //mostraTraProgress("mutande",0.5, 0.7, response);
+         //   mostraTraPunti("mutande",12,1,2,response);
           
             break;
         case 2:
         //    zoom();
+        //    nascondiLineaTutta(3,response.index);
             break;
         case 3:
-        
+        //    mostraLineaTutta(3,response.index);
+        //    animations.nascondiLineaInizio(7,response.index,2);
+
             break;
         case 4:
             break;
@@ -180,9 +186,42 @@ init();
 
 // FUNZIONI
 
+function mostra(obj) {
+    obj.style.visibility = "visible";
+}
+
+
+function nascondi(obj) {
+    obj.style.visibility = "hidden";
+}
+
+function mostraTraProgress(id, p0, p1, response) {
+    let obj = document.getElementById(id);
+    console.log("mostra p0 "+p0);
+    console.log("mostra p1 "+p1);
+    console.log("mostra prog "+response.progress);
+
+    if ((response.progress*100) >= p0 && (response.progress*100) < p1) {
+        console.log("mostra in");
+
+        mostra(obj);
+    } else {
+        nascondi(obj);
+    }
+}
+
+function mostraTraPunti(id, idPersonaggio, tempo0, tempo1, response) {
+    //TEMPO SONO IL NUMERO ORDINALE DI PUNTI DELLA SCENA!!
+    let puntiScena = animations.datasetPerScena(animations.ottieniPuntiP(parseInt(idPersonaggio)),response.index);
+    console.log(puntiScena);
+    let p0 = puntiScena[tempo0].progresso;
+    let p1 = puntiScena[tempo1].progresso;
+
+    mostraTraProgress(id,p0,p1,response);
+}
+
 
 function mostraDopoSoglia(id, response, soglia) {
-    console.log("mostra in");
 
     let oggetto = document.getElementById(id);
    /*  if (response.index < index) {
@@ -203,4 +242,19 @@ function mostraDopoSoglia(id, response, soglia) {
             } */
     }
 
+
+// nasconde linea e scena intera e fa sparire faccia
+function nascondiLineaTutta(personaggio, scena) {
+    let id = "linea_"+scena+"_P"+personaggio;
+    let obj = document.getElementById(id);
+    nascondi(obj);
+}
+
+// mostra
+
+function mostraLineaTutta(personaggio, scena) {
+    let id = "linea_"+scena+"_P"+personaggio;
+    let obj = document.getElementById(id);
+    mostra(obj);
+}
 
