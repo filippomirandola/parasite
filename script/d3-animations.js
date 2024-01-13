@@ -31,73 +31,90 @@ let coordinateLivelli = [];
 //const personaggi = [4];
 const personaggi = [
     {
+        i: 1,
         nome: "Figlia",
         famiglia: "Parks",
         dataset: "./data/data_figliaparks.csv",
         faccia: "./assets/facce/figliaParks.svg"
     },
     {
+        i: 2,
         nome: "Figlio",
         famiglia: "Parks",
         dataset: "./data/data_figlioparks.csv",
         faccia: "./assets/facce/bimboparks.png"
     },
     {
+        i: 3,
         nome: "Jessica",
         famiglia: "Kim",
         dataset: "./data/data_jessica.csv",
-        faccia: "./assets/facce/jessica.svg"
+        faccia: "./assets/facce/jessica.svg",
+        morte: "./assets/facce/morti/jessica-morta.png"
     },
     {
+        i: 4,
         nome: "Kevin",
         famiglia: "Kim",
         dataset: "./data/data_kevin.csv",
         faccia: "./assets/facce/kevin.png"
     },
     {
+        i: 5,
         nome: "Min",
         famiglia: "Min",
         dataset: "./data/data_min.csv",
         faccia: "./assets/facce/min.png"
     },
     {
+        i: 6,
         nome: "Papa",
         famiglia: "Kim",
         dataset: "./data/data_papakim.csv",
         faccia: "./assets/facce/papaKim.svg"
     },
     {
+        i: 7,
         nome: "Mamma",
         famiglia: "Parks",
         dataset: "./data/data_mammaparks.csv",
         faccia: "./assets/facce/mammaParks.svg"
     },
     {
+        i: 8,
         nome: "Mamma",
         famiglia: "Kim",
         dataset: "./data/data_mammakim.csv",
         faccia: "./assets/facce/mammaKim.svg"
     },
     {
+        i: 9,
         nome: "BunkerSis",
         famiglia: "Bunker",
         dataset: "./data/data_bunkersis.csv",
-        faccia: "./assets/facce/bunkersis.png"
+        faccia: "./assets/facce/bunkersis.png",
+        morte: "./assets/facce/morti/bunkerSis-morta.png"
     },
 
     {
+        i: 10,
         nome: "BunkerBro",
         famiglia: "Bunker",
         dataset: "./data/data_bunkerbro.csv",
-        faccia: "./assets/facce/bunkerBro.png"
+        faccia: "./assets/facce/bunkerBro.png",
+        morte: "./assets/facce/morti/bunkerBro-morto.png"
     },
     {
+        i: 11,
         nome: "Papa",
         famiglia: "Parks",
         dataset: "./data/data_papaparks.csv",
-        faccia: "./assets/facce/papaParks.png"
+        faccia: "./assets/facce/papaParks.png",
+        morte: "./assets/facce/morti/papaParks-morto.png"
+
     },
     {
+        i: 12,
         nome: "TEST",
         famiglia: "Parks",
         dataset: "./data/data_testLivelli.csv",
@@ -107,8 +124,69 @@ const personaggi = [
 
 const oggetti = [
     {
+        i: 0,
+        id: "auto",
+        src: "./assets/oggetti/auto.svg"
+    },
+    {
+        i: 1,
+        id: "bicchiere",
+        src: "./assets/oggetti/bicchiere.png"
+    },
+    {
+        i: 2,
+        id: "bottiglia",
+        src: "./assets/oggetti/bottiglia.png"
+    },
+    {
+        i: 3,
+        id: "campanello",
+        src: "./assets/oggetti/campanello.png"
+    },
+    {
+        i: 4,
+        id: "coltello",
+        src: "./assets/oggetti/coltello.png"
+    },
+    {
+        i: 5,
+        id: "lotta",
+        src: "./assets/oggetti/lotta.png"
+    },
+    {
+        i: 6,
         id: "mutande",
         src: "./assets/oggetti/mutande.png"
+    },
+    {
+        i: 7,
+        id: "nuvoletta",
+        src: "./assets/oggetti/nuvoletta.png"
+    },
+    {
+        i: 8,
+        id: "pesca",
+        src: "./assets/oggetti/pesca.png"
+    },
+    {
+        i: 9,
+        id: "pietra",
+        src: "./assets/oggetti/pietra.png"
+    },
+    {
+        i: 10,
+        id: "puzza",
+        src: "./assets/oggetti/puzza.png"
+    },
+    {
+        i: 11,
+        id: "torta",
+        src: "./assets/oggetti/torta.png"
+    },
+    {
+        i: 12,
+        id: "valigia",
+        src: "./assets/oggetti/valigia.png"
     }
 ];
 
@@ -129,7 +207,7 @@ const dataP12 = await d3.dsv(",",personaggi[11].dataset);
 
 
 const spessoreLinee = 5;
-const xMaschera = window.innerWidth/2;
+export const xMaschera = window.innerWidth/2;
 
 
 // #################################################################################
@@ -166,6 +244,9 @@ ampiezzaScene[3]=20;
  ampiezzaScene[7]=20;
  ampiezzaScene[8]=20;
  ampiezzaScene[9]=20; 
+ ampiezzaScene[10]=20; 
+ ampiezzaScene[11]=20; 
+
 
 
 const numeroScene = ampiezzaScene.length;
@@ -180,7 +261,7 @@ export function stabilisciAmpiezzaLinea(scena) {
 }
 
 // Scala X sulla base dell'ampiezzaX della linea di una scena
-function calcolaScalaX(scena) {
+export function calcolaScalaX(scena) {
    // console.log("calcolaScene "+scena);
   //  console.log(ampiezzaScene[scena]);
     return d3.scaleLinear().range([xMaschera,xMaschera+stabilisciAmpiezzaLinea(scena)]).domain([0,ampiezzaScene[parseInt(scena)]-1]);
@@ -240,13 +321,15 @@ console.log("INNERHEIGHT: "+window.innerHeight);
 console.log("UNIT: "+unit);
 console.log(coordinateLivelli);
 // Funzione per calcolare la Y dei vari punti (compresa la strada)
-function calcolaY(piano,livello) {
+export function calcolaY(piano,livello) {
    
     // piano 0: bunker
     // piano 1: casa poveri
     // piano 2: strada
     // piano 3: casa ricchi - 01
     // piano 4: casa ricchi - 02
+
+    livello = livello-1;
     if (piano !== "daCalcolare") {
         console.log(coordinateLivelli[piano].max);
         return coordinateLivelli[piano].max - ((2*parseInt(livello)+1)*(coordinateLivelli[piano].delta / (2*livelli[piano])));
@@ -296,7 +379,7 @@ function verificaDatabase(dataP) {
                     sottolivello: "daCalcolare"
                 };
            
-            if (scena != 15) {//INSERIRE VALORE CORRETTO SCENA FINALE
+            if (scena != 11) {//INSERIRE VALORE CORRETTO SCENA FINALE
                 let indiceFineScena = dataP.findIndex((el) => el.scena == scena+1);
                 dataP.splice(indiceFineScena, 0, elemento);
             } 
@@ -310,7 +393,7 @@ function verificaDatabase(dataP) {
 
 function creaDatabase(dataPersonaggio, puntiPersonaggio){
     for (const elem of dataPersonaggio) {
-        puntiPersonaggio.push({"scena":elem.scena,"x":calcolaScalaX(elem.scena)(elem.tempo), "y":calcolaY(elem.livello, parseInt(elem.sottolivello)-1)});
+        puntiPersonaggio.push({"scena":elem.scena,"x":calcolaScalaX(elem.scena)(elem.tempo), "y":calcolaY(elem.livello, parseInt(elem.sottolivello))});
      }
 
      // console.log(puntiPersonaggio);
@@ -617,18 +700,66 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
     }
 
     /* INSERIRE TRATTEGGI */
-     if (idPersonaggio == 4) {
-        if (scena == 1) {
-            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 5));
-        }
-        if (scena == 2) {
-            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 1,2));
 
+    if (idPersonaggio == 3) { // JESSICA 
+        if (scena == 3) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 1, 2, false));
         }
-       //console.log("tratt in");
+        if (scena == 4) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 1, false));
+        }
+    }
 
-   }
+    if (idPersonaggio == 4) { // KEVIN
+        switch (scena) {
+            case 2: 
+                line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 4, 6, false));
+                break;
+            case 3:
+                line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 1,2, true, 4,5));
+                break;
+            case 4:
+                line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 2, false));
+                break;
+            case 5:
+                line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 1, false));
+                break;
+            case 8: 
+                line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 7, 8, false));
+                break;
+            case 9: 
+                line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 2, false));
+                break;
+            case 10:
+                line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 2, false));
+            default: break;
+
+        } 
+    }
+
+    if (idPersonaggio == 7) { // MAMMA PARKS 
+        if (scena == 3) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 2, 3, false));
+        }
+        if (scena == 4) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 1, false));
+        }
+    }
  
+/*     if (idPersonaggio == 1) { // FIGLIA PARKS 
+        if (scena == 2) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 2, 5, false));
+        }
+        if (scena == 3) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 3, false));
+        }
+        if (scena == 4) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 1, 2, false));
+        }
+        if (scena == 5) {
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 1, false));
+        }
+    } */
 
    
 }
@@ -959,10 +1090,9 @@ export function mostraLineeScena(scena, direzione) {
 
 // punti: [0]: scena, x, y, progresso
 
-function tratteggio(personaggio, punti, scena, idInizio, idFine){
+function tratteggio(personaggio, punti, scena, idInizio, idFine, trattiMultipli, idInizio2, idFine2){
     var sottoarray = punti.filter(el => el.scena == scena);
 
-console.log(sottoarray);
 
     var l = lunghezzaLinee[scena][personaggio];
  //   console.log("tratt lunghezza tot: "+l);
@@ -970,22 +1100,44 @@ console.log(sottoarray);
    /*  var a = l * sottoarray[idInizio].progresso/100;
     var b = l * sottoarray[idFine].progresso/100; */
 
-    var a = l * sottoarray[idInizio].progresso/100;
-    var b = l * sottoarray[idFine].progresso/100;
-    
-    console.log("a: "+a);
-    console.log("b: "+b);
-
-    // crea stringa del dasharray
-    var dasharray = a + " ";
-    for(var usedlen = 0; usedlen < (b-a-tratt); ) {
-        dasharray += tratt + " " + trattS + " "; 
-        usedlen += tratt+trattS;
+    if (trattiMultipli === false) {
+        var a = l * sottoarray[idInizio].progresso/100;
+        var b = l * sottoarray[idFine].progresso/100;
+        
+        // crea stringa del dasharray
+        var dasharray = a + " ";
+        for(var usedlen = 0; usedlen < (b-a-tratt); ) {
+            dasharray += tratt + " " + trattS + " "; 
+            usedlen += tratt+trattS;
+        }
+        dasharray += tratt + " " + (l-b);
+       console.log("tratteggio: "+ dasharray);
     }
-    dasharray += tratt + " " + (l-b);
-   console.log("tratteggio: "+ dasharray);
-    return dasharray;
 
+    if (trattiMultipli === true) {
+        var a = l * sottoarray[idInizio].progresso/100;
+        var b = l * sottoarray[idFine].progresso/100;
+        var c = l * sottoarray[idInizio2].progresso/100;
+        var d = l * sottoarray[idFine2].progresso/100;
+
+        var dasharray = a + " ";
+        for(var usedlen = 0; usedlen < (b-a-tratt); ) {
+            dasharray += tratt + " " + trattS + " "; 
+            usedlen += tratt+trattS;
+        }
+        dasharray += tratt + " " + (c-b) + " ";
+        
+        for(var usedlen = 0; usedlen < (d-c-tratt); ) {
+            dasharray += tratt + " " + trattS + " "; 
+            usedlen += tratt+trattS;
+        }
+
+        dasharray += tratt + " " + (l-d);
+
+       console.log("tratteggio: "+ dasharray);
+    }
+
+    return dasharray;    
 
 }
 
@@ -1022,7 +1174,7 @@ export function nascondiLineaInizio(personaggio, scena, puntoInizio){
    linea.setAttribute("style",style);
 }
 
-// nasconde parte finale linea e fa cambiare faccia
+// nasconde parte finale linea
 
 export function nascondiLineaFine(personaggio, scena, puntoInizio){
     let id = "linea_"+scena+"_P"+personaggio;
@@ -1045,6 +1197,93 @@ export function nascondiLineaFine(personaggio, scena, puntoInizio){
 
    let style = linea.getAttribute("style");
    style = style + " stroke-dasharray: "+dasharray;
+   
 
    linea.setAttribute("style",style);
+}
+
+
+// ############################################################################
+// #####################        CAMBIA FACCIA        ##########################
+// ############################################################################
+
+export function cambiaFaccia(idPersonaggio,diventaMorto) {
+    let id = "faccia"+idPersonaggio;
+    let obj = document.getElementById(id);
+    if (diventaMorto === true) {
+        obj.setAttribute("href",personaggi[idPersonaggio-1].morte);
+    }
+    else {
+        obj.setAttribute("href",personaggi[idPersonaggio-1].faccia);
+    }
+
+}
+
+
+
+// ############################################################################
+// #####################        FUNZIONI UTILI       ##########################
+// ############################################################################
+
+export function ottieniProgresso(idPersonaggio, scena, indice) {
+    let puntiScena = datasetPerScena(ottieniPuntiP(parseInt(idPersonaggio)),scena);
+    console.log(puntiScena);
+    return puntiScena[indice].progresso/100;
+}
+
+export function ottieniX(idPersonaggio, scena, indice) {
+    let puntiScena = datasetPerScena(ottieniPuntiP(parseInt(idPersonaggio)),scena);
+    console.log(puntiScena);
+    return puntiScena[indice].x;
+}
+
+export function ottieniPercX(idPersonaggio, scena, indiceTempo) {
+    let puntiScena = datasetPerScena(ottieniPuntiP(parseInt(idPersonaggio)),scena);
+    let z = puntiScena[indiceTempo].x;
+    let percX = (z-xMaschera)/stabilisciAmpiezzaLinea(scena);
+    return percX;
+}
+
+/* export function bloccaElemento(idElemento, idPersonaggio, scena, indiceTempo, response, deltaX, deltaY) {
+    if (response.index > scena || (response.index == scena && response.progress > ottieniProgresso(idPersonaggio,scena, indiceTempo))) {  // blocca solo dopo aver superato il punto
+        console.log("blocca "+idElemento);
+        
+        let translationAttuale = (response.progress) * stabilisciAmpiezzaLinea(scena) + (response.index-scena)*(stabilisciAmpiezzaLinea(scena)); // il secondo addendo permette di continuare la traslazione dopo aver cambiato scena "togliendo" la traslazione data dal nuovo progress
+       //  console.log("prog :"+ ottieniProgresso(idPersonaggio,scena, indiceTempo));
+        // let translationPunto = (ottieniProgresso(idPersonaggio,scena, indiceTempo))*stabilisciAmpiezzaLinea(scena);
+        let translationPunto = ottieniX(idPersonaggio,scena, indiceTempo);
+        // let traslazione = translationAttuale - translationPunto;
+        let traslazione = translationPunto - translationAttuale;
+        console.log("traslaz: "+traslazione);
+
+        let obj = document.getElementById(idElemento);
+        let pt = {};
+        let puntiScena = datasetPerScena(ottieniPuntiP(parseInt(idPersonaggio)),scena);
+       // pt.x = xMaschera - traslazione + deltaX;
+       pt.x = xMaschera - translationAttuale + deltaX;
+        pt.y = puntiScena[indiceTempo].y + deltaY;
+        console.log(pt.y);
+
+        console.log("posizione nuova: "+pt.x+" "+pt.y);
+        obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)'; 
+    }
+}
+ */
+
+export function bloccaElemento(idElemento, idPersonaggio, scena, indiceTempo, response, deltaX, deltaY) {
+    let percX = ottieniPercX(idPersonaggio,scena,indiceTempo);
+
+    if (response.index > scena || (response.index == scena && response.progress > percX)) {  // blocca solo dopo aver superato il punto        
+        let obj = document.getElementById(idElemento);
+        let pt = {};
+        let puntiScena = datasetPerScena(ottieniPuntiP(parseInt(idPersonaggio)),scena);
+
+
+       pt.x = xMaschera - ((response.progress-percX)*stabilisciAmpiezzaLinea(scena)) - (response.index-scena)*(stabilisciAmpiezzaLinea(scena)); // il secondo addendo permette di continuare la traslazione dopo aver cambiato scena "togliendo" la traslazione data dal nuovo progress;
+        pt.y = puntiScena[indiceTempo].y + deltaY;
+        console.log(pt.y);
+
+        console.log("posizione nuova: "+pt.x+" "+pt.y);
+        obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)'; 
+    }
 }
