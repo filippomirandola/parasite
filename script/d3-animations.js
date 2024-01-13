@@ -1,7 +1,8 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 //import * as scrolling from "./scroll_code.js";
 
-const altezzaPagina = window.innerHeight;
+export var altezzaPagina = window.innerHeight;
+export var larghezzaPagina = window.innerWidth;
 const percentualeAltezzaStanze = 0.23;
 const unit = altezzaPagina*percentualeAltezzaStanze; //unità di altezza
 const k = 3047/900; // lunghezza/altezza csv stanze
@@ -10,6 +11,7 @@ const zoomX = ampiezzaStep * 2;
 export const zoomProgressoFinale = 0.2;
 let dimensioneFacce = 20;
 let dimensioneOggetti = 20;
+let kMaschera = 2;
 
 const tratt = 10;
 const trattS = 5;
@@ -21,9 +23,18 @@ const mostraDebug = false;
 export var zoomScena = [
     [1,1],
     [1,4],
+    [0,4],
+    [0,4],
+    [0,4],
+    [0,4],
+    [0,4],
+    [0,4],
+    [0,4],
+    [0,4],
+    [0,4],
     [0,4]
  ];
- var modificatoriZoom = [3,1.5,1.5];
+ var modificatoriZoom = [3,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5];
 
 // Dataset piani  bunker / casaPoveri / strada / casaRicchi1 / casaRicchi2
 const livelli = [6,5,4,9,5];
@@ -190,6 +201,104 @@ const oggetti = [
     }
 ];
 
+const testi = [
+    {
+        i: 0,
+        y: [2,2],
+        inizio: [0,0],
+        fine: [0,5],
+        txt: "AAAA",
+    },
+
+    {
+        i: 1,
+        y: [3,2],
+        inizio: [1,0],
+        fine: [1,5],
+        txt: "BBBB",
+    },
+
+    {
+        i: 2,
+        y: [4,2],
+        inizio: [1,10],
+        fine: [1,15],
+        txt: "CCCC",
+    },
+    {
+        i: 3,
+        y: [2,2],
+        inizio: [0,0],
+        fine: [0,5],
+        txt: "AAAA",
+    },
+
+    {
+        i: 4,
+        y: [3,2],
+        inizio: [1,0],
+        fine: [1,5],
+        txt: "BBBB",
+    },
+
+    {
+        i: 5,
+        y: [4,2],
+        inizio: [1,10],
+        fine: [1,15],
+        txt: "CCCC",
+    },
+
+    {
+        i: 6,
+        y: [4,2],
+        inizio: [1,10],
+        fine: [1,15],
+        txt: "CCCC",
+    },
+    
+    {
+        i: 7,
+        y: [4,2],
+        inizio: [1,10],
+        fine: [1,15],
+        txt: "CCCC",
+    },
+    {
+        i: 8,
+        y: [3,2],
+        inizio: [1,0],
+        fine: [1,5],
+        txt: "BBBB",
+    },
+
+    {
+        i: 9,
+        y: [4,2],
+        inizio: [1,10],
+        fine: [1,15],
+        txt: "CCCC",
+    },
+
+    {
+        i: 10,
+        y: [4,2],
+        inizio: [1,10],
+        fine: [1,15],
+        txt: "CCCC",
+    },
+    
+    {
+        i: 11,
+        y: [4,2],
+        inizio: [1,10],
+        fine: [1,15],
+        txt: "CCCC",
+    }
+   
+   
+];
+
 
 // Dataset personaggi: scena, tempo, livello, sottolivello
 const dataP1 = await d3.dsv(",",personaggi[0].dataset);
@@ -207,7 +316,7 @@ const dataP12 = await d3.dsv(",",personaggi[11].dataset);
 
 
 const spessoreLinee = 5;
-export const xMaschera = window.innerWidth/2;
+export var xMaschera = larghezzaPagina/kMaschera;
 
 
 // #################################################################################
@@ -522,10 +631,17 @@ export function ottieniPuntiP(id) {
 const width = 600;
 const height = 500;
 
+const megaSVG = d3.select("#chart")
+    .append("svg")
+    .attr("id","parent")
+    .attr("width",window.innerWidth)
+    .attr("height",window.innerHeight);
 
 // Create an SVG element
-const svg = d3.select("#chart")
-    .append("svg")
+
+
+const svg = megaSVG
+    .append("g")
     .attr("id", "container")
     .attr("width", 3 * k * unit) // sfondo grande 2*numero di moduli
     .attr("height", window.innerHeight)
@@ -990,20 +1106,128 @@ export function muoviOggetto(idOggetto, response, idPersonaggio, traslazione, de
 }
 
 
+
+// ############################################################################
+// #########################         INTRO         ############################
+// ############################################################################
+
+let introX = 0;
+let introY = coordinateLivelli[1].min;
+let introH = unit;
+let introW = unit*larghezzaPagina/altezzaPagina;
+
+let intro = megaSVG.append("g").
+    attr("id","introSVG")
+    .attr("width",larghezzaPagina)
+    .attr("height",altezzaPagina);
+
+var gradient = intro.append("defs")
+    .append("linearGradient")
+        .attr("id", "gradient")
+        .attr("x1", "50%")
+        .attr("y1", "0%")
+        .attr("x2", "100%")
+        .attr("y2", "0%")
+        .attr("spreadMethod", "pad");
+
+    gradient.append("stop")
+        .attr("offset", "20%")
+        .attr("stop-color", "#121a1c")
+        .attr("stop-opacity", 1);
+
+    gradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", "#121a1c")
+        .attr("stop-opacity", 0);
+
+let rectIntro = intro.append("rect")
+            .attr("width",larghezzaPagina+100)
+            .attr("height",altezzaPagina)
+            .attr("fill","url(#gradient)") //121a1c
+            .attr("opacity",1);
+
+let altezzaImg = 0.15*altezzaPagina;
+let xTesto = 0.3*larghezzaPagina;
+
+let imgIntro = intro.append("image")
+        .attr("id","introLines")
+        .attr("href","../assets/landing/introLines.png")
+        .attr("height",altezzaImg)
+        .attr("x",0)
+        .attr("y",0.5*altezzaPagina-(altezzaImg/2));
+
+let txtP = intro.append("text")
+        .attr("id","textIntro")
+        .attr("class","rightText")
+        .attr("dominant-baseline","middle");
+
+let r3 = txtP.append("tspan")
+        .attr("x",xTesto)
+        .attr("y","50%")
+        .attr("dy","1.2em")
+        .html("The color of the line indicates the family they belong to.");
+let r4 = txtP.append("tspan")
+        .attr("x",xTesto)
+        .attr("dy","1.2em")
+        .html("The dashed line represents the supposed path of the characther");
+let r1 = txtP.append("tspan")
+.attr("x",xTesto)
+.attr("dy","-2.4em")
+.html("The characters’ paths are indicated by lines.");
+
+let r2 = txtP.append("tspan")
+.attr("x",xTesto)
+.attr("dy","-1.2em")
+.html("Every character has its own icon.");
+
+
+// txtP.html("blabla");
+
+
+// ############################################################################
+// #########################         TESTI         ############################
+// ############################################################################
+
+// CREA TESTI
+
+let margineSx = 40;
+
+let gTesti = svg.append("g").attr("id","testi");
+
+for (let iTesto = 0; iTesto < testi.length; iTesto++) {
+    let testo = gTesti.append("text")
+        .text(testi[iTesto].txt)
+        .attr("id","testo"+testi[iTesto].i)
+        .attr("x", xMaschera+margineSx)
+        .attr("y",calcolaY(testi[iTesto].y[0], testi[iTesto].y[1]))
+        .style("opacity","0");
+}
+
+
+
+
+
+
+
+
 // ############################################################################
 // #########################         ZOOM         #############################
 // ############################################################################
 
 
-export function impostaZoomSfondo(rapporto,traslazioneY) {
+export function impostaZoomSfondo(rapporto,traslazioneY,traslazioneX) {
     svg
-    .attr("transform","scale("+rapporto+") "+"translate("+-100*(rapporto / 2)+" "+traslazioneY+") ");
+  //  .attr("transform","scale("+rapporto+") "+"translate("+-100*(rapporto / 2)+" "+traslazioneY+") ");
+  .attr("transform","scale("+rapporto+") "+"translate("+traslazioneX+" "+traslazioneY+") ");
 }
 
 export function impostaZoomFacce(rapporto, scena){ 
     let dimensione = dimensioneFacce*2*modificatoriZoom[scena]/rapporto;
-    for (let i = 0; i<personaggi.length; i++) {
+    console.log(dimensione);
+    for (let i = 1; i<=personaggi.length; i++) {
         let idFaccia="faccia"+i;
+        console.log(idFaccia);
+
         let obj = document.getElementById(idFaccia);
         obj.setAttribute("width",dimensione);
         obj.setAttribute("height",dimensione);
@@ -1013,10 +1237,17 @@ export function impostaZoomFacce(rapporto, scena){
     
 }
 
+export function impostaZoomIntro(rapporto,traslazioneX,traslazioneY){
+    let obj = document.getElementById("introSVG");
+
+}
+
+
+
 export function calcolaZoom(progresso, scena, nuovo, vecchio) {
     let deltaAltezza = coordinateLivelli[nuovo[0]].max - coordinateLivelli[nuovo[1]].min;
     let rapportoFinale = altezzaPagina / deltaAltezza;
-    let rapporto, traslazioneY;
+    let rapporto, traslazioneY, traslazioneX;
     let ritardoZoom=0.05;
 
     if (progresso <= zoomProgressoFinale) // quando deve progredire
@@ -1037,14 +1268,22 @@ export function calcolaZoom(progresso, scena, nuovo, vecchio) {
         let calcolaTraslazioneY = d3.scaleLinear().domain([0,zoomProgressoFinale]).range([-coordinateLivelli[vecchio[1]].min, -coordinateLivelli[nuovo[1]].min]);
         //rapporto = calcolaRapporto(progresso);    
         traslazioneY = calcolaTraslazioneY(progresso);
+        traslazioneX = - ((xMaschera)-(xMaschera/rapporto));
+
      } else {
         rapporto = rapportoFinale;
         traslazioneY = -coordinateLivelli[nuovo[1]].min;
     }
     
-    impostaZoomSfondo(rapporto,traslazioneY);
+    traslazioneX = - ((xMaschera)-(xMaschera/rapporto));
+
+    impostaZoomSfondo(rapporto,traslazioneY,traslazioneX);
     impostaZoomFacce(rapporto,scena);
+    impostaZoomIntro(rapporto,0,0);
 } 
+
+
+calcolaZoom(0,0,[1,1],[1,1]);
 
 /* TRANSIZIONE (A SCATTI..)
 export function impostaZoom(progresso, pianoInferiore, pianoSuperiore) {
@@ -1286,4 +1525,17 @@ export function bloccaElemento(idElemento, idPersonaggio, scena, indiceTempo, re
         console.log("posizione nuova: "+pt.x+" "+pt.y);
         obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)'; 
     }
+}
+
+export function getCoordinateLivelli(livello) {
+    return coordinateLivelli[livello];
+}
+
+// ############################################################################
+// #######################          RESIZE         ############################
+// ############################################################################
+
+export function resize() {
+    altezzaPagina = window.innerHeight;
+    larghezzaPagina = window.innerWidth
 }

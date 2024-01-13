@@ -119,3 +119,9 @@ position: fixed;
  visibility: hidden;
  
 } */
+
+#textIntro {
+  vertical-align: middle;
+  display: inline-block;
+
+}

@@ -41,6 +41,9 @@ function handleResize() {
     var figureHeight = window.innerHeight;
     var figureMarginTop = 2*window.innerHeight ;
 
+    animations.resize();
+
+
     figure
         .style("height", figureHeight + "px")
         .style("top", "0px");
@@ -52,6 +55,7 @@ function handleResize() {
 
 // scrollama event handlers
 function handleProgress(response) {
+    nascondiLineaTutta(12,response.index,true);
     console.log("indice: "+response.index);
     // CALCOLO TRASLAZIONE
     var translation = (response.progress) * animations.stabilisciAmpiezzaLinea(response.index);
@@ -80,7 +84,11 @@ function handleProgress(response) {
     }
 
     animations.mostraLineeScena(response.index,response.direction);
-    nascondiLineaTutta(12,response.index);
+
+        // APPLICO TRASLAZIONE A INTRO
+        var introSVG = d3.select("#introSVG");
+        // introSVG.style("transform", "scale("+0.2+") translate(" + -translation + "px "+ animations.getCoordinateLivelli(1).min +"px)");
+        introSVG.style("transform", "translateX(" + -translation*3 + "px)");
 
 
     // FUNZIONE PER RICHIAMARE GLI ZOOM in "up" e in "down"
@@ -106,6 +114,26 @@ function handleProgress(response) {
         
     }
 
+
+
+    // COME INSERIRE LA FINE DELLA LINEA E/O LA MORTE:
+    // si scrive morte(idPersonaggio, scena della morte, tempo della morte,  response)
+    //      - idPersonaggio è quello che si trova nell'array "personaggi" alla riga 43 di d3-animations.js
+    //      - la scena della morte va da 0 a 11
+    //      - il tempo della morte NON è il tempo da 0 a 19!!!!
+    //        è il numero ordinale del punto in cui muore nel DATASET.
+    //        per esempio, se in un dataset ho i punti ai tempi
+    //          0 
+    //          1
+    //          5
+    //          10
+    //          11
+    //          19
+    //       e voglio che muoia al tempo 11, come valore devo inserire 4 (perché è il 5° valore ma si parte a contare dallo 0).
+    //      NB nel dataset, anche se magari non sono presenti, è come se ci fossero SEMPRE il tempo 0 e il tempo 19, per cui vengono sempre conteggiati!
+    //         In altre parole, se nel dataset manca il tempo0 e il primo punto è il tempo5, e voglio che muoia al tempo5, dovrò mettere come indice 1 e non 0. 
+
+    
     fineLinea(5,0,3, response); // FINE MIN
     morte(9,7,2,response)
 
@@ -113,12 +141,20 @@ function handleProgress(response) {
 
    
         case 0:
-        //    zoom();
+            zoom();
             //A SCATTI animations.impostaZoom(3,3);
-
-            if (response.direction === "up") {
+            if (response.progress <= 0.9) {
+                mostra(document.getElementById("introSVG"));
             } else {
+                nascondi(document.getElementById("introSVG"));
+
             }
+
+            mostra(document.getElementById("testo0"));
+
+           /*  if (response.direction === "up" && response.progress <0.9) {
+                mostra(document.getElementById("introSVG"));
+            }  */
 
             // PIETRA
             mostraTraPunti("pietra",4,0,1,response);
@@ -132,7 +168,7 @@ function handleProgress(response) {
 
             break;
         case 1:
-       //     zoom();
+            zoom();
 
            //  mostraDopoSoglia("intro", response, 0.5);
          //   
@@ -143,17 +179,21 @@ function handleProgress(response) {
           
             break;
         case 2:
-        //    zoom();
+            zoom();
         //    nascondiLineaTutta(3,response.index);
              //   morte(3,2,2,response);
              
             break;
         case 3:
+            zoom();
+
         //    mostraLineaTutta(3,response.index);
         //    animations.nascondiLineaInizio(7,response.index,2);
 
             break;
         case 4:
+            zoom();
+
             break;
         case 5:
 
@@ -175,6 +215,47 @@ function handleProgress(response) {
     }
 }
 
+function handleStepEnter(response) {
+    switch (response.index) {
+
+   
+        case 0:
+        //    mostra(document.getElementById("introSVG"));
+
+            break;
+        case 1:
+         
+            break;
+        case 2:
+        
+             
+            break;
+        case 3:
+  
+
+            break;
+        case 4:
+           
+            break;
+        case 5:
+
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8: 
+            break;
+        case 9:
+            break;
+        case 10:
+            break;
+        case 11:
+            break;
+        default:
+            break;
+    }
+}
 function setupStickyfill() {
     d3.selectAll(".sticky").each(function() {
         Stickyfill.add(this);
@@ -213,12 +294,12 @@ init();
 // FUNZIONI
 
 function mostra(obj) {
-    obj.style.visibility = "visible";
+    obj.style.opacity = 100;
 }
 
 
 function nascondi(obj) {
-    obj.style.visibility = "hidden";
+    obj.style.opacity = 0;
 }
 
 function mostraTraProgress(id, p0, p1, response) {
@@ -254,11 +335,11 @@ function mostraDopoSoglia(id, response, soglia) {
     } */
 
     if (response.progress >= soglia) {
-        oggetto.style.visibility = "visible";
+        oggetto.style.opacity = 100;
         } 
     
     if (response.progress <= soglia) {
-        oggetto.style.visibility = "hidden";
+        oggetto.style.opacity = 0;
             } 
 
 
