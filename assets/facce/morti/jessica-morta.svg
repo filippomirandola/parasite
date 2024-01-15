@@ -11,4 +11,5 @@
 <ellipse cx="2.00603" cy="1.33735" rx="2.00603" ry="1.33735" transform="matrix(-0.929707 -0.3683 -0.3683 0.929707 92.4141 100.478)" fill="black"/>
 <path d="M74 113.53C77 112.03 77.5 108.53 80.5 107.53C82.2078 106.961 84 109.556 84 109.556C84 109.556 85.5246 106.676 88 107.03C91.5 107.53 91.5 111.03 95.5 112.03" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M80 112.526V115H89V112.526" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="14" y1="69.5" x2="155" y2="69.5" stroke="#690404" stroke-width="15"/>
 </svg>

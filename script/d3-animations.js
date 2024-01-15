@@ -13,8 +13,8 @@ let dimensioneFacce = 20;
 let dimensioneOggetti = 20;
 let kMaschera = 2;
 
-const tratt = 10;
-const trattS = 5;
+const tratt = 20;
+const trattS = 10;
 const mostraDebug = false;
 
 
@@ -53,7 +53,7 @@ const personaggi = [
         nome: "Figlio",
         famiglia: "Parks",
         dataset: "./data/data_figlioparks.csv",
-        faccia: "./assets/facce/bimboparks.png"
+        faccia: "./assets/facce/bimboParks.svg"
     },
     {
         i: 3,
@@ -61,7 +61,7 @@ const personaggi = [
         famiglia: "Kim",
         dataset: "./data/data_jessica.csv",
         faccia: "./assets/facce/jessica.svg",
-        morte: "./assets/facce/morti/jessica-morta.png"
+        morte: "./assets/facce/morti/jessica-morta.svg"
     },
     {
         i: 4,
@@ -75,7 +75,7 @@ const personaggi = [
         nome: "Min",
         famiglia: "Min",
         dataset: "./data/data_min.csv",
-        faccia: "./assets/facce/min.png"
+        faccia: "./assets/facce/min.svg"
     },
     {
         i: 6,
@@ -103,8 +103,8 @@ const personaggi = [
         nome: "BunkerSis",
         famiglia: "Bunker",
         dataset: "./data/data_bunkersis.csv",
-        faccia: "./assets/facce/bunkersis.png",
-        morte: "./assets/facce/morti/bunkerSis-morta.png"
+        faccia: "./assets/facce/bunkerSis.svg",
+        morte: "./assets/facce/morti/bunkerSis-morta.svg"
     },
 
     {
@@ -112,16 +112,16 @@ const personaggi = [
         nome: "BunkerBro",
         famiglia: "Bunker",
         dataset: "./data/data_bunkerbro.csv",
-        faccia: "./assets/facce/bunkerBro.png",
-        morte: "./assets/facce/morti/bunkerBro-morto.png"
+        faccia: "./assets/facce/bunkerBro.svg",
+        morte: "./assets/facce/morti/bunkerBro-morto.svg"
     },
     {
         i: 11,
         nome: "Papa",
         famiglia: "Parks",
         dataset: "./data/data_papaparks.csv",
-        faccia: "./assets/facce/papaParks.png",
-        morte: "./assets/facce/morti/papaParks-morto.png"
+        faccia: "./assets/facce/papaParks.svg",
+        morte: "./assets/facce/morti/papaParks-morto.svg"
 
     },
     {
@@ -142,62 +142,62 @@ const oggetti = [
     {
         i: 1,
         id: "bicchiere",
-        src: "./assets/oggetti/bicchiere.png"
+        src: "./assets/oggetti/bicchiere.svg"
     },
     {
         i: 2,
         id: "bottiglia",
-        src: "./assets/oggetti/bottiglia.png"
+        src: "./assets/oggetti/bottiglia.svg"
     },
     {
         i: 3,
         id: "campanello",
-        src: "./assets/oggetti/campanello.png"
+        src: "./assets/oggetti/campanello.svg"
     },
     {
         i: 4,
         id: "coltello",
-        src: "./assets/oggetti/coltello.png"
+        src: "./assets/oggetti/coltello.svg"
     },
     {
         i: 5,
         id: "lotta",
-        src: "./assets/oggetti/lotta.png"
+        src: "./assets/oggetti/lotta.svg"
     },
     {
         i: 6,
         id: "mutande",
-        src: "./assets/oggetti/mutande.png"
+        src: "./assets/oggetti/mutande.svg"
     },
     {
         i: 7,
         id: "nuvoletta",
-        src: "./assets/oggetti/nuvoletta.png"
+        src: "./assets/oggetti/nuvoletta.svg"
     },
     {
         i: 8,
         id: "pesca",
-        src: "./assets/oggetti/pesca.png"
+        src: "./assets/oggetti/pesca.svg"
     },
     {
         i: 9,
         id: "pietra",
-        src: "./assets/oggetti/pietra.png"
+        src: "./assets/oggetti/pietra.svg"
     },
     {
         i: 10,
         id: "puzza",
-        src: "./assets/oggetti/puzza.png"
+        src: "./assets/oggetti/puzza.svg"
     },
     {
         i: 11,
         id: "torta",
-        src: "./assets/oggetti/torta.png"
+        src: "./assets/oggetti/torta.svg"
     },
     {
         i: 12,
         id: "valigia",
-        src: "./assets/oggetti/valigia.png"
+        src: "./assets/oggetti/valigia.svg"
     }
 ];
 
@@ -796,14 +796,33 @@ function  calcolaPercentuale(punti, lunghezza) {
 }
 
 
-// crea la linea di un personaggio in una scena 
+// crea la linea di un personaggio in una scena
+
+function coloreLinea(id) {
+    switch(personaggi[id-1].famiglia) {
+        case "Parks":
+            return "#000000";
+            break;
+        case "Kim":
+            return "#C00000";
+            break;
+        case "Bunker":
+            return "#ffffff";
+            break;
+        case "Min":
+            return "#690000";
+            break;
+        default: break;
+    }
+}
+
 function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) { 
     let puntiScena = datasetPerScena(puntiP, scena);
     let line = gruppo.append("path")
                 .attr("id","linea_"+scena+"_P"+idPersonaggio)
                 .attr("class","linea_P"+idPersonaggio)
                 .attr("d",Gen(puntiScena))
-                .attr("stroke", "white")
+                .attr("stroke", coloreLinea(idPersonaggio))
                 .attr("fill", "none")
                 .attr("stroke-width", spessoreLinee);
     lunghezzaLinee[scena][idPersonaggio] = line.node().getTotalLength();
@@ -1451,6 +1470,7 @@ export function cambiaFaccia(idPersonaggio,diventaMorto) {
     let obj = document.getElementById(id);
     if (diventaMorto === true) {
         obj.setAttribute("href",personaggi[idPersonaggio-1].morte);
+       // obj.setAttribute("style", "rotate(45) "+obj.getAttribute("style")); //slice(0,-1) toglie l'ultimo carattere della stringa
     }
     else {
         obj.setAttribute("href",personaggi[idPersonaggio-1].faccia);
