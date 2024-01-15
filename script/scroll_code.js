@@ -1,5 +1,6 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-import * as animations from "./d3-animations.js"
+import * as animations from "./d3-animations.js";
+import * as pioggia from "./pioggia.js";
 
 
 var main = d3.select("main");
@@ -7,6 +8,7 @@ var scrolly = main.select("#scrolly");
 var figure = scrolly.select("figure");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
+var acqua = document.getElementById("acqua-parent");
 const altezzaPagina = window.innerHeight;
 const percentualeAltezzaStanze = 0.23
 const unit = altezzaPagina*percentualeAltezzaStanze; //unità di altezza
@@ -54,6 +56,7 @@ function handleResize() {
 
 
 // scrollama event handlers
+
 function handleProgress(response) {
     nascondiLineaTutta(12,response.index,true);
     console.log("indice: "+response.index);
@@ -136,12 +139,21 @@ function handleProgress(response) {
     
     fineLinea(5,0,3, response); // FINE MIN
     morte(9,7,2,response)
-
+    console.log("prog "+response.progress);
     switch (response.index) {
 
    
         case 0:
             zoom();
+
+            if (response.progress < 0.1) {
+                if (response.direction === "up") {
+                    document.getElementById("container").classList.remove("mostra");
+                }
+                else                     document.getElementById("container").classList.add("mostra");
+
+            }
+
             //A SCATTI animations.impostaZoom(3,3);
             if (response.progress <= 0.9) {
                 mostra(document.getElementById("introSVG"));
@@ -158,7 +170,7 @@ function handleProgress(response) {
 
             // PIETRA
             mostraTraPunti("pietra",4,0,1,response);
-            if (response.progress <= animations.ottieniProgresso(5,response.index,1)) {              // prima del primo vertice di min
+            if (response.progress <= animations.ottieniProgresso(5,response.index,2)) {              // prima del primo vertice di min
                 animations.muoviOggetto("pietra", response, 5 ,translation,-15,15); // aggancia a min
             } else {                                                                // altrimenti
                 animations.muoviOggetto("pietra", response, 4,translation,-15,15);  // aggancia a kevin
@@ -180,12 +192,14 @@ function handleProgress(response) {
             break;
         case 2:
             zoom();
+
         //    nascondiLineaTutta(3,response.index);
              //   morte(3,2,2,response);
              
             break;
         case 3:
             zoom();
+            piove(response.progress);
 
         //    mostraLineaTutta(3,response.index);
         //    animations.nascondiLineaInizio(7,response.index,2);
@@ -215,24 +229,74 @@ function handleProgress(response) {
     }
 }
 
+
 function handleStepEnter(response) {
     switch (response.index) {
 
    
         case 0:
         //    mostra(document.getElementById("introSVG"));
+            document.getElementById("container").classList.add("mostra");
 
             break;
         case 1:
-         
+
             break;
         case 2:
-        
+            pioggia.nascondiPioggia();
+
              
             break;
         case 3:
+            pioggia.mostraPioggia();
+
+            break;
+        case 4:
+            pioggia.nascondiPioggia();
+
+           
+            break;
+        case 5:
+
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8: 
+            break;
+        case 9:
+            break;
+        case 10:
+            break;
+        case 11:
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+
+function handleStepExit(response) {
+    switch (response.index) {
+
+   
+        case 0:
+         //   if(response.direction === "up") document.getElementById("container").classList.remove("mostra");
+
+            break;
+        case 1:
   
 
+            break;
+        case 2:
+    
+             
+            break;
+        case 3:
+        
             break;
         case 4:
            
@@ -256,6 +320,9 @@ function handleStepEnter(response) {
             break;
     }
 }
+
+
+
 function setupStickyfill() {
     d3.selectAll(".sticky").each(function() {
         Stickyfill.add(this);
@@ -281,7 +348,8 @@ function init() {
             debug: false
         })
         .onStepProgress(handleProgress)
-        .onStepEnter(handleStepEnter);
+        .onStepEnter(handleStepEnter)
+        .onStepExit(handleStepExit);
 
     window.addEventListener("resize", handleResize);
 
@@ -408,4 +476,8 @@ function morte(idPersonaggio,scena,indiceTempo,response) {
     }  else {
         animations.cambiaFaccia(idPersonaggio,false);
     } 
+}
+
+function piove(progresso) {
+    pioggia.calcolaAcqua(progresso);
 }

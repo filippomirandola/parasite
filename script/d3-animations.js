@@ -5,7 +5,7 @@ export var altezzaPagina = window.innerHeight;
 export var larghezzaPagina = window.innerWidth;
 const percentualeAltezzaStanze = 0.23;
 const unit = altezzaPagina*percentualeAltezzaStanze; //unità di altezza
-const k = 3047/900; // lunghezza/altezza csv stanze
+const k = 3040/858; // lunghezza/altezza csv stanze
 const ampiezzaStep = 50;
 const zoomX = ampiezzaStep * 2;
 export const zoomProgressoFinale = 0.2;
@@ -34,7 +34,7 @@ export var zoomScena = [
     [0,4],
     [0,4]
  ];
- var modificatoriZoom = [3,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5];
+ var modificatoriZoom = [3,1.2,1,1,1,1,1,1,1,1,1,1];
 
 // Dataset piani  bunker / casaPoveri / strada / casaRicchi1 / casaRicchi2
 const livelli = [6,5,4,9,5];
@@ -666,7 +666,8 @@ function generaSfondoModulo(rip) {
     .attr("y",(1-percentualeAltezzaStanze)*altezzaPagina)
     .attr("width",unit*k)
     .attr("height",unit)
-    .attr("href","./assets/sfondi/bunker.svg");
+    .attr("href","./assets/sfondi/livello0.svg");
+    //.attr("href","./assets/sfondi/bunker.svg");
  
     gruppo
     .append("image")
@@ -676,7 +677,9 @@ function generaSfondoModulo(rip) {
     .attr("y",(1-2*percentualeAltezzaStanze)*altezzaPagina)
     .attr("width",unit*k)
     .attr("height",unit)
-    .attr("href","./assets/sfondi/casa-kim.svg");
+    .attr("href","./assets/sfondi/livello1.svg");
+
+  //  .attr("href","./assets/sfondi/casa-kim.svg");
 
     gruppo
     .append("image")
@@ -686,7 +689,9 @@ function generaSfondoModulo(rip) {
     .attr("y",2*(percentualeAltezzaStanze)*altezzaPagina)
     .attr("width",unit*k)
     .attr("height",altezzaPagina-4*unit)
-    .attr("href","./assets/sfondi/strada.svg");
+    .attr("href","./assets/sfondi/livello2.svg");
+
+   // .attr("href","./assets/sfondi/strada.svg");
 
     gruppo
     .append("image")
@@ -696,7 +701,8 @@ function generaSfondoModulo(rip) {
     .attr("y",(percentualeAltezzaStanze)*altezzaPagina)
     .attr("width",unit*k)
     .attr("height",unit)
-    .attr("href","./assets/sfondi/casa-park-1.svg");
+    .attr("href","./assets/sfondi/livello3.svg");
+  //  .attr("href","./assets/sfondi/casa-park-1.svg");
     gruppo
     .append("image")
     .attr("class","livello4")
@@ -705,7 +711,9 @@ function generaSfondoModulo(rip) {
     .attr("y",0)
     .attr("width",unit*k)
     .attr("height",unit)
-    .attr("href","./assets/sfondi/casa-park-2.svg");
+    .attr("href","./assets/sfondi/livello4.svg");
+
+ //   .attr("href","./assets/sfondi/casa-park-2.svg");
  
 }
 
@@ -824,7 +832,10 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
                 .attr("d",Gen(puntiScena))
                 .attr("stroke", coloreLinea(idPersonaggio))
                 .attr("fill", "none")
-                .attr("stroke-width", spessoreLinee);
+                .attr("stroke-width", spessoreLinee)
+                .style("filter","drop-shadow(0px 0px 2px "+coloreLinea(idPersonaggio)+")");
+               
+
     lunghezzaLinee[scena][idPersonaggio] = line.node().getTotalLength();
     calcolaPercentuale(puntiScena,lunghezzaLinee[scena][idPersonaggio]); 
 
@@ -922,6 +933,7 @@ function creaFaccia(idPersonaggio) {
         .attr("height",dimensioneFacce)
         .attr("x",-dimensioneFacce/2)
         .attr("y",-dimensioneFacce/2)
+        .style("filter","drop-shadow(0px 0px 5px "+coloreLinea(idPersonaggio)+")")
         .attr("href", personaggi[parseInt(idPersonaggio)-1].faccia);
 }
 
@@ -1202,6 +1214,15 @@ let r2 = txtP.append("tspan")
 
 // txtP.html("blabla");
 
+// ############################################################################
+// #########################         ACQUA         ############################
+// ############################################################################
+
+let acqua = megaSVG.append("g").
+    attr("id","acqua-parent")
+    .attr("width",larghezzaPagina)
+    .attr("height",altezzaPagina);
+
 
 // ############################################################################
 // #########################         TESTI         ############################
@@ -1240,9 +1261,11 @@ export function impostaZoomSfondo(rapporto,traslazioneY,traslazioneX) {
   .attr("transform","scale("+rapporto+") "+"translate("+traslazioneX+" "+traslazioneY+") ");
 }
 
-export function impostaZoomFacce(rapporto, scena){ 
-    let dimensione = dimensioneFacce*2*modificatoriZoom[scena]/rapporto;
-    console.log(dimensione);
+export function impostaZoomFacce(rapporto,modificatoreFacce, scena){ 
+    console.log("zoom dentro facce "+rapporto);
+   // let dimensione = dimensioneFacce*2*modificatoriZoom[scena]/rapporto;
+   let dimensione = dimensioneFacce*2*modificatoreFacce/rapporto;
+    console.log("dimensione facce " +dimensione);
     for (let i = 1; i<=personaggi.length; i++) {
         let idFaccia="faccia"+i;
         console.log(idFaccia);
@@ -1266,7 +1289,7 @@ export function impostaZoomIntro(rapporto,traslazioneX,traslazioneY){
 export function calcolaZoom(progresso, scena, nuovo, vecchio) {
     let deltaAltezza = coordinateLivelli[nuovo[0]].max - coordinateLivelli[nuovo[1]].min;
     let rapportoFinale = altezzaPagina / deltaAltezza;
-    let rapporto, traslazioneY, traslazioneX;
+    let rapporto, modificatoreFacce, traslazioneY, traslazioneX;
     let ritardoZoom=0.05;
 
     if (progresso <= zoomProgressoFinale) // quando deve progredire
@@ -1285,6 +1308,11 @@ export function calcolaZoom(progresso, scena, nuovo, vecchio) {
         }
      //   console.log("progresso zoom: "+rapporto);
         let calcolaTraslazioneY = d3.scaleLinear().domain([0,zoomProgressoFinale]).range([-coordinateLivelli[vecchio[1]].min, -coordinateLivelli[nuovo[1]].min]);
+        if (scena != 0) {
+            let calcolaModificatore = d3.scaleLinear().domain([0,zoomProgressoFinale]).range([modificatoriZoom[scena-1],modificatoriZoom[scena]]);
+            modificatoreFacce = calcolaModificatore(progresso);
+        }
+        else modificatoreFacce = modificatoriZoom[0];
         //rapporto = calcolaRapporto(progresso);    
         traslazioneY = calcolaTraslazioneY(progresso);
         traslazioneX = - ((xMaschera)-(xMaschera/rapporto));
@@ -1292,12 +1320,13 @@ export function calcolaZoom(progresso, scena, nuovo, vecchio) {
      } else {
         rapporto = rapportoFinale;
         traslazioneY = -coordinateLivelli[nuovo[1]].min;
+        modificatoreFacce = modificatoriZoom[scena];
     }
     
     traslazioneX = - ((xMaschera)-(xMaschera/rapporto));
 
     impostaZoomSfondo(rapporto,traslazioneY,traslazioneX);
-    impostaZoomFacce(rapporto,scena);
+    impostaZoomFacce(rapporto,modificatoreFacce,scena);
     impostaZoomIntro(rapporto,0,0);
 } 
 

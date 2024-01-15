@@ -1,0 +1,47 @@
+#acqua-parent{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+#acqua-parent {
+  animation: lr 25s ease;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+
+@keyframes lr {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw);
+  }
+}
+
+#acqua.mostra {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0.3;
+  transform: translate(0,0);
+} 
+
+.pioggia-el.mostra {
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+
+#acqua.nascondi,
+.pioggia-el.nascondi {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+}
+
+#acqua.nascondi {
+  transform: translate(0,50vh);
+}
+
+
