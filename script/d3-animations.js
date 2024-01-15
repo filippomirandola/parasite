@@ -1,3 +1,8 @@
+//bunkersis sparisce a 3,12
+// e riappare a 5,14 a piano 3,1
+
+// papaparks compare a 2,12
+
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 //import * as scrolling from "./scroll_code.js";
 
@@ -46,14 +51,16 @@ const personaggi = [
         nome: "Figlia",
         famiglia: "Parks",
         dataset: "./data/data_figliaparks.csv",
-        faccia: "./assets/facce/figliaParks.svg"
+        faccia: "./assets/facce/figliaParks.svg",
+        dimensione: 1
     },
     {
         i: 2,
         nome: "Figlio",
         famiglia: "Parks",
         dataset: "./data/data_figlioparks.csv",
-        faccia: "./assets/facce/bimboParks.svg"
+        faccia: "./assets/facce/bimboParks.svg",
+        dimensione: 1
     },
     {
         i: 3,
@@ -61,42 +68,48 @@ const personaggi = [
         famiglia: "Kim",
         dataset: "./data/data_jessica.csv",
         faccia: "./assets/facce/jessica.svg",
-        morte: "./assets/facce/morti/jessica-morta.svg"
+        morte: "./assets/facce/morti/jessica-morta.svg",
+        dimensione: 1
     },
     {
         i: 4,
         nome: "Kevin",
         famiglia: "Kim",
         dataset: "./data/data_kevin.csv",
-        faccia: "./assets/facce/kevin.png"
+        faccia: "./assets/facce/kevin.png",
+        dimensione: 1
     },
     {
         i: 5,
         nome: "Min",
         famiglia: "Min",
         dataset: "./data/data_min.csv",
-        faccia: "./assets/facce/min.svg"
+        faccia: "./assets/facce/min.svg",
+        dimensione: 1
     },
     {
         i: 6,
         nome: "Papa",
         famiglia: "Kim",
         dataset: "./data/data_papakim.csv",
-        faccia: "./assets/facce/papaKim.svg"
+        faccia: "./assets/facce/papaKim.svg",
+        dimensione: 1
     },
     {
         i: 7,
         nome: "Mamma",
         famiglia: "Parks",
         dataset: "./data/data_mammaparks.csv",
-        faccia: "./assets/facce/mammaParks.svg"
+        faccia: "./assets/facce/mammaParks.svg",
+        dimensione: 1
     },
     {
         i: 8,
         nome: "Mamma",
         famiglia: "Kim",
         dataset: "./data/data_mammakim.csv",
-        faccia: "./assets/facce/mammaKim.svg"
+        faccia: "./assets/facce/mammaKim.svg",
+        dimensione: 1
     },
     {
         i: 9,
@@ -104,7 +117,8 @@ const personaggi = [
         famiglia: "Bunker",
         dataset: "./data/data_bunkersis.csv",
         faccia: "./assets/facce/bunkerSis.svg",
-        morte: "./assets/facce/morti/bunkerSis-morta.svg"
+        morte: "./assets/facce/morti/bunkerSis-morta.svg",
+        dimensione: 1
     },
 
     {
@@ -113,7 +127,8 @@ const personaggi = [
         famiglia: "Bunker",
         dataset: "./data/data_bunkerbro.csv",
         faccia: "./assets/facce/bunkerBro.svg",
-        morte: "./assets/facce/morti/bunkerBro-morto.svg"
+        morte: "./assets/facce/morti/bunkerBro-morto.svg",
+        dimensione: 1
     },
     {
         i: 11,
@@ -121,7 +136,8 @@ const personaggi = [
         famiglia: "Parks",
         dataset: "./data/data_papaparks.csv",
         faccia: "./assets/facce/papaParks.svg",
-        morte: "./assets/facce/morti/papaParks-morto.svg"
+        morte: "./assets/facce/morti/papaParks-morto.svg",
+        dimensione: 1
 
     },
     {
@@ -129,7 +145,8 @@ const personaggi = [
         nome: "TEST",
         famiglia: "Parks",
         dataset: "./data/data_testLivelli.csv",
-        faccia: "./assets/facce/boh.png"
+        faccia: "./assets/facce/boh.png",
+        dimensione: 1
     }
 ];
 
@@ -137,67 +154,92 @@ const oggetti = [
     {
         i: 0,
         id: "auto",
-        src: "./assets/oggetti/auto.svg"
+        src: "./assets/oggetti/auto.svg",
+        dimensione: 1
     },
     {
         i: 1,
         id: "bicchiere",
-        src: "./assets/oggetti/bicchiere.svg"
+        src: "./assets/oggetti/bicchiere.svg",
+        dimensione: 1
     },
     {
         i: 2,
         id: "bottiglia",
-        src: "./assets/oggetti/bottiglia.svg"
+        src: "./assets/oggetti/bottiglia.svg",
+        dimensione: 1
     },
     {
         i: 3,
         id: "campanello",
-        src: "./assets/oggetti/campanello.svg"
+        src: "./assets/oggetti/campanello.svg",
+        dimensione: 1
     },
     {
         i: 4,
-        id: "coltello",
-        src: "./assets/oggetti/coltello.svg"
+        id: "coltello-bunkerbro",
+        src: "./assets/oggetti/coltello.svg",
+        dimensione: 1
     },
     {
         i: 5,
-        id: "lotta",
-        src: "./assets/oggetti/lotta.svg"
+        id: "coltello-jessica",
+        src: "./assets/oggetti/coltello.svg",
+        dimensione: 1
     },
     {
         i: 6,
-        id: "mutande",
-        src: "./assets/oggetti/mutande.svg"
+        id: "coltello-papaparks",
+        src: "./assets/oggetti/coltello.svg",
+        dimensione: 1
     },
     {
         i: 7,
-        id: "nuvoletta",
-        src: "./assets/oggetti/nuvoletta.svg"
+        id: "lotta",
+        src: "./assets/oggetti/lotta.svg",
+        dimensione: 1
     },
     {
         i: 8,
-        id: "pesca",
-        src: "./assets/oggetti/pesca.svg"
+        id: "mutande",
+        src: "./assets/oggetti/mutande.svg",
+        dimensione: 1
     },
     {
         i: 9,
-        id: "pietra",
-        src: "./assets/oggetti/pietra.svg"
+        id: "nuvoletta",
+        src: "./assets/oggetti/nuvoletta.svg",
+        dimensione: 1
     },
     {
         i: 10,
-        id: "puzza",
-        src: "./assets/oggetti/puzza.svg"
+        id: "pesca",
+        src: "./assets/oggetti/pesca.svg",
+        dimensione: 1
     },
     {
         i: 11,
-        id: "torta",
-        src: "./assets/oggetti/torta.svg"
+        id: "pietra",
+        src: "./assets/oggetti/pietra.svg",
+        dimensione: 1
     },
     {
         i: 12,
+        id: "puzza",
+        src: "./assets/oggetti/puzza.svg",
+        dimensione: 1
+    },
+    {
+        i: 13,
+        id: "torta",
+        src: "./assets/oggetti/torta.svg",
+        dimensione: 1
+    },
+    {
+        i: 14,
         id: "valigia",
-        src: "./assets/oggetti/valigia.svg"
+        src: "./assets/oggetti/valigia.svg",
+        dimensione: 1
     }
 ];
 
@@ -892,7 +934,7 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
         }
     }
  
-/*     if (idPersonaggio == 1) { // FIGLIA PARKS 
+    if (idPersonaggio == 1) { // FIGLIA PARKS 
         if (scena == 2) {
             line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 2, 5, false));
         }
@@ -900,12 +942,12 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
             line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 3, false));
         }
         if (scena == 4) {
-            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 1, 2, false));
+            line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 3, false));
         }
         if (scena == 5) {
             line.style("stroke-dasharray",tratteggio(idPersonaggio, puntiP, scena, 0, 1, false));
         }
-    } */
+    }
 
    
 }
@@ -925,14 +967,15 @@ for (let scena = 0; scena<numeroScene; scena++) {
 
 function creaFaccia(idPersonaggio) {
     //console.log(personaggi[idPersonaggio].faccia);
+    let dimensione = dimensioneFacce * personaggi[parseInt(idPersonaggio)-1].dimensione;
     let faccia = svg
         .append("image")
         .attr("class","faccia")
         .attr("id","faccia"+idPersonaggio)
-        .attr("width",dimensioneFacce)
-        .attr("height",dimensioneFacce)
-        .attr("x",-dimensioneFacce/2)
-        .attr("y",-dimensioneFacce/2)
+        .attr("width",dimensione)
+        .attr("height",dimensione)
+        .attr("x",-dimensione/2)
+        .attr("y",-dimensione/2)
         .style("filter","drop-shadow(0px 0px 5px "+coloreLinea(idPersonaggio)+")")
         .attr("href", personaggi[parseInt(idPersonaggio)-1].faccia);
 }
@@ -1100,14 +1143,15 @@ creaFacce();
 
 
 function creaOggetto(id) {
+    let dimensione = dimensioneOggetti*oggetti[id].dimensione;
     let oggetto = svg
         .append("image")
         .attr("class","oggetto")
         .attr("id",oggetti[parseInt(id)].id)
-        .attr("width",dimensioneOggetti)
-        .attr("height",dimensioneOggetti)
-        .attr("x",-dimensioneOggetti/2)
-        .attr("y",-dimensioneOggetti/2)
+        .attr("width",dimensione)
+        .attr("height",dimensione)
+        .attr("x",-dimensione/2)
+        .attr("y",-dimensione/2)
         .attr("href", oggetti[parseInt(id)].src)
         .attr("style","opacity: 100");
 }
@@ -1265,8 +1309,8 @@ export function impostaZoomFacce(rapporto,modificatoreFacce, scena){
     console.log("zoom dentro facce "+rapporto);
    // let dimensione = dimensioneFacce*2*modificatoriZoom[scena]/rapporto;
    let dimensione = dimensioneFacce*2*modificatoreFacce/rapporto;
-    console.log("dimensione facce " +dimensione);
     for (let i = 1; i<=personaggi.length; i++) {
+        dimensione=dimensione*personaggi[parseInt(i)-1].dimensione;
         let idFaccia="faccia"+i;
         console.log(idFaccia);
 

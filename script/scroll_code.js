@@ -138,8 +138,15 @@ function handleProgress(response) {
 
     
     fineLinea(5,0,3, response); // FINE MIN
-    morte(9,7,2,response)
-    console.log("prog "+response.progress);
+    fineLinea(9,3,2, response); // FINE bunker sis
+    morte(9,7,2,response); // bunkersis
+    morte(3,9,2,response); // jessica
+    morte(11,9,2,response); // papà parks
+    morte(10,9,2,response); // bunkerbro
+
+
+
+
     switch (response.index) {
 
    
@@ -168,6 +175,10 @@ function handleProgress(response) {
                 mostra(document.getElementById("introSVG"));
             }  */
 
+
+
+
+
             // PIETRA
             mostraTraPunti("pietra",4,0,1,response);
             if (response.progress <= animations.ottieniProgresso(5,response.index,2)) {              // prima del primo vertice di min
@@ -175,6 +186,8 @@ function handleProgress(response) {
             } else {                                                                // altrimenti
                 animations.muoviOggetto("pietra", response, 4,translation,-15,15);  // aggancia a kevin
             }
+
+
             
 
 
@@ -193,16 +206,53 @@ function handleProgress(response) {
         case 2:
             zoom();
 
-        //    nascondiLineaTutta(3,response.index);
-             //   morte(3,2,2,response);
+             mostraTraPunti("auto",3,6,8,response);
+           // AUTO va al padreParks dal t12 al t13
+
+            if (response.progress <= animations.ottieniProgresso(3,response.index,7)) {  
+                animations.muoviOggetto("auto", response, 11 ,translation,-15,15); // aggancia a jessica
+               // aggancia a papà parks
+            }
+            else    animations.muoviOggetto("auto", response, 3,translation,-15,15);
+            // a Jessica dal 13 al 16
+
+
+           // MUTANDE JESSICA(3) s2 t16 le 
+           mostraTraPunti("mutande",3,7,9,response);
+           animations.muoviOggetto("mutande", response, 3 ,translation,-15,-15); // aggancia a jessica (PERCHé fa così???)
+
              
             break;
+
         case 3:
             zoom();
             piove(response.progress);
 
-        //    mostraLineaTutta(3,response.index);
-        //    animations.nascondiLineaInizio(7,response.index,2);
+        
+
+
+      // AUTO va al padreKim dal t3 al t17
+
+            mostraTraPunti("auto",6,1,4,response);
+            animations.muoviOggetto("auto", response, 6,translation,-15,15);
+            
+            // PESCA da 3,3 fino a 3,11 con padrekim(6) 
+            // da 3,11 a 3,12 a bunkersis(9)
+            if (response.progress < animations.ottieniProgresso(6,response.index,2)) { 
+                mostraTraPunti("pesca",6,1,2,response);
+                animations.muoviOggetto("pesca", response, 6,translation,-15,15);
+
+            }
+            else {
+                mostraTraPunti("pesca",9,0,2,response); // da mantenere mostrata anche doopo
+                animations.muoviOggetto("pesca", response, 9,translation,-15,15);
+
+            }
+
+            animations.bloccaElemento("pesca",9,3,2,response,-15,15);
+
+
+
 
             break;
         case 4:
@@ -210,15 +260,43 @@ function handleProgress(response) {
 
             break;
         case 5:
+            // a 5,12 - legato a nessuno: bicchiere
+            posizionaOggetto("bicchiere",5,12,3,6,-translation,0); // RICORDA DI ALZARE
+            posizionaOggetto("campanello",5,14,3,6,-translation,0); // RICORDA DI ALZARE
+
+
+             // VALIGE - DA 5,5 A 10,10
+             // A TUTTI I PARKS (1,7,11,2)
+             // AUTO???
+
+
 
             break;
         case 6:
+            console.log(-translation+animations.stabilisciAmpiezzaLinea(6));   // CORREGGERE
+            posizionaOggetto("bicchiere",5,12,3,6,-translation+animations.stabilisciAmpiezzaLinea(6)); // RICORDA DI ALZARE
+            posizionaOggetto("campanello",6,10,3,6,-translation,0); // RICORDA DI ALZARE
+            posizionaOggetto("lotta",6,4,3,6,-translation,0); // RICORDA DI ALZARE
+
             break;
         case 7:
             break;
         case 8: 
             break;
         case 9:
+            // coltello al t14 legato a bunkerbro(10) 
+            mostraTraPunti("coltello-bunkerbro",10,1,2,response);
+            animations.muoviOggetto("coltello-bunkerbro", response, 10,translation,-15,15); //capire se farlo sparire o no 
+        
+            // coltello jessica
+            mostraTraPunti("coltello-jessica",3,1,2,response);
+            animations.muoviOggetto("coltello-jessica", response, 3,translation,-15,15); //capire se farlo sparire o no 
+       
+              // coltello jessica
+            mostraTraPunti("coltello-papaparks",11,1,2,response);
+            animations.muoviOggetto("coltello-papaparks", response, 11,translation,-15,15); //capire se farlo sparire o no 
+       
+            // torta. jessica(3) da 9,3 a 9,13
             break;
         case 10:
             break;
@@ -231,6 +309,7 @@ function handleProgress(response) {
 
 
 function handleStepEnter(response) {
+    console.log("scena "+response.index);
     switch (response.index) {
 
    
@@ -377,7 +456,7 @@ function mostraTraProgress(id, p0, p1, response) {
     console.log("mostra prog "+response.progress);
 
     if ((response.progress*100) >= p0 && (response.progress*100) < p1) {
-        console.log("mostra in");
+        console.log("mostra in "+id);
         mostra(obj);
     } else {
         nascondi(obj);
@@ -385,6 +464,7 @@ function mostraTraProgress(id, p0, p1, response) {
 }
 
 function mostraTraPunti(id, idPersonaggio, tempo0, tempo1, response) {
+    console.log("mostra "+id+" scena "+response.index+" tempo0 "+tempo0+" tempo1 "+tempo1);
     //TEMPO SONO IL NUMERO ORDINALE DI PUNTI DELLA SCENA!!
     let puntiScena = animations.datasetPerScena(animations.ottieniPuntiP(parseInt(idPersonaggio)),response.index);
  //   console.log(puntiScena);
@@ -480,4 +560,16 @@ function morte(idPersonaggio,scena,indiceTempo,response) {
 
 function piove(progresso) {
     pioggia.calcolaAcqua(progresso);
+}
+
+function posizionaOggetto(id,scena,tempo,livello,sottolivello, deltaX, deltaY) {
+    let pt = {};
+    pt.x = animations.calcolaScalaX(scena)(tempo);
+    pt.y = animations.calcolaY(livello,sottolivello);
+    pt.x += deltaX;
+    pt.y += deltaY;
+    
+    let obj = document.getElementById(id);
+    obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)'; 
+
 }
