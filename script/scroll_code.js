@@ -2,6 +2,8 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import * as animations from "./d3-animations.js";
 import * as pioggia from "./pioggia.js";
 import * as testi from "./testi.js";
+import * as finale from "./finale.js";
+
 
 
 var main = d3.select("main");
@@ -9,6 +11,10 @@ var scrolly = main.select("#scrolly");
 var figure = scrolly.select("figure");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
+var ultimoStep = step.filter(function() {
+  return d3.select(this).attr("data-step") == 12; 
+})
+
 var acqua = document.getElementById("acqua-parent");
 const altezzaPagina = window.innerHeight;
 const percentualeAltezzaStanze = 0.23
@@ -40,7 +46,7 @@ function handleResize() {
 
     var stepH = Math.floor(250 * ampiezzaScene[0]);
     step.style("height", stepH + "px");
-
+    ultimoStep.style("height", Math.floor(100 * ampiezzaScene[0])+ "px");
     var figureHeight = window.innerHeight;
     var figureMarginTop = 2*window.innerHeight ;
 
@@ -59,6 +65,13 @@ function handleResize() {
 // scrollama event handlers
 
 function handleProgress(response) {
+    console.log("indice "+response.index);
+
+    if (response.index <= 11 ) {
+
+
+
+
     nascondiLineaTutta(12,response.index,true);
     console.log("indice: "+response.index);
     // CALCOLO TRASLAZIONE
@@ -387,11 +400,13 @@ mostraTestoTraProgress(10,60,response);
             break;
         case 11:
             animations.gestioneLampada(response,translation);
-
+            finale.mostraFinaleOpacita(response,0.5,0.95);
             break;
         default:
             break;
     }
+
+}
 }
 
 
@@ -414,6 +429,7 @@ function handleStepEnter(response) {
              
             break;
         case 3:
+
 
             break;
         case 4:
@@ -453,7 +469,10 @@ function handleStepEnter(response) {
             break;
         case 11:
             document.getElementById("parent").classList.add("blur");
-
+            finale.nascondiTestoFinale();
+            break;
+        case 12:
+            finale.avviaFinale();
             break;
         default:
             break;

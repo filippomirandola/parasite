@@ -1,0 +1,106 @@
+#morsefinal {
+  position: absolute;
+}
+
+.decode-text {
+  width: 100%;
+  font-size: 30px;
+  text-align: center;
+  position: relative;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.space {
+  display: inline-block;
+  width: 10px;
+}
+.text-animation {
+  display: inline-block;
+  position: relative;
+  color: transparent;
+  text-transform: uppercase;
+  &:before {
+    content: "";
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #0e182d;
+    width: 0;
+    height: 1.2em;
+    -webkit-transform: translate(-50%, -55%);
+    -ms-transform: translate(-50%, -55%);
+    transform: translate(-50%, -55%);
+  }
+
+  &.state-1 {
+    &:before {
+      width: 1px;
+    }
+  }
+  &.state-2 {
+    &:before {
+      width: 0.9em;
+    }
+  }
+  &.state-3 {
+    color: black;
+    &:before {
+      width: 0;
+    }
+  }
+}
+
+#refresh {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+
+
+
+
+
+   #container-finale {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+}
+
+#testo-container {
+  height: 100%;
+}
+
+#testo {
+  transition: opacity 0.5s ease;
+}
+   #testo.nascosto,
+   #decode-text.nascosto {
+    opacity: 0;
+   }
+
+   
+   #testo.visibile,
+   #decode-text.visibile {
+      opacity: 1;
+   }
+
+
+#container-finale {
+  transition: opacity 0.5s linear;
+  opacity: 0;
+}
+
+#container-finale.visibile{
+  opacity: 100;
+}
+
+
+
+
+  

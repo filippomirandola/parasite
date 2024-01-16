@@ -252,3 +252,13 @@ article {
 
 
 
+/* OUTRO */
+
+#outro {
+  display: block;
+  position: relative;
+}
+
+img#morsefinal {
+  width: 100vw;
+}
