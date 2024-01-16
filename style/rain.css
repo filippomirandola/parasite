@@ -6,11 +6,15 @@ hr {
     position: absolute;
     bottom: 100%;
     transform-origin: 100% 50%;
-    animation-name: rain;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+ 
   }
+
+.animazione {
+  animation-name: rain;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
 
   @keyframes rain {
     from {

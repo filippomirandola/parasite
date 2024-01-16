@@ -73,3 +73,10 @@ export function nascondiPioggia() {
 
 nascondiPioggia();
 
+export function attivaAnimazione() {
+    tuttaPioggia.classed("animazione",true);
+}
+
+export function disattivaAnimazione() {
+    tuttaPioggia.classed("animazione",false);
+}

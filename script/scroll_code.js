@@ -1,6 +1,7 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import * as animations from "./d3-animations.js";
 import * as pioggia from "./pioggia.js";
+import * as testi from "./testi.js";
 
 
 var main = d3.select("main");
@@ -138,20 +139,45 @@ function handleProgress(response) {
 
     
     fineLinea(5,0,3, response); // FINE MIN
-    fineLinea(9,3,2, response); // FINE bunker sis
     morte(9,7,2,response); // bunkersis
-    morte(3,9,2,response); // jessica
+    morte(3,9,3,response); // jessica
     morte(11,9,2,response); // papà parks
     morte(10,9,2,response); // bunkerbro
+    mostraDopoTempo("campanello1",5,14,response);
+    mostraDopoTempo("campanello2",6,10,response);
+
+    mostraDopoTempo("bicchiere",5,12,response);
+    mostraDopoTempo("lotta",6,4,response);
+
+    fineLinea(1,9,2, response); 
+    fineLinea(2,9,2, response); 
+    fineLinea(7,9,2, response);
+    fineLinea(6,11,2, response); 
+    fineLinea(4,11,2, response); 
+    fineLinea(8,11,1, response); 
 
 
+ 
 
+    
+
+    if (response.index <=4) {
+        fineLinea(9,3,2, response); // FINE bunker sis
+    }
+
+    if (response.index > 5) {
+        mostraLineaTutta(9,5); // RICOMINCIA bunker sis
+        mostraDopoTempo("linea_5_P9",5,14,response);
+    }
+
+mostraTestoTraProgress(10,60,response);
 
     switch (response.index) {
 
    
         case 0:
             zoom();
+
 
             if (response.progress < 0.1) {
                 if (response.direction === "up") {
@@ -169,7 +195,7 @@ function handleProgress(response) {
 
             }
 
-            mostra(document.getElementById("testo0"));
+           // mostra(document.getElementById("testo0"));
 
            /*  if (response.direction === "up" && response.progress <0.9) {
                 mostra(document.getElementById("introSVG"));
@@ -195,6 +221,7 @@ function handleProgress(response) {
         case 1:
             zoom();
 
+
            //  mostraDopoSoglia("intro", response, 0.5);
          //   
             //mostraTraProgress("mutande",0.5, 0.7, response);
@@ -205,6 +232,7 @@ function handleProgress(response) {
             break;
         case 2:
             zoom();
+
 
              mostraTraPunti("auto",3,6,8,response);
            // AUTO va al padreParks dal t12 al t13
@@ -226,7 +254,7 @@ function handleProgress(response) {
 
         case 3:
             zoom();
-            piove(response.progress);
+
 
         
 
@@ -239,7 +267,7 @@ function handleProgress(response) {
             // PESCA da 3,3 fino a 3,11 con padrekim(6) 
             // da 3,11 a 3,12 a bunkersis(9)
             if (response.progress < animations.ottieniProgresso(6,response.index,2)) { 
-                mostraTraPunti("pesca",6,1,2,response);
+                mostraDopoPunto("pesca",6,1,2,response);
                 animations.muoviOggetto("pesca", response, 6,translation,-15,15);
 
             }
@@ -260,45 +288,100 @@ function handleProgress(response) {
 
             break;
         case 5:
+            zoom();
+
             // a 5,12 - legato a nessuno: bicchiere
             posizionaOggetto("bicchiere",5,12,3,6,-translation,0); // RICORDA DI ALZARE
-            posizionaOggetto("campanello",5,14,3,6,-translation,0); // RICORDA DI ALZARE
+            posizionaOggetto("campanello1",5,14,3,6,-translation,0); // RICORDA DI ALZARE
 
 
-             // VALIGE - DA 5,5 A 10,10
+             // VALIGIE - DA 5,5 A 6,10
+             mostraDopoTempo("valigia1",5,5,response);
+             mostraDopoTempo("valigia2",5,5,response);
+             mostraDopoTempo("valigia3",5,5,response);
+             mostraDopoTempo("valigia4",5,5,response);
+   /*           mostraTraPunti("valigia1",1,1,3,response);
+             mostraTraPunti("valigia2",1,1,3,response);
+             mostraTraPunti("valigia3",1,1,3,response);
+             mostraTraPunti("valigia4",1,1,3,response); */
+
+             animations.muoviOggetto("valigia1", response, 1,translation,-30,0);
+             animations.muoviOggetto("valigia2", response, 7,translation,-30,0);
+             animations.muoviOggetto("valigia3", response, 11,translation,-30,0);
+             animations.muoviOggetto("valigia4", response, 2,translation,-30,0);
+
              // A TUTTI I PARKS (1,7,11,2)
+
+
+
              // AUTO???
+             nascondi(document.getElementById("lotta"));
 
 
 
             break;
         case 6:
-            console.log(-translation+animations.stabilisciAmpiezzaLinea(6));   // CORREGGERE
-            posizionaOggetto("bicchiere",5,12,3,6,-translation+animations.stabilisciAmpiezzaLinea(6)); // RICORDA DI ALZARE
-            posizionaOggetto("campanello",6,10,3,6,-translation,0); // RICORDA DI ALZARE
+            zoom();
+
+            console.log(translation+" "+animations.stabilisciAmpiezzaLinea(6));
+            console.log(-translation+animations.stabilisciAmpiezzaLinea(5));   // CORREGGERE
+            posizionaOggetto("bicchiere",5,12,3,6,-translation-animations.stabilisciAmpiezzaLinea(6),0); // RICORDA DI ALZARE
+            posizionaOggetto("campanello1",5,14,3,6,-translation-animations.stabilisciAmpiezzaLinea(6),0); // RICORDA DI ALZARE
+            posizionaOggetto("campanello2",6,10,3,6,-translation,0); // RICORDA DI ALZARE
             posizionaOggetto("lotta",6,4,3,6,-translation,0); // RICORDA DI ALZARE
+
+
+                 // VALIGIE - DA 5,5 A 6,10
+
+                 mostraPrimaTempo("valigia1",6,10,response);
+                 mostraPrimaTempo("valigia2",6,10,response);
+                 mostraPrimaTempo("valigia3",6,10,response);
+                 mostraPrimaTempo("valigia4",6,10,response);
+
+                 animations.muoviOggetto("valigia1", response, 1,translation,-30,0);
+                 animations.muoviOggetto("valigia2", response, 7,translation,-30,0);
+                 animations.muoviOggetto("valigia3", response, 11,translation,-30,0);
+                 animations.muoviOggetto("valigia4", response, 2,translation,-30,0);
+    
+                 // A TUTTI I PARKS (1,7,11,2)
+    
 
             break;
         case 7:
+            piove(response.progress);
+            posizionaOggetto("campanello2",6,10,3,6,-translation-animations.stabilisciAmpiezzaLinea(7),0); // RICORDA DI ALZARE
+            posizionaOggetto("lotta",6,4,3,6,-translation-animations.stabilisciAmpiezzaLinea(7),0); // RICORDA DI ALZARE
+
+
             break;
         case 8: 
+        zoom();
+
             break;
         case 9:
+            zoom();
+
             // coltello al t14 legato a bunkerbro(10) 
             mostraTraPunti("coltello-bunkerbro",10,1,2,response);
-            animations.muoviOggetto("coltello-bunkerbro", response, 10,translation,-15,15); //capire se farlo sparire o no 
+            animations.muoviOggetto("coltello-bunkerbro", response, 10,translation,-20,0); //capire se farlo sparire o no 
         
             // coltello jessica
-            mostraTraPunti("coltello-jessica",3,1,2,response);
-            animations.muoviOggetto("coltello-jessica", response, 3,translation,-15,15); //capire se farlo sparire o no 
+            mostraTraPunti("coltello-jessica",3,2,3,response);
+            animations.muoviOggetto("coltello-jessica", response, 3,translation,-20,0); //capire se farlo sparire o no 
        
               // coltello jessica
             mostraTraPunti("coltello-papaparks",11,1,2,response);
-            animations.muoviOggetto("coltello-papaparks", response, 11,translation,-15,15); //capire se farlo sparire o no 
+            animations.muoviOggetto("coltello-papaparks", response, 11,translation,-20,0); //capire se farlo sparire o no 
        
             // torta. jessica(3) da 9,3 a 9,13
+
+            mostraTraPunti("torta",3,1,2,response);
+            animations.muoviOggetto("torta", response, 3,translation,-15,15); //capire se farlo sparire o no 
+
             break;
         case 10:
+            zoom();
+
             break;
         case 11:
             break;
@@ -309,6 +392,7 @@ function handleProgress(response) {
 
 
 function handleStepEnter(response) {
+    setTesto(response);
     console.log("scena "+response.index);
     switch (response.index) {
 
@@ -322,33 +406,45 @@ function handleStepEnter(response) {
 
             break;
         case 2:
-            pioggia.nascondiPioggia();
 
              
             break;
         case 3:
-            pioggia.mostraPioggia();
 
             break;
         case 4:
-            pioggia.nascondiPioggia();
-
+            if(response.direction=="up") pioggia.disattivaAnimazione();
            
             break;
         case 5:
+            if(response.direction=="down") pioggia.attivaAnimazione();
+            pioggia.nascondiPioggia();
+
 
             break;
         case 6:
+            pioggia.mostraPioggia();
+
             break;
         case 7:
+            pioggia.mostraPioggia();
+
             break;
         case 8: 
+        pioggia.nascondiPioggia();
+
             break;
         case 9:
+            if(response.direction=="down") pioggia.disattivaAnimazione();
+            if(response.direction=="up") pioggia.attivaAnimazione();
+
             break;
         case 10:
+            document.getElementById("parent").classList.remove("blur");
             break;
         case 11:
+            document.getElementById("parent").classList.add("blur");
+
             break;
         default:
             break;
@@ -359,6 +455,7 @@ function handleStepEnter(response) {
 
 
 function handleStepExit(response) {
+
     switch (response.index) {
 
    
@@ -394,6 +491,9 @@ function handleStepExit(response) {
         case 10:
             break;
         case 11:
+            d3.select("#parent").classed("blur",false);
+            d3.select("#parent").classed("noblur",true);
+
             break;
         default:
             break;
@@ -475,18 +575,18 @@ function mostraTraPunti(id, idPersonaggio, tempo0, tempo1, response) {
 }
 
 
-function mostraDopoSoglia(id, response, soglia) {
+function mostraDopoSoglia(id, response, scena, soglia) {
 
     let oggetto = document.getElementById(id);
    /*  if (response.index < index) {
         oggetto.style.visibility = "hidden";
     } */
 
-    if (response.progress >= soglia) {
+    if (response.progress >= soglia || response.index > scena) {
         oggetto.style.opacity = 100;
         } 
     
-    if (response.progress <= soglia) {
+    if (response.progress <= soglia && response.index <= scena) {
         oggetto.style.opacity = 0;
             } 
 
@@ -495,6 +595,53 @@ function mostraDopoSoglia(id, response, soglia) {
                 oggetto.style.visibility = "visible";
             } */
     }
+
+    function mostraPrimaSoglia(id, response, scena, soglia) {
+
+        let oggetto = document.getElementById(id);
+       /*  if (response.index < index) {
+            oggetto.style.visibility = "hidden";
+        } */
+    
+        if (response.progress <= soglia || response.index < scena) {
+            oggetto.style.opacity = 100;
+            } 
+        
+        if (response.progress >= soglia && response.index >= scena) {
+            oggetto.style.opacity = 0;
+                } 
+    
+    
+        /* if (response.index > index) {
+                    oggetto.style.visibility = "visible";
+                } */
+        }
+
+function mostraDopoPunto(id, idPersonaggio, scena, tempo, response) {
+    let puntiScena = animations.datasetPerScena(animations.ottieniPuntiP(parseInt(idPersonaggio)),scena);
+    let p = puntiScena[tempo].progresso/100;
+
+    mostraDopoSoglia(id, response, scena, p);
+}
+
+function calcolaPercentualeTempo(scena, tempo) {
+    return (animations.calcolaScalaX(scena)(tempo)-animations.xMaschera)/(animations.stabilisciAmpiezzaLinea(scena));
+}
+
+function mostraDopoTempo(id, scena, tempo, response) {
+    
+    let p = calcolaPercentualeTempo(scena,tempo);
+    console.log("p obiettivo "+p+" p attuale "+response.progress);
+    mostraDopoSoglia(id, response, scena, p);
+}
+
+function mostraPrimaTempo(id, scena, tempo, response) {
+    
+    let p = calcolaPercentualeTempo(scena,tempo);
+    console.log("p obiettivo "+p+" p attuale "+response.progress);
+    mostraPrimaSoglia(id, response, scena, p);
+}
+
 
 
 // nasconde linea e scena intera e fa sparire faccia
@@ -573,3 +720,70 @@ function posizionaOggetto(id,scena,tempo,livello,sottolivello, deltaX, deltaY) {
     obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)'; 
 
 }
+
+
+
+
+let containerTesti = document.getElementById("chart").appendChild(document.createElement("div"));
+containerTesti.setAttribute("id","testi");
+
+containerTesti.innerHTML = "";
+containerTesti.classList.add("nascondiTxt");
+
+
+function setTesto(response) {
+    console.log("in testo "+response.index);
+    switch (response.index) {
+        case 0:
+            containerTesti.innerHTML= "The Kims struggle in a sub-basement apartment, folding pizza boxes to make ends meet.";
+            break;
+        case 1:
+            containerTesti.innerHTML="Ki Woo, the son, manages to get the chance to tutor the daughter of the wealthy Park family, thanks to his friend.";
+            break;
+        case 2:
+            containerTesti.innerHTML= "The infiltration begins: Ki Woo recommends his sister Ki Jeong as an art therapist for Da Song.";
+            break;
+        case 3:
+            containerTesti.innerHTML="The Parks’ chauffeur gets fired after the panty-scandal. Mr. Kim gets employed.";
+            break;
+        case 4:
+            containerTesti.innerHTML= "The Kims cause an allergic reaction to the housekeeper by using peach fuzz. She gets replaced by Chung Sook.";
+            break;
+        case 5:
+            containerTesti.innerHTML="Da Song notices the Kims have the same smell.<br/><br/>While the Parks leave for a camping trip, the Kims revel in their luxurious house.<br/><br/>Suddenly, the old housekeeper rings the intercom.";
+            break;
+        case 6:
+            containerTesti.innerHTML= "The Kims discover the underground bunker and who’s living in there.<br/><br/>A big fight follows and the Parks suddenly come back home, because of a storm.";
+            break;
+        case 7:
+            containerTesti.innerHTML="The former housekeeper dies. Mrs. Kim serves dinner to the Parks, while her family members hide under the coffee table.<br/><br/>They manage to escape, coming back to the Kim’s house. Ki Woo, during the flood, takes the stone with him.";
+            break;
+        case 8:
+            containerTesti.innerHTML= "While the Parks are organizing Da Song’s Birthday Party, tension escalates in the bunker, leading to a violent confrontation.<br/><br/>Geun Sae hits Ki Woo in the head, by using the stone.<br/><br/>The stone symbolizes privilege and ability to fulfill aspirations.<br/><br/>At the birthday party, Da Song recalls the traumatic memory correlated to his previous birthday.";
+            break;
+        case 9:
+            containerTesti.innerHTML="Then the violent aftermath begins: Geun Sae attacks Ki Jeong, and Ki Woo mortally wounds him with the stone.";
+            break;
+        case 10:
+            containerTesti.innerHTML= "Ki Taek escapes and hides himself in the bunker.<br/><br/>Ki Woo will come by the house several times, while his father communicates with him by using the morse code.";
+            break;
+        case 11:
+            containerTesti.innerHTML="Several years go by.<br/><br/>Ki Woo dreams about becoming rich enough to buy the Parks’ former house and then setting his father free.";
+            break;
+        
+        default: break;
+    }
+}
+
+function mostraTestoTraProgress(p0,p1,response){
+
+    if ((response.progress*100) >= p0 && (response.progress*100) < p1) {
+        console.log("testo dentro");
+        containerTesti.classList.add("mostraTxt");
+        containerTesti.classList.remove("nascondiTxt");
+
+    } else {
+        containerTesti.classList.add("nascondiTxt");
+        containerTesti.classList.remove("mostraTxt");
+
+    }}

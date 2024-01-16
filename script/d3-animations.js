@@ -14,8 +14,8 @@ const k = 3040/858; // lunghezza/altezza csv stanze
 const ampiezzaStep = 50;
 const zoomX = ampiezzaStep * 2;
 export const zoomProgressoFinale = 0.2;
-let dimensioneFacce = 20;
-let dimensioneOggetti = 20;
+let dimensioneFacce = 21;
+let dimensioneOggetti = 21;
 let kMaschera = 2;
 
 const tratt = 20;
@@ -28,18 +28,18 @@ const mostraDebug = false;
 export var zoomScena = [
     [1,1],
     [1,4],
+    [1,4],
+    [1,4],
+    [1,4],
+    [1,4],
     [0,4],
     [0,4],
     [0,4],
-    [0,4],
-    [0,4],
-    [0,4],
-    [0,4],
-    [0,4],
+    [3,3],
     [0,4],
     [0,4]
  ];
- var modificatoriZoom = [3,1.2,1,1,1,1,1,1,1,1,1,1];
+ var modificatoriZoom = [3,1.2,1.2,1.2,1.2,1.2,1,1,1,2.7,1,1];
 
 // Dataset piani  bunker / casaPoveri / strada / casaRicchi1 / casaRicchi2
 const livelli = [6,5,4,9,5];
@@ -60,7 +60,7 @@ const personaggi = [
         famiglia: "Parks",
         dataset: "./data/data_figlioparks.csv",
         faccia: "./assets/facce/bimboParks.svg",
-        dimensione: 1
+        dimensione: 0.7
     },
     {
         i: 3,
@@ -101,7 +101,7 @@ const personaggi = [
         famiglia: "Parks",
         dataset: "./data/data_mammaparks.csv",
         faccia: "./assets/facce/mammaParks.svg",
-        dimensione: 1
+        dimensione: 1.3
     },
     {
         i: 8,
@@ -171,73 +171,97 @@ const oggetti = [
     },
     {
         i: 3,
-        id: "campanello",
+        id: "campanello1",
         src: "./assets/oggetti/campanello.svg",
         dimensione: 1
     },
     {
         i: 4,
+        id: "campanello2",
+        src: "./assets/oggetti/campanello.svg",
+        dimensione: 1
+    },
+    {
+        i: 5,
         id: "coltello-bunkerbro",
         src: "./assets/oggetti/coltello.svg",
         dimensione: 1
     },
     {
-        i: 5,
+        i: 6,
         id: "coltello-jessica",
         src: "./assets/oggetti/coltello.svg",
         dimensione: 1
     },
     {
-        i: 6,
+        i: 7,
         id: "coltello-papaparks",
         src: "./assets/oggetti/coltello.svg",
         dimensione: 1
     },
     {
-        i: 7,
+        i: 8,
         id: "lotta",
         src: "./assets/oggetti/lotta.svg",
         dimensione: 1
     },
     {
-        i: 8,
+        i: 9,
         id: "mutande",
         src: "./assets/oggetti/mutande.svg",
         dimensione: 1
     },
     {
-        i: 9,
+        i: 10,
         id: "nuvoletta",
         src: "./assets/oggetti/nuvoletta.svg",
         dimensione: 1
     },
     {
-        i: 10,
+        i: 11,
         id: "pesca",
         src: "./assets/oggetti/pesca.svg",
         dimensione: 1
     },
     {
-        i: 11,
+        i: 12,
         id: "pietra",
         src: "./assets/oggetti/pietra.svg",
         dimensione: 1
     },
     {
-        i: 12,
+        i: 13,
         id: "puzza",
         src: "./assets/oggetti/puzza.svg",
         dimensione: 1
     },
     {
-        i: 13,
+        i: 14,
         id: "torta",
         src: "./assets/oggetti/torta.svg",
         dimensione: 1
     },
     {
-        i: 14,
-        id: "valigia",
+        i: 15,
+        id: "valigia1",
+        src: "./assets/oggetti/valigia.svg",
+        dimensione: 1
+    },
+    {
+        i: 16,
+        id: "valigia2",
+        src: "./assets/oggetti/valigia.svg",
+        dimensione: 1
+    },
+    {
+        i: 17,
+        id: "valigia3",
+        src: "./assets/oggetti/valigia.svg",
+        dimensione: 1
+    },
+    {
+        i: 18,
+        id: "valigia4",
         src: "./assets/oggetti/valigia.svg",
         dimensione: 1
     }
@@ -249,7 +273,7 @@ const testi = [
         y: [2,2],
         inizio: [0,0],
         fine: [0,5],
-        txt: "AAAA",
+        txt: "The Kims struggle in a sub-basement apartment, folding pizza boxes to make ends meet.",
     },
 
     {
@@ -395,8 +419,8 @@ ampiezzaScene[3]=20;
  ampiezzaScene[7]=20;
  ampiezzaScene[8]=20;
  ampiezzaScene[9]=20; 
- ampiezzaScene[10]=20; 
- ampiezzaScene[11]=20; 
+ ampiezzaScene[10]=25; 
+ ampiezzaScene[11]=14; 
 
 
 
@@ -676,6 +700,7 @@ const height = 500;
 const megaSVG = d3.select("#chart")
     .append("svg")
     .attr("id","parent")
+    .attr("class","sfocatura")
     .attr("width",window.innerWidth)
     .attr("height",window.innerHeight);
 
@@ -870,7 +895,7 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
     let puntiScena = datasetPerScena(puntiP, scena);
     let line = gruppo.append("path")
                 .attr("id","linea_"+scena+"_P"+idPersonaggio)
-                .attr("class","linea_P"+idPersonaggio)
+                .attr("class","linea linea_P"+idPersonaggio)
                 .attr("d",Gen(puntiScena))
                 .attr("stroke", coloreLinea(idPersonaggio))
                 .attr("fill", "none")
@@ -976,7 +1001,7 @@ function creaFaccia(idPersonaggio) {
         .attr("height",dimensione)
         .attr("x",-dimensione/2)
         .attr("y",-dimensione/2)
-        .style("filter","drop-shadow(0px 0px 5px "+coloreLinea(idPersonaggio)+")")
+        .style("filter","drop-shadow(0px 0px 3px "+coloreLinea(idPersonaggio)+")")
         .attr("href", personaggi[parseInt(idPersonaggio)-1].faccia);
 }
 
@@ -1323,6 +1348,23 @@ export function impostaZoomFacce(rapporto,modificatoreFacce, scena){
     
 }
 
+export function impostaZoomOggetti(rapporto, scena){ 
+   // let dimensione = dimensioneFacce*2*modificatoriZoom[scena]/rapporto;
+   console.log("oggetti zoom "+rapporto);
+    for (let i = 0; i<oggetti.length; i++) {
+        let dimensione = dimensioneOggetti/rapporto*oggetti[i].dimensione;
+        dimensione=dimensione*oggetti[i].dimensione;
+
+        let obj = document.getElementById(oggetti[i].id);
+        obj.setAttribute("width",dimensione);
+        obj.setAttribute("height",dimensione);
+        obj.setAttribute("x",-dimensione/2);
+        obj.setAttribute("y",-dimensione/2);
+    }
+    
+}
+
+
 export function impostaZoomIntro(rapporto,traslazioneX,traslazioneY){
     let obj = document.getElementById("introSVG");
 
@@ -1370,6 +1412,7 @@ export function calcolaZoom(progresso, scena, nuovo, vecchio) {
     traslazioneX = - ((xMaschera)-(xMaschera/rapporto));
 
     impostaZoomSfondo(rapporto,traslazioneY,traslazioneX);
+    impostaZoomOggetti(rapporto,scena);
     impostaZoomFacce(rapporto,modificatoreFacce,scena);
     impostaZoomIntro(rapporto,0,0);
 } 
