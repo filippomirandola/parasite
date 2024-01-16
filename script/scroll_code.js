@@ -152,13 +152,12 @@ function handleProgress(response) {
 
     
     fineLinea(5,0,3, response); // FINE MIN
-    morte(9,7,2,response); // bunkersis
+    morte(9,7,2,response);
     morte(3,9,3,response); // jessica
     morte(11,9,2,response); // papà parks
     morte(10,9,2,response); // bunkerbro
     mostraDopoTempo("campanello1",5,14,response);
     mostraDopoTempo("campanello2",6,10,response);
-
     mostraDopoTempo("bicchiere",5,12,response);
     mostraDopoTempo("lotta",6,4,response);
 
@@ -174,13 +173,24 @@ function handleProgress(response) {
 
     
 
-    if (response.index <=4) {
+    if (response.index <4) {
+        mostraLineaTutta(9,3);
+        nascondiLineaTutta(9, 4, false)
         fineLinea(9,3,2, response); // FINE bunker sis
     }
+        if (response.index == 4) {
+            mostraLineaTutta(9,3);
+            fineLinea(9,3,2, response);
+            nascondiLineaTutta(9, 4, false)
+        nascondiLineaTutta(9, 5, false)
+            mostraFaccia(9);
+    }
 
-    if (response.index > 5) {
-        mostraLineaTutta(9,5); // RICOMINCIA bunker sis
-        mostraDopoTempo("linea_5_P9",5,14,response);
+
+    if (response.index >= 5) {
+        mostraDopoTempo("linea_5_P9",5,13,response);
+        mostraDopoTempo("gruppo-faccia9",5,13,response);
+        
     }
 
 mostraTestoTraProgress(10,60,response);
@@ -606,18 +616,22 @@ function mostraTraPunti(id, idPersonaggio, tempo0, tempo1, response) {
 
 function mostraDopoSoglia(id, response, scena, soglia) {
 
+    console.log("mostra dopo "+id);
+
     let oggetto = document.getElementById(id);
    /*  if (response.index < index) {
         oggetto.style.visibility = "hidden";
     } */
 
-    if (response.progress >= soglia || response.index > scena) {
+    if (response.progress > soglia || response.index > scena) {
         oggetto.style.opacity = 100;
         } 
     
-    if (response.progress <= soglia && response.index <= scena) {
+    if ((response.index < scena)||(response.progress <= soglia && response.index == scena)) {
         oggetto.style.opacity = 0;
             } 
+
+        
 
 
     /* if (response.index > index) {
@@ -681,7 +695,7 @@ function nascondiLineaTutta(personaggio, scena, nascondiFaccia) {
     nascondi(linea);
 
     if (nascondiFaccia) {
-        let idFaccia = "faccia"+personaggio;
+        let idFaccia = "gruppo-faccia"+personaggio;
         let faccia = document.getElementById(idFaccia);
     
         nascondi(faccia);
@@ -698,9 +712,18 @@ function mostraLineaTutta(personaggio, scena) {
     mostra(obj);
 }
 
+function mostraFaccia(personaggio) {
+    let id = "gruppo-faccia"+personaggio;
+    let obj = document.getElementById(id);
+    mostra(obj);
+}
+
 // blocca oggetto o faccia in corrispondenza di un vertice di un personaggio
 
-
+/* function riprendiLinea(idPersonaggio,response) {
+    mostraLineaTutta(idPersonaggio,response.index);
+    animations
+} */
 
 function fineLinea(idPersonaggio, scena, indiceTempo, response) {
     if (response.index == scena) {
@@ -709,14 +732,14 @@ function fineLinea(idPersonaggio, scena, indiceTempo, response) {
     if (response.index > scena) {
         nascondiLineaTutta(idPersonaggio, response.index, false);
     }
-    animations.bloccaElemento("faccia"+idPersonaggio, idPersonaggio, scena, indiceTempo, response, 0, 0);
+    animations.bloccaElemento("gruppo-faccia"+idPersonaggio, idPersonaggio, scena, indiceTempo, response, 0, 0);
 }
 
 /* 
 function morte(idPersonaggio,scena,indiceTempo,response) {
     animations.nascondiLineaFine(idPersonaggio,scena,indiceTempo);
     if (response.progress >= animations.ottieniProgresso(idPersonaggio,scena,indiceTempo)) {// blocca solo dopo aver superato il punto
-        animations.bloccaElemento("faccia"+idPersonaggio,idPersonaggio,scena,indiceTempo,response,0,0);
+        animations.bloccaElemento("gruppo-faccia"+idPersonaggio,idPersonaggio,scena,indiceTempo,response,0,0);
         animations.cambiaFaccia(idPersonaggio,true);
     }  else {
         animations.cambiaFaccia(idPersonaggio,false);

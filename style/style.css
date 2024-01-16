@@ -262,3 +262,26 @@ article {
 img#morsefinal {
   width: 100vw;
 }
+
+
+
+/* NOMI FACCE */
+/* image[id^="faccia"]:hover + text[id^="nome-faccia"] {
+  opacity: 0.5;
+} */
+
+/* image[id^="faccia"]:hover {
+  opacity: 0;
+} */
+
+.nome-faccia {
+  transition: opacity 0.3s linear;
+  fill:white;
+  opacity: 1;
+}
+
+
+
+.linea_P9 {
+  transition: opacity 0.2s linear;
+}

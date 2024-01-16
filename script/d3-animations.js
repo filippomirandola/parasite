@@ -4,6 +4,8 @@
 // papaparks compare a 2,12
 
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+//import * as finale from "./finale.js";
+
 //import * as scrolling from "./scroll_code.js";
 
 export var altezzaPagina = window.innerHeight;
@@ -15,8 +17,10 @@ const ampiezzaStep = 50;
 const zoomX = ampiezzaStep * 2;
 export const zoomProgressoFinale = 0.2;
 let dimensioneFacce = 21;
+let dimensioneNomi = 0.85;
 let dimensioneOggetti = 30;
-let kMaschera = 2;
+let kMaschera = 2.3;
+
 
 const tratt = 20;
 const trattS = 10;
@@ -1050,8 +1054,33 @@ for (let scena = 0; scena<numeroScene; scena++) {
 
 // FACCE
 
-
 function creaFaccia(idPersonaggio) {
+    //console.log(personaggi[idPersonaggio].faccia);
+    let dimensione = dimensioneFacce * personaggi[parseInt(idPersonaggio)-1].dimensione;
+    let gruppo = svg.append("g").attr("id","gruppo-faccia"+idPersonaggio).attr("class","gruppo-faccia");
+    let faccia = gruppo
+        .append("image")
+        .attr("class","faccia")
+        .attr("id","faccia"+idPersonaggio)
+        .attr("width",dimensione)
+        .attr("height",dimensione)
+        .attr("x",-dimensione/2)
+        .attr("y",-dimensione/2)
+        .style("filter","drop-shadow(0px 0px 3px "+coloreLinea(idPersonaggio)+")")
+        .attr("href", personaggi[parseInt(idPersonaggio)-1].faccia);
+    let nome = gruppo
+        .append("text")
+        .text(personaggi[parseInt(idPersonaggio)-1].nome)
+        .attr("class","nome-faccia")
+        .attr("id","nome-faccia"+idPersonaggio)
+        .attr("x",dimensioneFacce)
+        .attr("y",0)
+        .attr("dominant-baseline","middle")
+        .attr("font-size",dimensioneNomi+"em");
+}
+
+
+/* function creaFaccia(idPersonaggio) {
     //console.log(personaggi[idPersonaggio].faccia);
     let dimensione = dimensioneFacce * personaggi[parseInt(idPersonaggio)-1].dimensione;
     let faccia = svg
@@ -1065,7 +1094,7 @@ function creaFaccia(idPersonaggio) {
         .style("filter","drop-shadow(0px 0px 3px "+coloreLinea(idPersonaggio)+")")
         .attr("href", personaggi[parseInt(idPersonaggio)-1].faccia);
 }
-
+ */
 /* .append("image")
 .attr("class","livello2")
 .attr("id","livello0-"+rip)
@@ -1158,23 +1187,23 @@ creaFacce();
 
  //funzione per ottenere la percentuale nella linea a partire dalla x
  export function muoviFacce(scena, progresso, traslazione) {   
-    muoviFacciaDaX("faccia1", datasetPerScena(puntiP1,scena), xMaschera, traslazione, scena, 0, 0);
-    muoviFacciaDaX("faccia2", datasetPerScena(puntiP2,scena), xMaschera, traslazione, scena, 0, 0);
-    muoviFacciaDaX("faccia3", datasetPerScena(puntiP3,scena), xMaschera, traslazione, scena, 0, 0);
-    muoviFacciaDaX("faccia4", datasetPerScena(puntiP4,scena), xMaschera, traslazione, scena, 0, 0); 
-    muoviFacciaDaX("faccia5", datasetPerScena(puntiP5,scena), xMaschera, traslazione, scena, 0, 0);
-    muoviFacciaDaX("faccia6", datasetPerScena(puntiP6,scena), xMaschera, traslazione, scena, 0, 0);
-    muoviFacciaDaX("faccia7", datasetPerScena(puntiP7,scena), xMaschera, traslazione, scena, 0, 0);
-    muoviFacciaDaX("faccia8", datasetPerScena(puntiP8,scena), xMaschera, traslazione, scena, 0, 0); 
-    muoviFacciaDaX("faccia9", datasetPerScena(puntiP9,scena), xMaschera, traslazione, scena, 0, 0); 
-    muoviFacciaDaX("faccia10", datasetPerScena(puntiP10,scena), xMaschera, traslazione, scena, 0, 0); 
-    muoviFacciaDaX("faccia11", datasetPerScena(puntiP11,scena), xMaschera, traslazione, scena, 0, 0); 
-    muoviFacciaDaX("faccia12", datasetPerScena(puntiP12,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("gruppo-faccia1", datasetPerScena(puntiP1,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("gruppo-faccia2", datasetPerScena(puntiP2,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("gruppo-faccia3", datasetPerScena(puntiP3,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("gruppo-faccia4", datasetPerScena(puntiP4,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("gruppo-faccia5", datasetPerScena(puntiP5,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("gruppo-faccia6", datasetPerScena(puntiP6,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("gruppo-faccia7", datasetPerScena(puntiP7,scena), xMaschera, traslazione, scena, 0, 0);
+    muoviFacciaDaX("gruppo-faccia8", datasetPerScena(puntiP8,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("gruppo-faccia9", datasetPerScena(puntiP9,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("gruppo-faccia10", datasetPerScena(puntiP10,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("gruppo-faccia11", datasetPerScena(puntiP11,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("gruppo-faccia12", datasetPerScena(puntiP12,scena), xMaschera, traslazione, scena, 0, 0); 
 
     //...
    
  }
-
+ 
 
  // MUOVI LA FACCIA A PARTIRE DALLA % PROGRESSO (funzione per ora non usata)
  function muoviFacciaDaProgresso (idFaccia, puntiP, progresso, traslazione) {
@@ -1239,7 +1268,7 @@ function creaOggetto(id) {
         .attr("x",-dimensione/2)
         .attr("y",-dimensione/2)
         .attr("href", oggetti[parseInt(id)].src)
-        .attr("style","opacity: 100");
+        .attr("style","opacity: 0");
 }
 
 for (let i = 0; i < oggetti.length; i++){
@@ -1395,6 +1424,7 @@ export function impostaZoomFacce(rapporto,modificatoreFacce, scena){
     console.log("zoom dentro facce "+rapporto);
    // let dimensione = dimensioneFacce*2*modificatoriZoom[scena]/rapporto;
    let dimensione = dimensioneFacce*2*modificatoreFacce/rapporto;
+  //let dimensioneTxt = dimensioneFacce*2/rapporto
     for (let i = 1; i<=personaggi.length; i++) {
         dimensione=dimensione*personaggi[parseInt(i)-1].dimensione;
         let idFaccia="faccia"+i;
@@ -1405,6 +1435,14 @@ export function impostaZoomFacce(rapporto,modificatoreFacce, scena){
         obj.setAttribute("height",dimensione);
         obj.setAttribute("x",-dimensione/2);
         obj.setAttribute("y",-dimensione/2);
+
+
+       //dimensione=dimensione/modificatoreFacce; //per i testi
+        let txt = document.getElementById("nome-faccia"+i);
+        if (rapporto < 3) {
+            txt.setAttribute("font-size",(dimensioneNomi/rapporto)+"em");
+        }
+        else txt.setAttribute("font-size",(dimensioneNomi/3)+"em");
     }
     
 }
@@ -1424,6 +1462,8 @@ export function impostaZoomOggetti(rapporto, scena){
     }
     
 }
+
+
 
 
 export function impostaZoomIntro(rapporto,traslazioneX,traslazioneY){
