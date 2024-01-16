@@ -175,9 +175,9 @@ export function mostraFinaleOpacita(response,p0,p1) {
             opacita = calcolaOpacita(response.progress);
         }
         else opacita = 1
-       document.getElementById("container-finale").style.opacity = opacita;
        //console.log("opacita "+opacita);
-    }
+    } else opacita = 0;
+    document.getElementById("container-finale").style.opacity = opacita;
 }
 
 export function nascondiTestoFinale() {
@@ -194,7 +194,9 @@ export function mostraTestoFinale() {
 
 
 export function avviaFinale(){
-    mostraTestoFinale();
+    d3.select("#decode-text").classed("visibile",false); 
+    d3.select("#testo").classed("visibile",true); 
+
     initTypewriter();
     setTimeout(function() {
       d3.select("#testo").classed("visibile",false);  // nascondi il testo Morse

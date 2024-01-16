@@ -400,7 +400,7 @@ mostraTestoTraProgress(10,60,response);
             break;
         case 11:
             animations.gestioneLampada(response,translation);
-            finale.mostraFinaleOpacita(response,0.5,0.95);
+            finale.mostraFinaleOpacita(response,0.5,0.99);
             break;
         default:
             break;
