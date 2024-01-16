@@ -119,7 +119,7 @@ export function creaFinale() {
                 if (i < txt.length) {
                     console.log("metti carattere "+txt.charAt(i));
                     if (txt.charAt(i) === "P") {
-                        document.getElementById("testo").innerHTML += "<br/>";
+                        document.getElementById("testo").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     }
                     else {
                         document.getElementById("testo").innerHTML += "&ThinSpace;"+txt.charAt(i);

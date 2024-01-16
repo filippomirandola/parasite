@@ -15,7 +15,7 @@ const ampiezzaStep = 50;
 const zoomX = ampiezzaStep * 2;
 export const zoomProgressoFinale = 0.2;
 let dimensioneFacce = 21;
-let dimensioneOggetti = 21;
+let dimensioneOggetti = 30;
 let kMaschera = 2;
 
 const tratt = 20;
@@ -155,13 +155,13 @@ const oggetti = [
         i: 0,
         id: "auto",
         src: "./assets/oggetti/auto.svg",
-        dimensione: 1
+        dimensione: 1.5
     },
     {
         i: 1,
         id: "bicchiere",
         src: "./assets/oggetti/bicchiere.svg",
-        dimensione: 1
+        dimensione: 1.2
     },
     {
         i: 2,
@@ -173,37 +173,37 @@ const oggetti = [
         i: 3,
         id: "campanello1",
         src: "./assets/oggetti/campanello.svg",
-        dimensione: 1
+        dimensione: 1.2
     },
     {
         i: 4,
         id: "campanello2",
         src: "./assets/oggetti/campanello.svg",
-        dimensione: 1
+        dimensione: 1.2
     },
     {
         i: 5,
         id: "coltello-bunkerbro",
         src: "./assets/oggetti/coltello.svg",
-        dimensione: 1
+        dimensione: 3
     },
     {
         i: 6,
         id: "coltello-jessica",
         src: "./assets/oggetti/coltello.svg",
-        dimensione: 1
+        dimensione: 3
     },
     {
         i: 7,
         id: "coltello-papaparks",
         src: "./assets/oggetti/coltello.svg",
-        dimensione: 1
+        dimensione: 3
     },
     {
         i: 8,
         id: "lotta",
         src: "./assets/oggetti/lotta.svg",
-        dimensione: 1
+        dimensione: 1.5
     },
     {
         i: 9,
@@ -239,7 +239,7 @@ const oggetti = [
         i: 14,
         id: "torta",
         src: "./assets/oggetti/torta.svg",
-        dimensione: 1
+        dimensione: 2
     },
     {
         i: 15,

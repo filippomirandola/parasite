@@ -13,7 +13,7 @@
 }
 .space {
   display: inline-block;
-  width: 0.66em;
+  width: 0.6em;
 }
 .text-animation {
   display: inline-block;
@@ -26,7 +26,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    background: red;
+    background: #c1976b;
     width: 0;
     height: 1.2em;
     -webkit-transform: translate(-50%, -55%);
@@ -45,7 +45,7 @@
     }
   }
   &.state-3 {
-    color: red;
+    color: #c1976b;
     &:before {
       width: 0;
     }
@@ -79,6 +79,15 @@
 #testo, #decode-text {
   transition: opacity 0.5s ease;
   opacity: 0;
+}
+
+#testo {
+  width: 100%;
+  font-size: 1em;
+  top: 68%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:#c1976b;
 }
 /*    #testo.nascosto,
    #decode-text.nascosto {
