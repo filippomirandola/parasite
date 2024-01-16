@@ -190,3 +190,65 @@ article {
   filter: blur(4px) brightness(65%);
 
 }
+
+.lampada {
+  mix-blend-mode: hard-light;
+  transition: opacity 0.2s linear;
+  opacity:0;
+  z-index: 1;
+}
+
+#lampada-luce {
+  filter: blur(3px);
+}
+
+.lampada#lampada-luce.accesa {
+  transition-delay: 0.3s;
+}
+
+.lampada#lampada-luce.accesa,
+.lampada#lampada-filo.accesa {
+  opacity: 100;
+}
+
+.lampada#lampada-luce.accesa {
+  animation-name: morse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+}
+
+@keyframes morse {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1
+  }
+  50% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1
+  }
+  70% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+

@@ -382,8 +382,12 @@ mostraTestoTraProgress(10,60,response);
         case 10:
             zoom();
 
+            animations.gestioneLampada(response,translation);
+
             break;
         case 11:
+            animations.gestioneLampada(response,translation);
+
             break;
         default:
             break;
@@ -436,11 +440,16 @@ function handleStepEnter(response) {
             break;
         case 9:
             if(response.direction=="down") pioggia.disattivaAnimazione();
-            if(response.direction=="up") pioggia.attivaAnimazione();
+            if(response.direction=="up")  {
+                pioggia.attivaAnimazione();
+                animations.rimuoviLampada();
+            }
 
             break;
         case 10:
             document.getElementById("parent").classList.remove("blur");
+            if(response.direction == "down") animations.generaLampada();
+
             break;
         case 11:
             document.getElementById("parent").classList.add("blur");
@@ -489,6 +498,7 @@ function handleStepExit(response) {
         case 9:
             break;
         case 10:
+
             break;
         case 11:
             d3.select("#parent").classed("blur",false);

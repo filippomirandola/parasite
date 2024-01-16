@@ -419,8 +419,8 @@ ampiezzaScene[3]=20;
  ampiezzaScene[7]=20;
  ampiezzaScene[8]=20;
  ampiezzaScene[9]=20; 
- ampiezzaScene[10]=25; 
- ampiezzaScene[11]=14; 
+ ampiezzaScene[10]=20; 
+ ampiezzaScene[11]=20; 
 
 
 
@@ -798,6 +798,67 @@ function generaSfondi() {
    
 generaSfondi();
 
+
+// OVERLAY SFONDO PER LAMPADA CHE SI ACCENDE
+
+export function generaLampada() {
+    let x = unit*k;
+    gruppo
+    .append("image")
+    .attr("class","lampada")
+    .attr("id","lampada-filo")
+    .attr("x",x)
+    .attr("y",percentualeAltezzaStanze*altezzaPagina)
+    .attr("width",unit*k)
+    .attr("height",altezzaPagina-unit)
+    .attr("href","./assets/sfondi/lampada-filo.svg");
+
+    gruppo
+    .append("image")
+    .attr("class","lampada")
+    .attr("id","lampada-luce")
+    .attr("x",x)
+    .attr("y",percentualeAltezzaStanze*altezzaPagina)
+    .attr("width",unit*k)
+    .attr("height",altezzaPagina-unit)
+    .attr("href","./assets/sfondi/lampada-luce.svg");
+
+}
+
+export function rimuoviLampada() {
+    d3.selectAll(".lampada").remove();
+}
+
+export function accendiLampada(){
+    d3.selectAll(".lampada").classed("accesa",true);
+}
+
+export function spegniLampada(){
+    d3.selectAll(".lampada").classed("accesa",false);
+}
+
+let progressoLampada = (((1600/3040))*(unit*k))/stabilisciAmpiezzaLinea(10);
+console.log("progresso lampada "+progressoLampada);
+
+export function gestioneLampada(response,traslazione){
+    console.log("progresso "+response.progress);
+    d3.selectAll('.lampada').attr('transform', "translate(0,0)");
+    if (response.index == 10){
+        if (response.progress > progressoLampada) {
+            accendiLampada();
+        }
+        else spegniLampada();
+    }
+
+    if (response.index == 11){
+        accendiLampada();
+        console.log("ampiezza "+stabilisciAmpiezzaLinea(10)+" traslazione "+traslazione);
+        d3.selectAll('.lampada').attr('transform', "translate("+-(stabilisciAmpiezzaLinea(11))+",0)");
+    }
+
+}
+
+spegniLampada();
 
 // #####################################################################################
 // #########################      CREAZIONE LINEE & FACCE      #########################
