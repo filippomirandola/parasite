@@ -15,7 +15,7 @@ export function creaFinale() {
 
     let immagine = parent.append("img")
         .attr("id","morsefinal")
-        .attr("src","assets/finale/sfondo-final-morse.png")
+        .attr("src","assets/finale/finale-on.png")
         .attr("alt","impossibile caricare l'immagine");
 
     let container = parent.append("div")
@@ -52,18 +52,87 @@ export function creaFinale() {
 
     // TYPEWRITER
 
+    var speedPunto = 70;
+    var src;
+
+     // punto = 50 luce 50 buio
+     // linea = 150 luce 50 buio
+     // spazio = 100 buio
+     // \n = 500 buio
+
+    function mettiLuce(luce) {
+        console.log("mettiLuce");
+
+        document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-on.png");
+        //mette il buio dopo il tempo luce
+        console.log("mettiLuceMessa");
+        
+
+    }
+
+    function mettiBuio() {
+        console.log("mettiBuio");
+        document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-off.png");
+        console.log("mettiBuioMesso");
+    }
+
+    function cambiaLuce(c) {
+        let luce, buio;  
+        console.log("metti carattere "+c+" in cambiaLuce");
+        if (c === "·") {
+            luce = speedPunto;
+            buio = speedPunto;
+        } else {
+            if (c === "—") {
+                luce = 3*speedPunto;
+                buio = speedPunto;
+            } else {
+                if (c === " ") {
+                    luce = 0;
+                    buio = 2*speedPunto; //50 già inclusi in quello precedente
+                } /* else {
+                    luce = 0;
+                    buio = 2.5*speedPunto;
+                } */
+            }
+        }
+        if (c === "P") {
+            luce = 0;
+            buio = 5*speedPunto;
+        }
+        
+        
+        if(luce != 0) mettiLuce(luce);
+        setTimeout(function() {
+            mettiBuio();
+        }, luce);
+        return luce+buio;
+    }
+
     function initTypewriter() {
         document.getElementById("testo").innerHTML="";
         var i = 0;
-        var txt = '... . . \n-.-- --- ..- \n... --- --- -.\n- .... . -. '; 
-            var speed = 150;
+        var txt = '··· · ·P—·—— ——— ··—P··· ——— ——— —·P— ···· · —· '; 
+           
     
             function typeWriter() {
                 if (i < txt.length) {
-                    document.getElementById("testo").innerHTML += txt.charAt(i);
+                    console.log("metti carattere "+txt.charAt(i));
+                    if (txt.charAt(i) === "P") {
+                        document.getElementById("testo").innerHTML += "<br/>";
+                    }
+                    else {
+                        document.getElementById("testo").innerHTML += "&ThinSpace;"+txt.charAt(i);
+                    }
+                
+                    let speed = cambiaLuce(txt.charAt(i));
+                    console.log("speed "+speed);
                     i++;
-                    setTimeout(typeWriter, speed);
+                    setTimeout(function(){
+                        typeWriter();
+                    }, speed);
                 }
+
             }
         typeWriter();
     }
@@ -203,7 +272,7 @@ export function avviaFinale(){
        d3.select("#decode-text").classed("visibile",true);  // mostra il testo "see you soon then"
       decodeText(); //avvia il decode
     
-    }, 9500)
+    }, 10000)
 }
 export function mostraFinale() { // nonUsata
     d3.select("#container-finale").classed("visibile",true);
