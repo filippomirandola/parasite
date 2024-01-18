@@ -11,9 +11,12 @@ var scrolly = main.select("#scrolly");
 var figure = scrolly.select("figure");
 var article = scrolly.select("article");
 var step = article.selectAll(".step");
-var ultimoStep = step.filter(function() {
+var stepFinale = step.filter(function() {
   return d3.select(this).attr("data-step") == 12; 
 })
+var stepCredits = step.filter(function() {
+    return d3.select(this).attr("data-step") == 13; 
+  })
 
 var acqua = document.getElementById("acqua-parent");
 const altezzaPagina = window.innerHeight;
@@ -24,6 +27,7 @@ const ampiezzaScene = [];
  ampiezzaScene[0]=20;
  ampiezzaScene[1]=20;
  ampiezzaScene[2]=20;
+ const dim = animations.dimensioneFacce;
 
  // VALORI ZOOM PER SCENA
  var zoomScena = animations.zoomScena;
@@ -46,7 +50,9 @@ function handleResize() {
 
     var stepH = Math.floor(250 * ampiezzaScene[0]);
     step.style("height", stepH + "px");
-    ultimoStep.style("height", Math.floor(100 * ampiezzaScene[0])+ "px");
+    stepFinale.style("height", Math.floor(75 * ampiezzaScene[0])+ "px");
+    stepCredits.style("height", Math.floor(75 * ampiezzaScene[0])+ "px");
+
     var figureHeight = window.innerHeight;
     var figureMarginTop = 2*window.innerHeight ;
 
@@ -72,7 +78,7 @@ function handleProgress(response) {
 
 
 
-    nascondiLineaTutta(12,response.index,true);
+    // nascondiLineaTutta(12,response.index,true);
     console.log("indice: "+response.index);
     // CALCOLO TRASLAZIONE
     var translation = (response.progress) * animations.stabilisciAmpiezzaLinea(response.index);
@@ -231,9 +237,9 @@ mostraTestoTraProgress(10,60,response);
             // PIETRA
             mostraTraPunti("pietra",4,0,1,response);
             if (response.progress <= animations.ottieniProgresso(5,response.index,2)) {              // prima del primo vertice di min
-                animations.muoviOggetto("pietra", response, 5 ,translation,-15,15); // aggancia a min
+                animations.muoviOggetto("pietra", response, 5 ,translation,-dim*0.2,dim*0.2); // aggancia a min
             } else {                                                                // altrimenti
-                animations.muoviOggetto("pietra", response, 4,translation,-15,15);  // aggancia a kevin
+                animations.muoviOggetto("pietra", response, 4,translation,-dim*0.2,dim*0.2);  // aggancia a kevin
             }
 
 
@@ -261,16 +267,16 @@ mostraTestoTraProgress(10,60,response);
            // AUTO va al padreParks dal t12 al t13
 
             if (response.progress <= animations.ottieniProgresso(3,response.index,7)) {  
-                animations.muoviOggetto("auto", response, 11 ,translation,-15,15); // aggancia a jessica
+                animations.muoviOggetto("auto", response, 11 ,translation,-dim*0.2,dim*0.2); // aggancia a jessica
                // aggancia a papà parks
             }
-            else    animations.muoviOggetto("auto", response, 3,translation,-15,15);
+            else    animations.muoviOggetto("auto", response, 3,translation,-dim*0.2,dim*0.2);
             // a Jessica dal 13 al 16
 
 
            // MUTANDE JESSICA(3) s2 t16 le 
            mostraTraPunti("mutande",3,7,9,response);
-           animations.muoviOggetto("mutande", response, 3 ,translation,-15,-15); // aggancia a jessica (PERCHé fa così???)
+           animations.muoviOggetto("mutande", response, 3 ,translation,-dim*0.2,-dim*0.2); // aggancia a jessica (PERCHé fa così???)
 
              
             break;
@@ -285,22 +291,22 @@ mostraTestoTraProgress(10,60,response);
       // AUTO va al padreKim dal t3 al t17
 
             mostraTraPunti("auto",6,1,4,response);
-            animations.muoviOggetto("auto", response, 6,translation,-15,15);
+            animations.muoviOggetto("auto", response, 6,translation,-dim*0.2,dim*0.2);
             
             // PESCA da 3,3 fino a 3,11 con padrekim(6) 
             // da 3,11 a 3,12 a bunkersis(9)
             if (response.progress < animations.ottieniProgresso(6,response.index,2)) { 
                 mostraDopoPunto("pesca",6,1,2,response);
-                animations.muoviOggetto("pesca", response, 6,translation,-15,15);
+                animations.muoviOggetto("pesca", response, 6,translation,-dim*0.2,dim*0.2);
 
             }
             else {
                 mostraTraPunti("pesca",9,0,2,response); // da mantenere mostrata anche doopo
-                animations.muoviOggetto("pesca", response, 9,translation,-15,15);
+                animations.muoviOggetto("pesca", response, 9,translation,-dim*0.2,dim*0.2);
 
             }
 
-            animations.bloccaElemento("pesca",9,3,2,response,-15,15);
+            animations.bloccaElemento("pesca",9,3,2,response,-dim*0.2,dim*0.2);
 
 
 
@@ -399,7 +405,7 @@ mostraTestoTraProgress(10,60,response);
             // torta. jessica(3) da 9,3 a 9,13
 
             mostraTraPunti("torta",3,1,2,response);
-            animations.muoviOggetto("torta", response, 3,translation,-15,15); //capire se farlo sparire o no 
+            animations.muoviOggetto("torta", response, 3,translation,-dim*0.2,dim*0.2); //capire se farlo sparire o no 
 
             break;
         case 10:
@@ -429,6 +435,7 @@ function handleStepEnter(response) {
         case 0:
         //    mostra(document.getElementById("introSVG"));
             document.getElementById("container").classList.add("mostra");
+            document.getElementById("introSVG").style.visibility="visible";
 
             break;
         case 1:
@@ -475,14 +482,18 @@ function handleStepEnter(response) {
         case 10:
             document.getElementById("parent").classList.remove("blur");
             if(response.direction == "down") animations.generaLampada();
-
+            if (response.direction === "up") finale.togliFinale();
             break;
         case 11:
+            if(response.direction=="down") finale.aggiungiFinale();
             document.getElementById("parent").classList.add("blur");
             finale.nascondiTestoFinale();
             break;
         case 12:
-            finale.avviaFinale();
+            if(response.direction==="down") finale.avviaFinale();
+            break;
+        case 13:
+            finale.mostraCredits();
             break;
         default:
             break;
@@ -499,6 +510,7 @@ function handleStepExit(response) {
    
         case 0:
          //   if(response.direction === "up") document.getElementById("container").classList.remove("mostra");
+            if(response.direction==="down") document.getElementById("introSVG").style.visibility="hidden";
 
             break;
         case 1:
@@ -533,6 +545,9 @@ function handleStepExit(response) {
             d3.select("#parent").classed("blur",false);
             d3.select("#parent").classed("noblur",true);
 
+            break;
+        case 13:
+            finale.nascondiCredits();
             break;
         default:
             break;

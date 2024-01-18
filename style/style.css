@@ -9,6 +9,7 @@ body {
   padding: 0;
 }
 
+
 #inizio {
   width:100vh;
   height:100vw;
@@ -153,7 +154,8 @@ article {
 }
 
 .oggetto,
-.faccia {
+.faccia,
+.gruppo-faccia {
   transition: opacity 0.2s linear;
 }
 
@@ -186,7 +188,7 @@ article {
 .sfocatura {
   transition: filter 1s ease;
 }
-.blur {
+.blur :not(#credits) {
   filter: blur(4px) brightness(65%);
 
 }
@@ -270,9 +272,12 @@ img#morsefinal {
   opacity: 0.5;
 } */
 
-/* image[id^="faccia"]:hover {
+text[id^="nome-faccia"] {
   opacity: 0;
-} */
+}
+[id^="gruppo-faccia"]:hover > text {
+  opacity: 1;
+}
 
 .nome-faccia {
   transition: opacity 0.3s linear;
@@ -280,6 +285,9 @@ img#morsefinal {
   opacity: 1;
 }
 
+.linea:hover {
+  opacity: 0;
+}
 
 
 .linea_P9 {

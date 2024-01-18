@@ -1,9 +1,14 @@
 /* stile del testo principale*/
+@font-face {
+    font-family: "Futura";
+    src: url("../assets/font/Futura.ttc");
+}
+
 body {
-    font-family: "futura-pt-bold", sans-serif;
+    font-family: "Futura","futura-pt-bold", sans-serif;
     font-weight: 700;
     font-style: normal;
-    font-size: 1.5vw;
+    font-size: 1.2em;
     background-color: #121A1C;
     color: #C1976B;
     font-family:'Futura', sans-serif; 
@@ -58,4 +63,9 @@ body {
 tspan {
     fill: #C1976B;
 
+}
+
+/*stile titolo*/
+.titolo {
+    margin-left: 5%;
 }

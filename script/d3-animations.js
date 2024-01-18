@@ -16,7 +16,7 @@ const k = 3040/858; // lunghezza/altezza csv stanze
 const ampiezzaStep = 50;
 const zoomX = ampiezzaStep * 2;
 export const zoomProgressoFinale = 0.2;
-let dimensioneFacce = 21;
+export const dimensioneFacce = altezzaPagina/50;
 let dimensioneNomi = 0.85;
 let dimensioneOggetti = 30;
 let kMaschera = 2.3;
@@ -49,7 +49,7 @@ export var zoomScena = [
 const livelli = [6,5,4,9,5];
 let coordinateLivelli = [];
 //const personaggi = [4];
-const personaggi = [
+export const personaggi = [
     {
         i: 1,
         nome: "Figlia",
@@ -146,10 +146,10 @@ const personaggi = [
     },
     {
         i: 12,
-        nome: "TEST",
-        famiglia: "Parks",
-        dataset: "./data/data_testLivelli.csv",
-        faccia: "./assets/facce/boh.png",
+        nome: "Pietra",
+        famiglia: "Pietra",
+        dataset: "./data/data_pietra.csv",
+        faccia: "./assets/oggetti/pietra.svg",
         dimensione: 1
     }
 ];
@@ -1113,7 +1113,7 @@ function creaFacce (){
     }
 }
 
-creaFacce();
+// creaFacce();
 
 
 
@@ -1275,7 +1275,7 @@ for (let i = 0; i < oggetti.length; i++){
     creaOggetto(i);
 }
 
-
+creaFacce();
 
 function agganciaOggettoAPersonaggio(idOggetto, idPersonaggio,scena, progresso0, progresso1) {
     let oggetto = document.getElementById(idOggetto);
@@ -1403,9 +1403,71 @@ for (let iTesto = 0; iTesto < testi.length; iTesto++) {
 }
 
 
+// ############################################################################
+// #########################         FINALE         ###########################
+// ############################################################################
 
 
+// CREA FINALE
 
+function creaFinale() {
+
+    // CREAZIONE HTML
+
+    var txtF = "SEE YOU SOON THEN";
+    let creaParent = document.getElementById("chart").appendChild(document.createElement("div"));
+    creaParent.setAttribute("id","container-finale");
+    creaParent.setAttribute("class","togli");
+
+
+    let parent = d3.select("#container-finale");
+
+    let immagine = parent.append("img")
+        .attr("id","morsefinal")
+        .attr("src","assets/finale/finale-on.png")
+        .attr("alt","impossibile caricare l'immagine");
+
+    let container = parent.append("div")
+        .attr("id","testo-container");
+
+    let paragrafo = container.append("p")
+        .attr("id","testo");
+
+    let decodeTextDiv = container.append("div")
+        .attr("class","decode-text")
+        .attr("id","decode-text");
+
+    let c;
+
+    
+    for (let j = 0; j < txtF.length; j++) {
+        c = txtF[j];
+        if (c !== " ") {
+            let textAnimation = decodeTextDiv.append("div")
+                .attr("class","text-animation");
+            textAnimation.html(c);
+        } else {
+            decodeTextDiv.append("div")
+                .attr("class","space");
+        }
+    }
+
+} 
+
+function creaCredits() {
+    let creditsDOM = document.getElementById("container-finale").appendChild(document.createElement("div"));
+    creditsDOM.setAttribute("id","credits");
+
+    let credits = d3.select("#credits").html("WOWWW");
+    
+    let creditsDiv = credits.append("div")
+        .attr("id","credits-div")
+        .attr("class","cose")
+        .html("TESt");
+}
+
+creaFinale();
+creaCredits();
 
 
 

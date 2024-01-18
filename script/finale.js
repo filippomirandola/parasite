@@ -2,6 +2,16 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 // import * as animations from "./d3-animations.js"
 import * as scrollCode from "./scroll_code.js"
 
+
+/* function creaCredits() {
+    let creditsDOM = document.getElementById("chart").appendChild(document.createElement("div"));
+    creditsDOM.setAttribute("id","credits");
+
+    let credits = d3.select("credits");
+    credits.html("CIAOOO");
+}
+ */
+/* 
 export function creaFinale() {
 
     // CREAZIONE HTML
@@ -43,9 +53,7 @@ export function creaFinale() {
         }
     }
 
-
-}
-
+} */
 
     // TYPEWRITER
 
@@ -225,7 +233,7 @@ export function creaFinale() {
 
 let parent = d3.select("#container-finale");
 
-creaFinale();
+//creaFinale();
 
 
 
@@ -271,11 +279,37 @@ export function avviaFinale(){
     
     }, 10000)
 }
-export function mostraFinale() { // nonUsata
+export function mostraFinale() { 
     d3.select("#container-finale").classed("visibile",true);
     setTimeout(avviaFinale(),500);
 }
 
 
+export function nascondiFinale() {
+    d3.select("#container-finale").classed("visibile",false);
+}
 
-// 
+export function togliFinale(){
+    // nascondiFinale();
+    d3.select("#container-finale").classed("togli",true);
+    d3.select("#container-finale").style("");
+
+}
+
+export function aggiungiFinale(){
+    d3.select("#container-finale").classed("togli",false);
+}
+
+
+// CREDITS
+
+export function mostraCredits() {
+    d3.select("#container-finale").classed("blur",true);
+    d3.select("#credits").classed("visibile",true);
+}
+
+export function nascondiCredits() {
+    d3.select("#container-finale").classed("blur",false);
+    d3.select("#credits").classed("visibile",false);
+}
+

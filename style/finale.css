@@ -70,7 +70,10 @@
     width: 100vw;
     height: 100vh;
     z-index: 5;
+}
 
+#container-finale.togli {
+  visibility: hidden;
 }
 
 #testo-container {
@@ -94,15 +97,10 @@
    #decode-text.nascosto {
    }
  */
-   
-   #testo.visibile,
-   #decode-text.visibile {
-      opacity: 1;
-   }
 
 
 #container-finale {
-  transition: opacity 0.5s linear;
+  transition: opacity 0.5s linear, filter 1s ease;
   opacity: 0;
 }
 
@@ -111,6 +109,27 @@
 }
 
 
+/*credits*/
+
+#credits {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(18, 26, 28, 0.65); /*#121A1C;*/
+  opacity: 0;
+  z-index: 6;
+  transition: opacity 1s ease;
+}
 
 
-  
+
+
+     
+#testo.visibile,
+#decode-text.visibile,
+#credits.visibile {
+   opacity: 1;
+}
+
