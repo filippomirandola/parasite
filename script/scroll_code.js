@@ -1,3 +1,7 @@
+//pietra scompare a 1,17
+//e ricompare 7,18
+//
+
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import * as animations from "./d3-animations.js";
 import * as pioggia from "./pioggia.js";
@@ -162,7 +166,7 @@ function handleProgress(response) {
     morte(3,9,3,response); // jessica
     morte(11,9,2,response); // papà parks
     morte(10,9,2,response); // bunkerbro
-    mostraDopoTempo("campanello1",5,14,response);
+    mostraDopoTempo("campanello1",5,13,response);
     mostraDopoTempo("campanello2",6,10,response);
     mostraDopoTempo("bicchiere",5,12,response);
     mostraDopoTempo("lotta",6,4,response);
@@ -178,7 +182,7 @@ function handleProgress(response) {
  
 
     
-
+// BUNKERSIS
     if (response.index <4) {
         mostraLineaTutta(9,3);
         nascondiLineaTutta(9, 4, false)
@@ -194,10 +198,18 @@ function handleProgress(response) {
 
 
     if (response.index >= 5) {
+        inizioLinea(9,5,3,response);
         mostraDopoTempo("linea_5_P9",5,13,response);
         mostraDopoTempo("gruppo-faccia9",5,13,response);
-        
     }
+
+// PIETRA
+    if (response.index <=7) {
+        fineLinea(12,0,5,response);
+    } 
+    if (response.index >=8) {
+        fineLinea(12,8,7,response);
+    } 
 
 mostraTestoTraProgress(10,60,response);
 
@@ -321,7 +333,7 @@ mostraTestoTraProgress(10,60,response);
 
             // a 5,12 - legato a nessuno: bicchiere
             posizionaOggetto("bicchiere",5,12,3,6,-translation,0); // RICORDA DI ALZARE
-            posizionaOggetto("campanello1",5,14,3,6,-translation,0); // RICORDA DI ALZARE
+            posizionaOggetto("campanello1",5,13,3,6,-translation,0); // RICORDA DI ALZARE
 
 
              // VALIGIE - DA 5,5 A 6,10
@@ -355,7 +367,7 @@ mostraTestoTraProgress(10,60,response);
             console.log(translation+" "+animations.stabilisciAmpiezzaLinea(6));
             console.log(-translation+animations.stabilisciAmpiezzaLinea(5));   // CORREGGERE
             posizionaOggetto("bicchiere",5,12,3,6,-translation-animations.stabilisciAmpiezzaLinea(6),0); // RICORDA DI ALZARE
-            posizionaOggetto("campanello1",5,14,3,6,-translation-animations.stabilisciAmpiezzaLinea(6),0); // RICORDA DI ALZARE
+            posizionaOggetto("campanello1",5,13,3,6,-translation-animations.stabilisciAmpiezzaLinea(6),0); // RICORDA DI ALZARE
             posizionaOggetto("campanello2",6,10,3,6,-translation,0); // RICORDA DI ALZARE
             posizionaOggetto("lotta",6,4,3,6,-translation,0); // RICORDA DI ALZARE
 
@@ -380,7 +392,7 @@ mostraTestoTraProgress(10,60,response);
             piove(response.progress);
             posizionaOggetto("campanello2",6,10,3,6,-translation-animations.stabilisciAmpiezzaLinea(7),0); // RICORDA DI ALZARE
             posizionaOggetto("lotta",6,4,3,6,-translation-animations.stabilisciAmpiezzaLinea(7),0); // RICORDA DI ALZARE
-
+            mostraDopoTempo("faccia12",7,17,response);
 
             break;
         case 8: 
@@ -748,6 +760,16 @@ function fineLinea(idPersonaggio, scena, indiceTempo, response) {
         nascondiLineaTutta(idPersonaggio, response.index, false);
     }
     animations.bloccaElemento("gruppo-faccia"+idPersonaggio, idPersonaggio, scena, indiceTempo, response, 0, 0);
+}
+
+function inizioLinea(idPersonaggio, scena, indiceTempo, response) {
+    if (response.index == scena) {
+        animations.nascondiLineaInizio(idPersonaggio, scena, indiceTempo);
+    }
+    if (response.index < scena) {
+        nascondiLineaTutta(idPersonaggio, response.index, false);
+    }
+   // animations.bloccaElemento("gruppo-faccia"+idPersonaggio, idPersonaggio, scena, indiceTempo, response, 0, 0);
 }
 
 /* 

@@ -2,8 +2,8 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import * as animations from "./d3-animations.js"
 import * as scrollCode from "./scroll_code.js"
 
-const larghezzaDaSx = 30 //%;
-const altezza = 30;
+const larghezzaDaSx = 40 //%;
+const altezza = 25;
 const spessoreLinea = 20;
 
 let svg = d3.select("#legenda-parent").append("svg")
