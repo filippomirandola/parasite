@@ -731,7 +731,7 @@ function generaSfondoModulo(rip) {
     let x = rip*unit*k;
     gruppo
     .append("image")
-    .attr("class","livello0")
+    .attr("class","sfondo-modulo livello0")
     .attr("id","livello0-"+rip)
     .attr("x",x)
     .attr("y",(1-percentualeAltezzaStanze)*altezzaPagina)
@@ -742,7 +742,7 @@ function generaSfondoModulo(rip) {
  
     gruppo
     .append("image")
-    .attr("class","livello1")
+    .attr("class","sfondo-modulo livello1")
     .attr("id","livello1-"+rip)
     .attr("x",x)
     .attr("y",(1-2*percentualeAltezzaStanze)*altezzaPagina)
@@ -754,7 +754,7 @@ function generaSfondoModulo(rip) {
 
     gruppo
     .append("image")
-    .attr("class","livello2")
+    .attr("class","sfondo-modulo livello2")
     .attr("id","livello2-"+rip)
     .attr("x",x)
     .attr("y",2*(percentualeAltezzaStanze)*altezzaPagina)
@@ -766,7 +766,7 @@ function generaSfondoModulo(rip) {
 
     gruppo
     .append("image")
-    .attr("class","livello3")
+    .attr("class","sfondo-modulo livello3")
     .attr("id","livello3-"+rip)
     .attr("x",x)
     .attr("y",(percentualeAltezzaStanze)*altezzaPagina)
@@ -776,7 +776,7 @@ function generaSfondoModulo(rip) {
   //  .attr("href","./assets/sfondi/casa-park-1.svg");
     gruppo
     .append("image")
-    .attr("class","livello4")
+    .attr("class","sfondo-modulo livello4")
     .attr("id","livello4-"+rip)
     .attr("x",x)
     .attr("y",0)
@@ -788,16 +788,65 @@ function generaSfondoModulo(rip) {
  
 }
 
+function generaSfondoFisso(l) {
+    gruppo
+    .append("rect")
+    .attr("class","sfondo-fisso")
+    .attr("x",0)
+    .attr("y",(1-percentualeAltezzaStanze)*altezzaPagina)
+    .attr("width",l)
+    .attr("height",unit)
+    .attr("fill","#3a523d");
+ 
+    gruppo
+    .append("rect")
+    .attr("class","sfondo-fisso")
+    .attr("x",0)
+    .attr("y",(1-2*percentualeAltezzaStanze)*altezzaPagina)
+    .attr("width",l)
+    .attr("height",unit)
+    .attr("fill","#3a523d");
+
+    gruppo
+    .append("rect")
+    .attr("class","sfondo-fisso")
+    .attr("x",0)
+    .attr("y",2*(percentualeAltezzaStanze)*altezzaPagina)
+    .attr("width",l)
+    .attr("height",altezzaPagina-4*unit)
+    .attr("fill","#808071");
+
+    gruppo
+    .append("rect")
+    .attr("class","sfondo-fisso")
+    .attr("x",0)
+    .attr("y",(percentualeAltezzaStanze)*altezzaPagina)
+    .attr("width",l)
+    .attr("height",unit)
+    .attr("fill","#c1976b");
+ 
+    gruppo
+    .append("rect")
+    .attr("x",0)
+    .attr("y",0)
+    .attr("width",l)
+    .attr("height",unit)
+    .attr("fill","#c1976b");
+}
 
 // genera gli sfondi in modo che si raggiunga almeno il doppio dell'ampiezza delle linee della scena più ampia
 function generaSfondi() {
+  
+ //   .attr("href","./assets/sfondi/casa-park-2.svg");
     let n = 0;
     while (n*unit*k <= 2*stabilisciAmpiezzaLinea(d3.maxIndex(ampiezzaScene))) {
         //console.log("sfondo " +n);
-        generaSfondoModulo(n);
+        //generaSfondoModulo(n);
         n++;
     }
-        
+    generaSfondoFisso((n-1)*unit*k);
+    for (let i = 0; i<n; i++)  generaSfondoModulo(i);
+
 }
    
 generaSfondi();

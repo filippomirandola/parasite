@@ -9,6 +9,14 @@ body {
   padding: 0;
 }
 
+.sfondo-fisso {
+  position: relative;
+  z-index: -1;
+}
+.sfondo-modulo {
+  position: relative;
+  z-index: 0;
+}
 
 #inizio {
   width:100vh;

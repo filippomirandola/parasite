@@ -76,7 +76,7 @@ function handleResize() {
 
 function handleProgress(response) {
     console.log("indice "+response.index);
-
+    d3.select("#pietra").style.display = "hidden";
     if (response.index <= 11 ) {
 
 
