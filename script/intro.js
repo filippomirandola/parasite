@@ -11,12 +11,12 @@ let svg = d3.select("#legenda-parent").append("svg")
     .attr("width","100%")
     .attr("height",altezza+"em");
 
-let personaggiL0=[1,2,3,4];
-let personaggiL1=[5,6,7,8];
+let personaggiL0=[1,2,7,11];
+let personaggiL1=[8,6,3,4];
 let personaggiL2=[9,10];
-let personaggiL3=[11];
+let personaggiL3=[5];
 
-let coloreLinea = ["white","green","white","red"];
+let coloreLinea = ["black","red","white","#690000"];
 let nomeFamiglia = ["THE PARKS","THE KIMS","",""]
 
 let personaggiLinee = [personaggiL0,personaggiL1,personaggiL2,personaggiL3];
@@ -59,6 +59,7 @@ function creaLineaLegenda(idLinea) {
             .text(nomeFamiglia[idLinea])
             .attr("x",larghezzaDaSx-2+"%")
             .attr("y",y+"em")
+            .attr("fill","#C1976b")
             .attr("text-anchor","end")  
             .attr("dominant-baseline","central"); 
           //  .attr("transform","translate(0,"+spessoreLinea/2+")");
@@ -84,7 +85,8 @@ function creaLineaLegenda(idLinea) {
             .append("text")
             .text(animations.personaggi[personaggiL[p]-1].nome)
             .attr("x",x+"%")
-            .attr("y",(parseInt(y)+parseInt(distanza)/3)+"em")
+            .attr("fill", "#C1976b")
+            .attr("y",(parseInt(y)+parseInt(distanza)/3+1.5)+"em")
             .attr("text-anchor","middle");   
     }
     

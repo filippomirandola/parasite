@@ -39,7 +39,7 @@ body {
 /* stile del titolo di copertina*/
 #divtitolo {
     font-size: 1em;
-    color: #C30400;
+    color: #C1976B;
     position: absolute;
     text-align: right;
     bottom: 3em;
@@ -48,12 +48,23 @@ body {
 /* stile dei testi successivi*/
 .centeredText {
     text-align: center;
-    margin: 25%;
+    margin: 20%;
+}
+#legendaLines {
+    margin-top: 15%;
+    overflow:visible;
 }
 .rightText {
     padding-left: 45%;
-    padding-bottom: 25%;
-    margin-top: -10%;
+    margin-top: -10.5%;
+    margin-bottom: 6%;
+}
+.quoteText {
+    text-align: right;
+    margin: 15%;
+    font-style: italic;
+    font-size: 1.3em;
+    color: #C1976B;
 }
 /* stile dell'immagine che spiega la viz*/
 #introLinesimg {

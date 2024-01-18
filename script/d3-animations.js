@@ -52,23 +52,23 @@ let coordinateLivelli = [];
 export const personaggi = [
     {
         i: 1,
-        nome: "Figlia",
+        nome: "Da Hye",
         famiglia: "Parks",
         dataset: "./data/data_figliaparks.csv",
         faccia: "./assets/facce/figliaParks.svg",
-        dimensione: 1
+        dimensione: 1.1
     },
     {
         i: 2,
-        nome: "Figlio",
+        nome: "Da Song",
         famiglia: "Parks",
         dataset: "./data/data_figlioparks.csv",
         faccia: "./assets/facce/bimboParks.svg",
-        dimensione: 0.7
+        dimensione: 0.8
     },
     {
         i: 3,
-        nome: "Jessica",
+        nome: "Ki Jung",
         famiglia: "Kim",
         dataset: "./data/data_jessica.csv",
         faccia: "./assets/facce/jessica.svg",
@@ -77,11 +77,11 @@ export const personaggi = [
     },
     {
         i: 4,
-        nome: "Kevin",
+        nome: "Ki Woo",
         famiglia: "Kim",
         dataset: "./data/data_kevin.csv",
         faccia: "./assets/facce/kevin.png",
-        dimensione: 1
+        dimensione: 0.9
     },
     {
         i: 5,
@@ -89,54 +89,54 @@ export const personaggi = [
         famiglia: "Min",
         dataset: "./data/data_min.csv",
         faccia: "./assets/facce/min.svg",
-        dimensione: 1
+        dimensione: 0.9
     },
     {
         i: 6,
-        nome: "Papa",
+        nome: "Ki Taek",
         famiglia: "Kim",
         dataset: "./data/data_papakim.csv",
         faccia: "./assets/facce/papaKim.svg",
-        dimensione: 1
+        dimensione: 0.9
     },
     {
         i: 7,
-        nome: "Mamma",
+        nome: "Yeon Kyo",
         famiglia: "Parks",
         dataset: "./data/data_mammaparks.csv",
         faccia: "./assets/facce/mammaParks.svg",
-        dimensione: 1.3
+        dimensione: 1.1
     },
     {
         i: 8,
-        nome: "Mamma",
+        nome: "Chung Sook",
         famiglia: "Kim",
         dataset: "./data/data_mammakim.csv",
         faccia: "./assets/facce/mammaKim.svg",
-        dimensione: 1
+        dimensione: 0.9
     },
     {
         i: 9,
-        nome: "BunkerSis",
+        nome: "Moon Gwang",
         famiglia: "Bunker",
         dataset: "./data/data_bunkersis.csv",
         faccia: "./assets/facce/bunkerSis.svg",
         morte: "./assets/facce/morti/bunkerSis-morta.svg",
-        dimensione: 1
+        dimensione: 0.9
     },
 
     {
         i: 10,
-        nome: "BunkerBro",
+        nome: "Geun Se",
         famiglia: "Bunker",
         dataset: "./data/data_bunkerbro.csv",
         faccia: "./assets/facce/bunkerBro.svg",
         morte: "./assets/facce/morti/bunkerBro-morto.svg",
-        dimensione: 1
+        dimensione: 0.9
     },
     {
         i: 11,
-        nome: "Papa",
+        nome: "Dong Ik",
         famiglia: "Parks",
         dataset: "./data/data_papaparks.csv",
         faccia: "./assets/facce/papaParks.svg",
@@ -1339,12 +1339,12 @@ let rectIntro = intro.append("rect")
 let altezzaImg = 0.15*altezzaPagina;
 let xTesto = 0.3*larghezzaPagina;
 
-let imgIntro = intro.append("image")
+/*let imgIntro = intro.append("image")
         .attr("id","introLines")
         .attr("href","../assets/landing/introLines.png")
         .attr("height",altezzaImg)
         .attr("x",0)
-        .attr("y",0.5*altezzaPagina-(altezzaImg/2));
+        .attr("y",0.5*altezzaPagina-(altezzaImg/2));*/
 
 let txtP = intro.append("text")
         .attr("id","textIntro")
@@ -1355,20 +1355,20 @@ let r3 = txtP.append("tspan")
         .attr("x",xTesto)
         .attr("y","50%")
         .attr("dy","1.2em")
-        .html("The color of the line indicates the family they belong to.");
+        .html("The visualization will expand horizontally but");
 let r4 = txtP.append("tspan")
         .attr("x",xTesto)
         .attr("dy","1.2em")
-        .html("The dashed line represents the supposed path of the characther");
-let r1 = txtP.append("tspan")
+        .html("don't worry, just keep scrolling as you always do, and enjoy!");
+/*let r1 = txtP.append("tspan")
 .attr("x",xTesto)
 .attr("dy","-2.4em")
-.html("The characters’ paths are indicated by lines.");
+.html("");*/
 
-let r2 = txtP.append("tspan")
+/*let r2 = txtP.append("tspan")
 .attr("x",xTesto)
 .attr("dy","-1.2em")
-.html("Every character has its own icon.");
+.html("The characters’ paths are indicated by lines.");*/
 
 
 // txtP.html("blabla");
