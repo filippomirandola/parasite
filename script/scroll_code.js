@@ -350,7 +350,7 @@ function handleProgress(response) {
                 d3.select("#pesca").classed("anima",true);
             } else d3.select("#pesca").classed("anima",false);   
 
-            animations.bloccaElemento("pesca",9,3,2,response,-dim*0.2,dim*0.2);
+         //   animations.bloccaElemento("pesca",9,3,2,response,-dim*0.2,dim*0.2);
 
 
             break;

@@ -1542,21 +1542,31 @@ function creaFinale() {
 function creaCredits() {
     let creditsDOM = document.getElementById("container-finale").appendChild(document.createElement("div"));
     creditsDOM.setAttribute("id","credits");
+    creditsDOM.setAttribute("class","forzaNoBlur");
 
-
-
-    let credits = d3.select("#credits").html("Corso di Laurea di Design della Comunicazione</br>Laboratorio di Computer Grafica sez. C2</br>a.a. 2023/2024</br></br>Crimi Martina, Garcia Sanchez Thomas, Genovese Francesca, Mirandola Filippo, Romagnuolo Renata, Savoldi Elena, Sirtori Vittoria");
-    document.getElementById("credits").style.fontSize="1em"; 
+    let credits = d3.select("#credits");
+  //  credits.html("Corso di Laurea di Design della Comunicazione</br>Laboratorio di Computer Grafica sez. C2</br>a.a. 2023/2024</br></br>Crimi Martina, Garcia Sanchez Thomas, Genovese Francesca, Mirandola Filippo, Romagnuolo Renata, Savoldi Elena, Sirtori Vittoria");
+/*     document.getElementById("credits").style.fontSize="1em"; 
     document.getElementById("credits").style.textAlign="center"; 
-    document.getElementById("credits").style.paddingTop="20%";
+    document.getElementById("credits").style.paddingTop="20%"; */
 
+    let creditsLogo = credits.append("div")
+        .attr("id","logo-container")
+        .attr("class","forzaNoBlur");
 
+        let logo = creditsLogo.append("img")
+        .attr("id","logo")
+        .attr("class","forzaNoBlur")
+        .attr("src","./assets/finale/logo-polimi.svg");
 
-
-    let creditsDiv = credits.append("div")
-        .attr("id","credits-div")
-        .attr("class","cose")
+    let creditsTxt = credits.append("div")
+        .attr("id","credits-txt")
+        .attr("class","forzaNoBlur")
+        .html("Corso di Laurea in Design della Comunicazione</br>Laboratorio di Computer Grafica &ndash; C2</br>A.A. 2023/2024</br></br>Crimi Martina, Garcia Sanchez Thomas, Genovese Francesca, Mirandola Filippo, Romagnuolo Renata, Savoldi Elena, Sirtori Vittoria");
        // .html("TESt");
+
+
+
 }
 
 creaFinale();

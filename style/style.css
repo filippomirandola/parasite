@@ -208,7 +208,7 @@ article {
   filter: blur(4px) brightness(65%);
 }
 
-.blurred :not(#credits) {
+.blurred :not(.forzaNoBlur) {
   filter: blur(4px) brightness(65%);
 }
 
@@ -326,12 +326,12 @@ text[id^="nome-faccia"].mostra {
   transition: opacity 0.2s linear;
 }
 
-#pietra.anima {
+#pietra.anima,
+#auto.anima,
+#pesca.anima {
     transition: transform 0.2s ease;
 }
-#auto.anima {
-  transition: transform 0.2s ease;
-}
+
 
 .ruotato {
   transition: transform 0.1s ease-in;
