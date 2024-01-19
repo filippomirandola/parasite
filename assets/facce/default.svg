@@ -3,13 +3,13 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 113 128" style="enable-background:new 0 0 113 128;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#FFFFFF;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-	.st1{stroke:#000000;}
-	.st2{stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-	.st3{fill:none;stroke:#000000;stroke-width:2;}
-	.st4{fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-	.st5{fill:none;stroke:#000000;stroke-width:2.2912;stroke-linecap:round;stroke-linejoin:round;}
-	.st6{stroke:#000000;stroke-width:2.2912;stroke-linecap:round;stroke-linejoin:round;}
+	.st0{fill:#FFFFFF;stroke:#C00000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st1{fill:#C00000;stroke:#C00000;}
+	.st2{fill:#C00000;stroke:#C00000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st3{fill:none;stroke:#C00000;stroke-width:2;}
+	.st4{fill:none;stroke:#C00000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st5{fill:none;stroke:#C00000;stroke-width:2.2912;stroke-linecap:round;stroke-linejoin:round;}
+	.st6{fill:#C00000;stroke:#C00000;stroke-width:2.2912;stroke-linecap:round;stroke-linejoin:round;}
 </style>
 <path class="st0" d="M12,60.9c-2.7,12.5-1,29.8,0.2,38.2c0.5,3.4,2.1,6.4,4.5,8.9l13.6,13.9c3.2,3.3,7.6,5.1,12.1,5.1h13
 	c3,0,5.9-0.8,8.4-2.2l23-13.1c4.3-2.5,7.4-6.7,8.3-11.6c2.4-13.3,7.4-40.9,10-59.4c3.5-24.2-38.7-24.7-42-24.7c-0.1,0-0.3,0-0.4,0
