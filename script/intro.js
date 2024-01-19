@@ -114,7 +114,7 @@ tipoLineeG.append("line")
     .attr("x2","60%")
     .attr("y1",altezza/4+"em")
     .attr("y2",altezza/4+"em")
-    .attr("stroke",coloreLinea[0])
+    .attr("stroke",coloreLinea[1])
     .attr("stroke-width",spessoreLinea+"px");
 
 tipoLineeG.append("image")
@@ -131,7 +131,7 @@ tipoLineeG.append("image")
     .attr("x2","60%")
     .attr("y1",2*altezza/4+"em")
     .attr("y2",2*altezza/4+"em")
-    .attr("stroke",coloreLinea[0])
+    .attr("stroke",coloreLinea[1])
     .attr("stroke-width",spessoreLinea+"px")
     .attr("stroke-dasharray","6% 9%");
 
@@ -148,7 +148,7 @@ tipoLineeG.append("image")
     .attr("x2","60%")
     .attr("y1",3*altezza/4+"em")
     .attr("y2",3*altezza/4+"em")
-    .attr("stroke",coloreLinea[0])
+    .attr("stroke",coloreLinea[1])
     .attr("stroke-width",spessoreLinea+"px");
 
 
