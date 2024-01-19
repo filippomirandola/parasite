@@ -80,3 +80,13 @@ tspan {
 .titolo {
     margin-left: 5%;
 }
+
+#legenda-tipolinee {
+    margin-top: 5em;
+    display: flex;
+}
+
+#legenda-tipolinee {
+    display: flex;
+    align-items: center;
+}

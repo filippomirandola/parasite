@@ -95,3 +95,93 @@ function creaLineaLegenda(idLinea) {
 for (let i=0;i<4;i++) {
     creaLineaLegenda(i);
 }
+
+
+
+// 
+
+let larghezzaFacciaX = 80;
+
+let tipoLinee = d3.select("#legenda-tipolinee").append("svg")
+.attr("id","tipolinee")
+.attr("width","50%")
+.attr("height",altezza+"em");
+
+let tipoLineeG = tipoLinee.append("g").attr("width","100%");
+
+tipoLineeG.append("line")
+    .attr("x1",0)
+    .attr("x2","60%")
+    .attr("y1",altezza/4+"em")
+    .attr("y2",altezza/4+"em")
+    .attr("stroke","red")
+    .attr("stroke-width",spessoreLinea+"px");
+
+tipoLineeG.append("image")
+    .attr("x","60%")
+    .attr("y",altezza/4+"em")
+    .attr("width", larghezzaFacciaX+"px")
+    .attr("height",larghezzaFacciaX+"px")
+    .attr("href","./assets/facce/figliaParks.svg")
+    .attr("transform","translate("+-larghezzaFacciaX/2+","+-larghezzaFacciaX/2+")");
+
+
+    tipoLineeG.append("line")
+    .attr("x1",0)
+    .attr("x2","60%")
+    .attr("y1",2*altezza/4+"em")
+    .attr("y2",2*altezza/4+"em")
+    .attr("stroke","red")
+    .attr("stroke-width",spessoreLinea+"px")
+    .attr("stroke-dasharray","6% 9%");
+
+    tipoLineeG.append("image")
+    .attr("x","60%")
+    .attr("y",2*altezza/4+"em")
+    .attr("width", larghezzaFacciaX+"px")
+    .attr("height",larghezzaFacciaX+"px")
+    .attr("href","./assets/facce/figliaParks.svg")
+    .attr("transform","translate("+-larghezzaFacciaX/2+","+-larghezzaFacciaX/2+")");
+
+    tipoLineeG.append("line")
+    .attr("x1",0)
+    .attr("x2","60%")
+    .attr("y1",3*altezza/4+"em")
+    .attr("y2",3*altezza/4+"em")
+    .attr("stroke","red")
+    .attr("stroke-width",spessoreLinea+"px");
+
+
+    tipoLineeG.append("image")
+    .attr("x","60%")
+    .attr("y",3*altezza/4+"em")
+    .attr("width", larghezzaFacciaX+"px")
+    .attr("height",larghezzaFacciaX+"px")
+    .attr("href","./assets/facce/figliaParks.svg")
+    .attr("transform","translate("+-larghezzaFacciaX/2+","+-larghezzaFacciaX/2+")");
+
+
+/*     tipoLineeG.append("text")
+    .text("The characters’ paths are indicated by lines.")
+         .attr("x","100%")
+         .attr("y",altezza/4+"em")
+         .attr("text-anchor","middle")
+         .attr("fill","white");
+
+    tipoLineeG.append("text")
+    .text("The dashed line represents the path we imagined for the character. when the movie didn't show us.")
+         .attr("x","100%")
+         .attr("y",2*altezza/4+"em")
+         .attr("text-anchor","middle")
+         .attr("fill","white");
+
+
+    tipoLineeG.append("text")
+    .text("Il morto.")
+         .attr("x","100%")
+         .attr("y",3*altezza/4+"em")
+         .attr("text-anchor","middle")
+         .attr("fill","white"); */
+
+d3.select("#legenda-tipolinee").append("div").attr("id","testo-legenda").attr("width","50%").attr("height","100%")
+.html("The characters’ paths are indicated by lines. </br> The dashed line represents the path we imagined for the character </br> when the movie didn't show us.");

@@ -143,7 +143,7 @@ export const personaggi = [
         morte: "./assets/facce/morti/papaParks-morto.svg",
         dimensione: 1
 
-    },
+    }/* ,
     {
         i: 12,
         nome: "Pietra",
@@ -151,7 +151,23 @@ export const personaggi = [
         dataset: "./data/data_pietra.csv",
         faccia: "./assets/oggetti/pietra.svg",
         dimensione: 1
-    }
+    },
+    {
+        i: 13,
+        nome: "Auto",
+        famiglia: "Auto",
+        dataset: "./data/data_auto.csv",
+        faccia: "./assets/oggetti/auto.svg",
+        dimensione: 1
+    },
+    {
+        i: 14,
+        nome: "Pesca",
+        famiglia: "Auto",
+        dataset: "./data/data_pietra.csv",
+        faccia: "./assets/oggetti/pesca.svg",
+        dimensione: 1
+    } */
 ];
 
 const oggetti = [
@@ -270,7 +286,7 @@ const oggetti = [
         dimensione: 1
     }
 ];
-
+/* 
 const testi = [
     {
         i: 0,
@@ -368,7 +384,7 @@ const testi = [
    
    
 ];
-
+ */
 
 // Dataset personaggi: scena, tempo, livello, sottolivello
 const dataP1 = await d3.dsv(",",personaggi[0].dataset);
@@ -382,7 +398,9 @@ const dataP8 = await d3.dsv(",",personaggi[7].dataset);
 const dataP9 = await d3.dsv(",",personaggi[8].dataset);
 const dataP10 = await d3.dsv(",",personaggi[9].dataset);
 const dataP11 = await d3.dsv(",",personaggi[10].dataset);
-const dataP12 = await d3.dsv(",",personaggi[11].dataset);
+/* const dataP12 = await d3.dsv(",",personaggi[11].dataset);
+const dataP13 = await d3.dsv(",",personaggi[12].dataset);
+const dataP14 = await d3.dsv(",",personaggi[13].dataset); */
 
 
 const spessoreLinee = 5;
@@ -405,8 +423,9 @@ let puntiP8 = [];
 let puntiP9 = []; 
 let puntiP10 = []; 
 let puntiP11 = []; 
-let puntiP12 = []; 
-
+/* let puntiP12 = []; 
+let puntiP13 = []; 
+let puntiP14 = [];  */
 
 
 
@@ -634,7 +653,9 @@ verificaDatabase(dataP8);
 verificaDatabase(dataP9);
 verificaDatabase(dataP10);
 verificaDatabase(dataP11);
-verificaDatabase(dataP12);
+/* verificaDatabase(dataP12);
+verificaDatabase(dataP13); */
+// verificaDatabase(dataP14);
 
 console.log(dataP1);
 
@@ -651,12 +672,15 @@ creaDatabase(dataP8, puntiP8);
 creaDatabase(dataP9, puntiP9);
 creaDatabase(dataP10, puntiP10);
 creaDatabase(dataP11, puntiP11);
-creaDatabase(dataP12, puntiP12);
+/* creaDatabase(dataP12, puntiP12);
+creaDatabase(dataP13, puntiP13); */
+// creaDatabase(dataP14, puntiP14);
+
 
 
 console.log("INIZIO PUNTI");
 console.log(dataP11);
-console.log(dataP12);
+/* console.log(dataP12); */
 
 
 console.log("FINE PUNTI");
@@ -682,7 +706,7 @@ export function ottieniPuntiP(id) {
         case 9: x = puntiP9; break;
         case 10: x = puntiP10; break;
         case 11: x = puntiP11; break;
-        case 12: x = puntiP12; break;
+/*         case 12: x = puntiP12; break; */
     }
     console.log(x);
     return x;
@@ -847,9 +871,43 @@ function generaSfondi() {
     generaSfondoFisso((n-1)*unit*k);
     for (let i = 0; i<n; i++)  generaSfondoModulo(i);
 
+
 }
    
 generaSfondi();
+
+
+// ETICHETTA SFONDI
+
+function creaEtichettaSfondo() {
+    let  padding = altezzaPagina*0.1;
+     gruppo
+     .append("text")
+     .text("BUNKER")
+     .attr("class","etichetta-sfondo")
+     .attr("x",padding+unit*k)
+     .attr("y",(1-percentualeAltezzaStanze)*altezzaPagina+padding);
+     gruppo
+     .append("text")
+     .text("KIMS'")
+     .attr("class","etichetta-sfondo")
+     .attr("x",padding+unit*k)
+     .attr("y",(1-2*percentualeAltezzaStanze)*altezzaPagina+padding);
+   
+     gruppo
+     .append("text")
+     .text("PARKS'")
+     .attr("class","etichetta-sfondo")
+     .attr("x",padding+unit*k)
+     .attr("y",padding);
+  
+ }
+ 
+ creaEtichettaSfondo();
+ 
+
+
+
 
 
 // OVERLAY SFONDO PER LAMPADA CHE SI ACCENDE
@@ -913,6 +971,11 @@ export function gestioneLampada(response,traslazione){
 
 spegniLampada();
 
+
+
+
+
+
 // #####################################################################################
 // #########################      CREAZIONE LINEE & FACCE      #########################
 // #####################################################################################
@@ -958,7 +1021,9 @@ function creaLineeScena(gruppo, scena) {
      creaLineaScena(gruppo,"9", puntiP9, scena);
      creaLineaScena(gruppo,"10", puntiP10, scena);
      creaLineaScena(gruppo,"11", puntiP11, scena);
-     creaLineaScena(gruppo,"12", puntiP12, scena);
+/*      creaLineaScena(gruppo,"12", puntiP12, scena);
+     creaLineaScena(gruppo,"13", puntiP12, scena);
+     creaLineaScena(gruppo,"14", puntiP12, scena); */
 
 }
 
@@ -1009,11 +1074,12 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
     let puntiScena = datasetPerScena(puntiP, scena);
     let line = gruppo.append("path")
                 .attr("id","linea_"+scena+"_P"+idPersonaggio)
-                .attr("class","linea linea_P"+idPersonaggio)
+                .attr("class","P"+idPersonaggio+" linea linea_P"+idPersonaggio)
                 .attr("d",Gen(puntiScena))
                 .attr("stroke", coloreLinea(idPersonaggio))
                 .attr("fill", "none")
                 .attr("stroke-width", spessoreLinee)
+                .attr("pointer-events","visibleStroke")
                 .style("filter","drop-shadow(0px 0px 2px "+coloreLinea(idPersonaggio)+")");
                
 
@@ -1106,7 +1172,7 @@ for (let scena = 0; scena<numeroScene; scena++) {
 function creaFaccia(idPersonaggio) {
     //console.log(personaggi[idPersonaggio].faccia);
     let dimensione = dimensioneFacce * personaggi[parseInt(idPersonaggio)-1].dimensione;
-    let gruppo = svg.append("g").attr("id","gruppo-faccia"+idPersonaggio).attr("class","gruppo-faccia");
+    let gruppo = svg.append("g").attr("id","gruppo-faccia"+idPersonaggio).attr("class","P"+idPersonaggio+" gruppo-faccia");
     let faccia = gruppo
         .append("image")
         .attr("class","faccia")
@@ -1247,7 +1313,9 @@ function creaFacce (){
     muoviFacciaDaX("gruppo-faccia9", datasetPerScena(puntiP9,scena), xMaschera, traslazione, scena, 0, 0); 
     muoviFacciaDaX("gruppo-faccia10", datasetPerScena(puntiP10,scena), xMaschera, traslazione, scena, 0, 0); 
     muoviFacciaDaX("gruppo-faccia11", datasetPerScena(puntiP11,scena), xMaschera, traslazione, scena, 0, 0); 
-    muoviFacciaDaX("gruppo-faccia12", datasetPerScena(puntiP12,scena), xMaschera, traslazione, scena, 0, 0); 
+/*     muoviFacciaDaX("gruppo-faccia12", datasetPerScena(puntiP12,scena), xMaschera, traslazione, scena, 0, 0); 
+    muoviFacciaDaX("gruppo-faccia13", datasetPerScena(puntiP13,scena), xMaschera, traslazione, scena, 0, 0);  */
+    // muoviFacciaDaX("gruppo-faccia14", datasetPerScena(puntiP14,scena), xMaschera, traslazione, scena, 0, 0); 
 
     //...
    
@@ -1879,11 +1947,45 @@ export function getCoordinateLivelli(livello) {
     return coordinateLivelli[livello];
 }
 
+
+
+export function calcolaPercentualeTempo(scena, tempo) {
+    return (calcolaScalaX(scena)(tempo)-xMaschera)/(stabilisciAmpiezzaLinea(scena));
+}
+
+
+
 // ############################################################################
-// #######################          RESIZE         ############################
+// #####################        HOVER       ##########################
 // ############################################################################
 
-export function resize() {
-    altezzaPagina = window.innerHeight;
-    larghezzaPagina = window.innerWidth
+//class linea_P9 #gruppo-faccia4
+//document.getElementById("gruppo-faccia4")addEventListener()
+
+function nascondiTutto(x){
+    for(let i = 1; i <= personaggi.length; i++){
+        if (i != x) {
+            d3.selectAll(".P"+i).classed("copri",true);
+        } else {
+            d3.selectAll(".P"+i).classed("copri",false);
+            d3.select("#nome-faccia"+i).classed("mostra",true);
+    }
 }
+}
+
+function nascondiTuttoFine(x){
+    for(let i = 1; i <= personaggi.length; i++){
+            d3.selectAll(".P"+i).classed("copri",false);
+        } 
+    d3.select("#nome-faccia"+x).classed("mostra",false);
+    }
+
+
+for (let i = 1; i <= personaggi.length; i++) {
+    d3.selectAll(".P"+i).on("mouseover",function () {
+        nascondiTutto(i);
+      });
+    d3.selectAll(".P"+i).on("mouseout",function () {
+        nascondiTuttoFine(i);
+    });
+    }

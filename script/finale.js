@@ -304,12 +304,12 @@ export function aggiungiFinale(){
 // CREDITS
 
 export function mostraCredits() {
-    d3.select("#container-finale").classed("blur",true);
+    d3.select("#container-finale").classed("blurred",true);
     d3.select("#credits").classed("visibile",true);
 }
 
 export function nascondiCredits() {
-    d3.select("#container-finale").classed("blur",false);
+    d3.select("#container-finale").classed("blurred",false);
     d3.select("#credits").classed("visibile",false);
 }
 
