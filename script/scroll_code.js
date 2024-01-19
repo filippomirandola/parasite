@@ -226,7 +226,7 @@ function handleProgress(response) {
         case 0:
             zoom();
             testi.mostraTestoTraTempi(response,1,10,0);
-            testi.mostraEtichettaTraTempi(response,1,9,0);
+            testi.mostraEtichettaTraTempi(response,5,14,0);
 
             if (response.progress < 0.1) {
                 if (response.direction === "up") {
@@ -258,11 +258,11 @@ function handleProgress(response) {
             // mostraTraPunti("pietra",9,0,1,response);
            mostraTraProgressN("pietra",calcolaPercentualeTempo(0,1),calcolaPercentualeTempo(0,19),response);
             if (response.progress <= calcolaPercentualeTempo(0,12)) {              // animations.ottieniProgresso(5,response.index,2)prima del primo vertice di min
-                animations.muoviOggetto("pietra", response, 5 ,translation,-dim*0.5,dim*0.2); // aggancia a min
+                animations.muoviOggetto("pietra", response, 5 ,translation,dim*0.7,dim*0.2); // aggancia a min
             } else if (response.progress <= calcolaPercentualeTempo(0,16)){                                                                // altrimenti
-                animations.muoviOggetto("pietra", response, 4,translation,-dim*0.5,dim*0.2);  // aggancia a kevin
+                animations.muoviOggetto("pietra", response, 4,translation,dim*0.7,dim*0.2);  // aggancia a kevin
             } else {
-                animations.muoviOggetto("pietra", response, 8,translation,-dim*0.5,dim*0.2); // aggancia a mamma parks
+                animations.muoviOggetto("pietra", response, 8,translation,dim*0.7,dim*0.2); // aggancia a mamma parks
             }
 
                     // anima
@@ -272,7 +272,7 @@ function handleProgress(response) {
                 d3.select("#pietra").classed("anima",true);
             } else d3.select("#pietra").classed("anima",false);
 
-            animations.bloccaElemento("pietra",8,0,1,response,-dim*0.5,dim*0.2);
+            //animations.bloccaElemento("pietra",8,0,1,response,-dim*0.5,dim*0.2);
             
 
 
@@ -282,6 +282,7 @@ function handleProgress(response) {
             
             testi.mostraTestiTraTempi(response,2,11,1,16,19,2);
             testi.mostraEtichettaTraTempi(response,3,10,1);
+
 
 
 
@@ -314,42 +315,42 @@ function handleProgress(response) {
 
 
            // MUTANDE JESSICA(3) s2 t16 le 
-           mostraTraPunti("mutande",3,7,9,response);
-           animations.muoviOggetto("mutande", response, 3 ,translation,-dim*0.2,-dim*0.2); // aggancia a jessica (PERCHé fa così???)
+           mostraTraProgressN("mutande",calcolaPercentualeTempo(2,13),calcolaPercentualeTempo(2,14),response);
+           animations.muoviOggetto("mutande", response, 3 ,translation,dim*1.3,-dim*0.9); // aggancia a jessica 
 
              
-            break;
+            break
 
         case 3:
             zoom();
             testi.mostraTestiTraTempi(response,0,3,3,4,19,4);
 
 
-        
-
-
       // AUTO va al padreKim dal t3 al t17
 
             mostraTraPunti("auto",6,1,4,response);
             animations.muoviOggetto("auto", response, 6,translation,-dim*0.2,dim*0.2);
+
+
             
             // PESCA da 3,3 fino a 3,11 con padrekim(6) 
             // da 3,11 a 3,12 a bunkersis(9)
-
-            if (response.progress < animations.ottieniProgresso(6,response.index,2)) { 
-                mostraDopoPunto("pesca",6,1,2,response);
-                animations.muoviOggetto("pesca", response, 6,translation,-dim*0.2,dim*0.2);
-
+        mostraTraProgressN("pesca",calcolaPercentualeTempo(3,1),calcolaPercentualeTempo(3,12),response);
+        if (response.progress <= calcolaPercentualeTempo(3,3)) { 
+            animations.muoviOggetto("pesca", response, 3 ,translation,dim*1.3,-dim*0.9); // aggancia a jessica
+        } else if (response.progress <= calcolaPercentualeTempo(3,9)){ 
+            animations.muoviOggetto("pesca", response, 6,translation,dim*1.3,-dim*0.9); // aggancia a padre kim
+        } else {
+            animations.muoviOggetto("pesca", response, 9,translation,-dim*1.1,-dim*0.4); // aggancia a bunker sis
             }
-            else {
-                mostraTraPunti("pesca",9,0,2,response); // da mantenere mostrata anche doopo
-                animations.muoviOggetto("pesca", response, 9,translation,-dim*0.2,dim*0.2);
 
-            }
+        if(response.progress > calcolaPercentualeTempo(3,3)-0.02 && response.progress < calcolaPercentualeTempo(3,3)+0.02) {
+                d3.select("#pesca").classed("anima",true);
+            } else if(response.progress > calcolaPercentualeTempo(3,9)-0.02 && response.progress < calcolaPercentualeTempo(3,9)+0.02) {
+                d3.select("#pesca").classed("anima",true);
+            } else d3.select("#pesca").classed("anima",false);   
 
             animations.bloccaElemento("pesca",9,3,2,response,-dim*0.2,dim*0.2);
-
-
 
 
             break;
@@ -428,6 +429,7 @@ function handleProgress(response) {
     
 
             break;
+
         case 7:
             testi.mostraTestoTraTempi(response,1,10,7);
             piove(response.progress);
@@ -435,10 +437,29 @@ function handleProgress(response) {
             posizionaOggetto("lotta",6,4,3,6,-translation-animations.stabilisciAmpiezzaLinea(7),0); // RICORDA DI ALZARE
        //     mostraDopoTempo("faccia12",7,16,response);
 
+       // PIETRA
+            mostraTraProgressN("pietra",calcolaPercentualeTempo(7,18),calcolaPercentualeTempo(7,19),response);         
+                animations.muoviOggetto("pietra", response, 4 ,translation,dim*0.7,dim*0.2); // aggancia a kevin
+    
+
+
             break;
         case 8: 
         zoom();
         testi.mostraTestiTraTempi(response,1,10,8,17,19,9);
+
+// PIETRA
+mostraTraProgressN("pietra",calcolaPercentualeTempo(8,0),calcolaPercentualeTempo(8,19),response);
+if (response.progress <= calcolaPercentualeTempo(8,14)) {              
+    animations.muoviOggetto("pietra", response, 4 ,translation,dim*0.7,dim*0.2);
+} else {                                                                // altrimenti
+    animations.muoviOggetto("pietra", response, 10,translation,dim*0.7,dim*0.2); 
+};
+
+if(response.progress > calcolaPercentualeTempo(8,14)-0.02 && response.progress < calcolaPercentualeTempo(8,14)+0.02) {
+    d3.select("#pietra").classed("anima",true);
+} else d3.select("#pietra").classed("anima",false);   
+
 
             break;
         case 9:
@@ -463,13 +484,27 @@ function handleProgress(response) {
             // torta. jessica(3) da 9,3 a 9,13
 
             mostraTraPunti("torta",3,1,2,response);
-            animations.muoviOggetto("torta", response, 3,translation,-dim*0.2,dim*0.2); //capire se farlo sparire o no 
+            animations.muoviOggetto("torta", response, 3,translation,dim*0.8,dim*0.1); //capire se farlo sparire o no 
+
+// PIETRA
+mostraTraProgressN("pietra",calcolaPercentualeTempo(9,0),calcolaPercentualeTempo(9,2),response);
+if (response.progress <= calcolaPercentualeTempo(9,0)){                                                                // altrimenti
+    animations.muoviOggetto("pietra", response, 10,translation,dim*0.7,dim*0.2); 
+} else {
+    animations.muoviOggetto("pietra", response, 4,translation,dim*0.7,dim*0.2);
+}
+
+if(response.progress > calcolaPercentualeTempo(9,0)-0.02 && response.progress < calcolaPercentualeTempo(9,0)+0.02) {
+    d3.select("#pietra").classed("anima",true);
+} else d3.select("#pietra").classed("anima",false);  
+
+animations.bloccaElemento("pietra",4,9,1,response,-dim*0.5,dim*0.2);
+
 
             break;
         case 10:
             zoom();
             testi.mostraTestoTraTempi(response,1,10,10);
-
 
             animations.gestioneLampada(response,translation);
 

@@ -56,7 +56,7 @@ export const personaggi = [
         famiglia: "Parks",
         dataset: "./data/data_figliaparks.csv",
         faccia: "./assets/facce/figliaParks.svg",
-        dimensione: 1.1
+        dimensione: 1
     },
     {
         i: 2,
@@ -73,15 +73,15 @@ export const personaggi = [
         dataset: "./data/data_jessica.csv",
         faccia: "./assets/facce/jessica.svg",
         morte: "./assets/facce/morti/jessica-morta.svg",
-        dimensione: 1
+        dimensione: 1.2
     },
     {
         i: 4,
         nome: "Ki Woo",
         famiglia: "Kim",
         dataset: "./data/data_kevin.csv",
-        faccia: "./assets/facce/kevin.png",
-        dimensione: 0.9
+        faccia: "./assets/facce/kevin.svg",
+        dimensione: 1
     },
     {
         i: 5,
@@ -97,7 +97,7 @@ export const personaggi = [
         famiglia: "Kim",
         dataset: "./data/data_papakim.csv",
         faccia: "./assets/facce/papaKim.svg",
-        dimensione: 0.9
+        dimensione: 1.2
     },
     {
         i: 7,
@@ -113,7 +113,7 @@ export const personaggi = [
         famiglia: "Kim",
         dataset: "./data/data_mammakim.csv",
         faccia: "./assets/facce/mammaKim.svg",
-        dimensione: 0.9
+        dimensione: 0.8
     },
     {
         i: 9,
@@ -122,7 +122,7 @@ export const personaggi = [
         dataset: "./data/data_bunkersis.csv",
         faccia: "./assets/facce/bunkerSis.svg",
         morte: "./assets/facce/morti/bunkerSis-morta.svg",
-        dimensione: 0.9
+        dimensione: 1
     },
 
     {
@@ -141,7 +141,7 @@ export const personaggi = [
         dataset: "./data/data_papaparks.csv",
         faccia: "./assets/facce/papaParks.svg",
         morte: "./assets/facce/morti/papaParks-morto.svg",
-        dimensione: 1
+        dimensione: 1.1
 
     }/* ,
     {
@@ -181,7 +181,7 @@ const oggetti = [
         i: 1,
         id: "bicchiere",
         src: "./assets/oggetti/bicchiere.svg",
-        dimensione: 1.2
+        dimensione: 1.3
     },
     {
         i: 2,
@@ -193,13 +193,13 @@ const oggetti = [
         i: 3,
         id: "campanello1",
         src: "./assets/oggetti/campanello.svg",
-        dimensione: 1.2
+        dimensione: 1
     },
     {
         i: 4,
         id: "campanello2",
         src: "./assets/oggetti/campanello.svg",
-        dimensione: 1.2
+        dimensione: 1
     },
     {
         i: 5,
@@ -265,25 +265,25 @@ const oggetti = [
         i: 15,
         id: "valigia1",
         src: "./assets/oggetti/valigia.svg",
-        dimensione: 1
+        dimensione: 0.9
     },
     {
         i: 16,
         id: "valigia2",
         src: "./assets/oggetti/valigia.svg",
-        dimensione: 1
+        dimensione: 0.9
     },
     {
         i: 17,
         id: "valigia3",
         src: "./assets/oggetti/valigia.svg",
-        dimensione: 1
+        dimensione: 0.9
     },
     {
         i: 18,
         id: "valigia4",
         src: "./assets/oggetti/valigia.svg",
-        dimensione: 1
+        dimensione: 0.9
     }
 ];
 /* 
@@ -877,38 +877,6 @@ function generaSfondi() {
 generaSfondi();
 
 
-// ETICHETTA SFONDI
-
-function creaEtichettaSfondo() {
-    let  padding = altezzaPagina*0.1;
-     gruppo
-     .append("text")
-     .text("BUNKER")
-     .attr("class","etichetta-sfondo")
-     .attr("x",padding+unit*k)
-     .attr("y",(1-percentualeAltezzaStanze)*altezzaPagina+padding);
-     gruppo
-     .append("text")
-     .text("KIMS'")
-     .attr("class","etichetta-sfondo")
-     .attr("x",padding+unit*k)
-     .attr("y",(1-2*percentualeAltezzaStanze)*altezzaPagina+padding);
-   
-     gruppo
-     .append("text")
-     .text("PARKS'")
-     .attr("class","etichetta-sfondo")
-     .attr("x",padding+unit*k)
-     .attr("y",padding);
-  
- }
- 
- creaEtichettaSfondo();
- 
-
-
-
-
 
 // OVERLAY SFONDO PER LAMPADA CHE SI ACCENDE
 
@@ -1181,7 +1149,7 @@ function creaFaccia(idPersonaggio) {
         .attr("height",dimensione)
         .attr("x",-dimensione/2)
         .attr("y",-dimensione/2)
-        .style("filter","drop-shadow(0px 0px 3px "+coloreLinea(idPersonaggio)+")")
+        .style("filter","drop-shadow(0px 0px 1px "+coloreLinea(idPersonaggio)+")")
         .attr("href", personaggi[parseInt(idPersonaggio)-1].faccia);
     let nome = gruppo
         .append("text")
@@ -1575,12 +1543,20 @@ function creaCredits() {
     let creditsDOM = document.getElementById("container-finale").appendChild(document.createElement("div"));
     creditsDOM.setAttribute("id","credits");
 
-    let credits = d3.select("#credits").html("WOWWW");
-    
+
+
+    let credits = d3.select("#credits").html("Corso di Laurea di Design della Comunicazione</br>Laboratorio di Computer Grafica sez. C2</br>a.a. 2023/2024</br></br>Crimi Martina, Garcia Sanchez Thomas, Genovese Francesca, Mirandola Filippo, Romagnuolo Renata, Savoldi Elena, Sirtori Vittoria");
+    document.getElementById("credits").style.fontSize="1em"; 
+    document.getElementById("credits").style.textAlign="center"; 
+    document.getElementById("credits").style.paddingTop="20%";
+
+
+
+
     let creditsDiv = credits.append("div")
         .attr("id","credits-div")
         .attr("class","cose")
-        .html("TESt");
+       // .html("TESt");
 }
 
 creaFinale();

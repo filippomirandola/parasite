@@ -1,14 +1,28 @@
-<svg width="160" height="168" viewBox="0 0 160 168" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M24 131C17.5 155 2 155.5 2 155.5C2 155.5 18 166.5 27 162C36 157.5 40.5 150.5 52.5 152.5C64.5 154.5 75.9764 166.765 90 165.5C100.113 164.588 103.851 156.819 114 156.5C123.875 156.19 129.177 166.555 139 165.5C146.471 164.697 158.5 155.5 158.5 155.5C158.5 155.5 149.082 151.781 145.5 146C142.505 141.166 140.5 138.186 140.5 132.5C140.5 128 140.5 126.014 141.5 122C143.618 113.5 146.5 109.5 147.5 100C148.5 90.5 147.107 85.1848 145 76C142.22 63.8776 140.044 56.8686 135 45.5C129.723 33.6056 127 27 119.5 16C116.903 12.1913 115 10.5 112 8.5C106.341 4.72763 98.0988 10.0994 91.5 6.5C86 3.5 80.7549 1.99999 76 2C70 2.00001 66.2628 2.89386 61.5 6C50 13.5 43.8675 21.7651 37.5 34.5C30 49.5 27.4318 59 25.5 76C23 98 30.5 107 24 131Z" fill="black" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M63.5002 42.5005C53.3965 58.7197 47.3736 70.5149 45.5002 88.0005C44.0002 102 48.0002 111.5 57.5002 121.5C66.6463 131.128 76.2868 133.822 89.5002 132.5C98.8121 131.569 103.489 128.699 110.5 122.5C119.932 114.162 122.748 105.967 124.5 93.5005C125.397 87.1196 125.831 83.3051 124.5 77.0005C122.439 67.2363 111.5 55.0005 111.5 55.0005C111.5 55.0005 97.9606 39.0149 88.5002 30.5004C83.5002 26.0003 77.0001 27.7276 73.0002 31.0004C69.0002 34.2731 67.0527 36.7976 63.5002 42.5005Z" fill="white" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M68 55.3259C68 55.3259 63.3356 54.5926 60.5 55.3259C58.6381 55.8074 56 57.3259 56 57.3259" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M99 55C99 55 103.522 56.2674 106.5 56.5C108.447 56.6521 111.5 56.5 111.5 56.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M52 67.3572C52 67.3572 63.0795 64.3035 67.5 67.3572C69.5967 68.8055 70 73 70 73" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<ellipse cx="62" cy="69" rx="4" ry="3" fill="black"/>
-<ellipse cx="106" cy="70" rx="4" ry="3" fill="black"/>
-<path d="M98.0004 73.4997C98.0004 73.4997 97.4808 68.3396 100 67.4997C104.5 65.9997 111.5 67.4997 115.5 67.4997" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<ellipse cx="79.3576" cy="100.982" rx="2.00603" ry="1.33735" transform="rotate(-21.6108 79.3576 100.982)" fill="black"/>
-<ellipse cx="2.00603" cy="1.33735" rx="2.00603" ry="1.33735" transform="matrix(-0.929707 -0.3683 -0.3683 0.929707 92.4141 100.478)" fill="black"/>
-<path d="M74 113.53C77 112.03 77.5 108.53 80.5 107.53C82.2078 106.961 84 109.556 84 109.556C84 109.556 85.5246 106.676 88 107.03C91.5 107.53 91.5 111.03 95.5 112.03" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M80 112.526V115H89V112.526" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 160 168" style="enable-background:new 0 0 160 168;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#C00000;stroke:#C00000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st1{fill:#FFFFFF;stroke:#C00000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+	.st2{fill:none;stroke:#C00000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+	.st3{fill:#C00000;stroke:#C00000;stroke-miterlimit:10;}
+</style>
+<path class="st0" d="M24,131c-6.5,24-22,24.5-22,24.5s16,11,25,6.5s13.5-11.5,25.5-9.5s23.5,14.3,37.5,13c10.1-0.9,13.9-8.7,24-9
+	c9.9-0.3,15.2,10.1,25,9c7.5-0.8,19.5-10,19.5-10s-9.4-3.7-13-9.5c-3-4.8-5-7.8-5-13.5c0-4.5,0-6.5,1-10.5c2.1-8.5,5-12.5,6-22
+	s-0.4-14.8-2.5-24c-2.8-12.1-5-19.1-10-30.5c-5.3-11.9-8-18.5-15.5-29.5c-2.6-3.8-4.5-5.5-7.5-7.5c-5.7-3.8-13.9,1.6-20.5-2
+	C86,3.5,80.8,2,76,2c-6,0-9.7,0.9-14.5,4c-11.5,7.5-17.6,15.8-24,28.5C30,49.5,27.4,59,25.5,76C23,98,30.5,107,24,131z"/>
+<path class="st1" d="M63.5,42.5c-10.1,16.2-16.1,28-18,45.5c-1.5,14,2.5,23.5,12,33.5c9.1,9.6,18.8,12.3,32,11c9.3-0.9,14-3.8,21-10
+	c9.4-8.3,12.2-16.5,14-29c0.9-6.4,1.3-10.2,0-16.5c-2.1-9.8-13-22-13-22S98,39,88.5,30.5C83.5,26,77,27.7,73,31
+	C69,34.3,67.1,36.8,63.5,42.5z"/>
+<path class="st2" d="M68,55.3c0,0-4.7-0.7-7.5,0c-1.9,0.5-4.5,2-4.5,2"/>
+<path class="st2" d="M99,55c0,0,4.5,1.3,7.5,1.5c1.9,0.2,5,0,5,0"/>
+<path class="st2" d="M52,67.4c0,0,11.1-3.1,15.5,0C69.6,68.8,70,73,70,73"/>
+<ellipse class="st3" cx="62" cy="69" rx="4" ry="3"/>
+<ellipse class="st3" cx="106" cy="70" rx="4" ry="3"/>
+<path class="st2" d="M98,73.5c0,0-0.5-5.2,2-6c4.5-1.5,11.5,0,15.5,0"/>
+<ellipse transform="matrix(0.9297 -0.3683 0.3683 0.9297 -31.6134 36.3257)" class="st3" cx="79.4" cy="101" rx="2" ry="1.3"/>
+<ellipse transform="matrix(0.3683 -0.9297 0.9297 0.3683 -36.9954 147.5168)" class="st3" cx="90.1" cy="101" rx="1.3" ry="2"/>
+<path class="st2" d="M74,113.5c3-1.5,3.5-5,6.5-6c1.7-0.6,3.5,2,3.5,2s1.5-2.9,4-2.5c3.5,0.5,3.5,4,7.5,5"/>
+<path class="st2" d="M80,112.5v2.5h9v-2.5"/>
 </svg>

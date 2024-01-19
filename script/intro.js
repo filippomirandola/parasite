@@ -16,7 +16,7 @@ let personaggiL1=[8,6,3,4];
 let personaggiL2=[9,10];
 let personaggiL3=[5];
 
-let coloreLinea = ["black","red","white","#690000"];
+let coloreLinea = ["black","#C00000","white","#690000"];
 let nomeFamiglia = ["THE PARKS","THE KIMS","",""]
 
 let personaggiLinee = [personaggiL0,personaggiL1,personaggiL2,personaggiL3];
@@ -67,7 +67,7 @@ function creaLineaLegenda(idLinea) {
 
     let personaggiL=personaggiLinee[idLinea];
     for(let p=0;p<personaggiL.length;p++) {
-        let larghezzaFacciaP = larghezzaFaccia*animations.personaggi[personaggiL[p]-1].dimensione;
+        let larghezzaFacciaP = larghezzaFaccia;
         let x = parseInt(x1)+parseInt(p)*((100-larghezzaDaSx)/4)+((100-larghezzaDaSx)/8);
         gruppo
             .append("image")
