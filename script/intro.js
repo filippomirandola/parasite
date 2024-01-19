@@ -114,7 +114,7 @@ tipoLineeG.append("line")
     .attr("x2","60%")
     .attr("y1",altezza/4+"em")
     .attr("y2",altezza/4+"em")
-    .attr("stroke","red")
+    .attr("stroke",coloreLinea[0])
     .attr("stroke-width",spessoreLinea+"px");
 
 tipoLineeG.append("image")
@@ -122,7 +122,7 @@ tipoLineeG.append("image")
     .attr("y",altezza/4+"em")
     .attr("width", larghezzaFacciaX+"px")
     .attr("height",larghezzaFacciaX+"px")
-    .attr("href","./assets/facce/figliaParks.svg")
+    .attr("href","./assets/facce/default.svg")
     .attr("transform","translate("+-larghezzaFacciaX/2+","+-larghezzaFacciaX/2+")");
 
 
@@ -131,7 +131,7 @@ tipoLineeG.append("image")
     .attr("x2","60%")
     .attr("y1",2*altezza/4+"em")
     .attr("y2",2*altezza/4+"em")
-    .attr("stroke","red")
+    .attr("stroke",coloreLinea[0])
     .attr("stroke-width",spessoreLinea+"px")
     .attr("stroke-dasharray","6% 9%");
 
@@ -140,7 +140,7 @@ tipoLineeG.append("image")
     .attr("y",2*altezza/4+"em")
     .attr("width", larghezzaFacciaX+"px")
     .attr("height",larghezzaFacciaX+"px")
-    .attr("href","./assets/facce/figliaParks.svg")
+    .attr("href","./assets/facce/default.svg")
     .attr("transform","translate("+-larghezzaFacciaX/2+","+-larghezzaFacciaX/2+")");
 
     tipoLineeG.append("line")
@@ -148,7 +148,7 @@ tipoLineeG.append("image")
     .attr("x2","60%")
     .attr("y1",3*altezza/4+"em")
     .attr("y2",3*altezza/4+"em")
-    .attr("stroke","red")
+    .attr("stroke",coloreLinea[0])
     .attr("stroke-width",spessoreLinea+"px");
 
 
@@ -157,7 +157,7 @@ tipoLineeG.append("image")
     .attr("y",3*altezza/4+"em")
     .attr("width", larghezzaFacciaX+"px")
     .attr("height",larghezzaFacciaX+"px")
-    .attr("href","./assets/facce/figliaParks.svg")
+    .attr("href","./assets/facce/morti/default-morto.svg")
     .attr("transform","translate("+-larghezzaFacciaX/2+","+-larghezzaFacciaX/2+")");
 
 
@@ -184,4 +184,4 @@ tipoLineeG.append("image")
          .attr("fill","white"); */
 
 d3.select("#legenda-tipolinee").append("div").attr("id","testo-legenda").attr("width","50%").attr("height","100%")
-.html("The characters’ paths are indicated by lines. </br> The dashed line represents the path we imagined for the character </br> when the movie didn't show us.");
+.html("The characters’ paths are indicated by lines.</br></br>The dashed line represents the path we imagined for the character </br> when the movie didn't show us.");
