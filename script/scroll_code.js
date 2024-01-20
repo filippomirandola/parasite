@@ -286,6 +286,7 @@ function handleProgress(response) {
             
             testi.mostraTestiTraTempi(response,2,11,1,16,19,2);
             testi.mostraEtichettaTraTempi(response,3,10,1);
+            if(response.direction=="down") nascondi(document.getElementById("pietra"));
 
 
 
@@ -430,6 +431,8 @@ function handleProgress(response) {
 // AUTO 
                  mostraTraProgressN("auto",0,calcolaPercentualeTempo(6,10),response);  
                  animations.muoviOggetto("auto", response, 11 ,translation,-dim*0.75,dim*0.2); 
+                 if (response.direction=="up") nascondi(document.getElementById("pietra"));
+
     
 
             break;
@@ -454,13 +457,13 @@ function handleProgress(response) {
 
 // PIETRA
 mostraTraProgressN("pietra",calcolaPercentualeTempo(8,0),calcolaPercentualeTempo(8,19),response);
-if (response.progress <= calcolaPercentualeTempo(8,14)) {              
+if (response.progress <= calcolaPercentualeTempo(8,13)) {              
     animations.muoviOggetto("pietra", response, 4 ,translation,dim*0.7,dim*0.2);
 } else {                                                                // altrimenti
     animations.muoviOggetto("pietra", response, 10,translation,dim*0.7,dim*0.2); 
 };
 
-if(response.progress > calcolaPercentualeTempo(8,14)-0.02 && response.progress < calcolaPercentualeTempo(8,14)+0.02) {
+if(response.progress > calcolaPercentualeTempo(8,13)-0.01 && response.progress < calcolaPercentualeTempo(8,13)+0.02) {
     d3.select("#pietra").classed("anima",true);
 } else d3.select("#pietra").classed("anima",false);   
 

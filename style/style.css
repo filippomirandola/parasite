@@ -210,6 +210,8 @@ article {
 
 .blurred :not(.forzaNoBlur) {
   filter: blur(4px) brightness(65%);
+/*  transform: translate3d(0, 0, 0); */
+
 }
 
 
