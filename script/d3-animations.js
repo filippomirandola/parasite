@@ -18,6 +18,7 @@ const zoomX = ampiezzaStep * 2;
 export const zoomProgressoFinale = 0.2;
 export const dimensioneFacce = altezzaPagina/50;
 let dimensioneNomi = 0.85;
+let paddingNomi = 10;
 let dimensioneOggetti = 30;
 let kMaschera = 2.3;
 
@@ -25,6 +26,7 @@ let kMaschera = 2.3;
 const tratt = 20;
 const trattS = 10;
 const mostraDebug = false;
+
 
 
 
@@ -1157,7 +1159,7 @@ function creaFaccia(idPersonaggio) {
         .text(personaggi[parseInt(idPersonaggio)-1].nome)
         .attr("class","nome-faccia")
         .attr("id","nome-faccia"+idPersonaggio)
-        .attr("x",dimensioneFacce)
+        .attr("x",dimensioneFacce/2)
         .attr("y",0)
         .attr("dominant-baseline","middle")
         .attr("font-size",dimensioneNomi+"em");
@@ -1612,7 +1614,11 @@ export function impostaZoomFacce(rapporto,modificatoreFacce, scena){
         if (rapporto < 3) {
             txt.setAttribute("font-size",(dimensioneNomi/rapporto)+"em");
         }
-        else txt.setAttribute("font-size",(dimensioneNomi/3)+"em");
+        else {
+            txt.setAttribute("font-size",(dimensioneNomi/3)+"em");
+        }
+        txt.setAttribute("x",dimensioneFacce+paddingNomi/rapporto);
+
     }
     
 }
