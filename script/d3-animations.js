@@ -184,104 +184,104 @@ const oggetti = [
         src: "./assets/oggetti/bicchiere.svg",
         dimensione: 1.3 //1.3
     },
-    {
+/*     {
         i: 2,
         id: "bottiglia",
         src: "./assets/oggetti/bottiglia.svg",
         dimensione: 1
-    },
+    }, */
     {
-        i: 3,
+        i: 2,
         id: "campanello1",
         src: "./assets/oggetti/campanello.svg",
         dimensione: 1
     },
     {
-        i: 4,
+        i: 3,
         id: "campanello2",
         src: "./assets/oggetti/campanello.svg",
         dimensione: 1
     },
     {
-        i: 5,
+        i: 4,
         id: "coltello-bunkerbro",
         src: "./assets/oggetti/coltello.svg",
         dimensione: 3 //3
     },
     {
-        i: 6,
+        i: 5,
         id: "coltello-jessica",
         src: "./assets/oggetti/coltello.svg",
         dimensione: 3 //3
     },
     {
-        i: 7,
+        i: 6,
         id: "coltello-papaparks",
         src: "./assets/oggetti/coltello.svg",
         dimensione: 3 //3
     },
     {
-        i: 8,
+        i: 7,
         id: "lotta",
         src: "./assets/oggetti/lotta.svg",
         dimensione: 1.5 //1.5
     },
     {
-        i: 9,
+        i: 8,
         id: "mutande",
         src: "./assets/oggetti/mutande.svg",
         dimensione: 1
     },
-    {
+/*     {
         i: 10,
         id: "nuvoletta",
         src: "./assets/oggetti/nuvoletta.svg",
         dimensione: 1
-    },
+    }, */
     {
-        i: 11,
+        i: 9,
         id: "pesca",
         src: "./assets/oggetti/pesca.svg",
         dimensione: 1
     },
     {
-        i: 12,
+        i: 10,
         id: "pietra",
         src: "./assets/oggetti/pietra.svg",
         dimensione: 0.8
     },
-    {
+/*     {
         i: 13,
         id: "puzza",
         src: "./assets/oggetti/puzza.svg",
         dimensione: 1
-    },
+    }, */
     {
-        i: 14,
+        i: 11,
         id: "torta",
         src: "./assets/oggetti/torta.svg",
         dimensione: 1 //2
     },
     {
-        i: 15,
+        i: 12,
         id: "valigia1",
         src: "./assets/oggetti/valigia.svg",
         dimensione: 0.9 //0.9
     },
     {
-        i: 16,
+        i: 13,
         id: "valigia2",
         src: "./assets/oggetti/valigia.svg",
         dimensione: 0.9
     },
     {
-        i: 17,
+        i: 14,
         id: "valigia3",
         src: "./assets/oggetti/valigia.svg",
         dimensione: 0.9
     },
     {
-        i: 18,
+        i: 15,
         id: "valigia4",
         src: "./assets/oggetti/valigia.svg",
         dimensione: 0.9
@@ -1242,27 +1242,31 @@ function creaFacce (){
          pt0 = puntiP[i];
          pt1 = puntiP[i];
     } */
-
-    pt0 = puntiP[i-1]; //punto precedente
-    pt1 = puntiP[i]; //punto successivo
+    if (i>0) {
+        pt0 = puntiP[i-1]; //punto precedente
+        pt1 = puntiP[i]; //punto successivo
+       
+    
+        // calcolo la percentuale di progresso (da 0 a 1) lungo il tratto e la differenza tra le Y
+        let progressoTratto = (xLinea-pt0.x) / (pt1.x - pt0.x); 
+        let diffY = progressoTratto * (pt1.y - pt0.y);
+    
+        // calcolo la y della faccia
+        pt.y =  pt0.y + diffY + deltaY;
+    
+    
+        // calcolo il fattore di scala della faccia
+      /*   let k = (coordinateLivelli[zoomScena[scena][0]].max - coordinateLivelli[zoomScena[scena][1]].min)/unit;
+        console.log("dimensione facce rapporto "+k);
+        let nuovaDimensione = k*dimensioneFacce;
+        obj.setAttribute("width",nuovaDimensione);
+        obj.setAttribute("height",nuovaDimensione);
+        obj.setAttribute("x",-nuovaDimensione/2);
+        obj.setAttribute("y",-nuovaDimensione/2); */
+    } else {
+        pt.y = puntiP[i].y;
+    }
    
-
-    // calcolo la percentuale di progresso (da 0 a 1) lungo il tratto e la differenza tra le Y
-    let progressoTratto = (xLinea-pt0.x) / (pt1.x - pt0.x); 
-    let diffY = progressoTratto * (pt1.y - pt0.y);
-
-    // calcolo la y della faccia
-    pt.y =  pt0.y + diffY + deltaY;
-
-
-    // calcolo il fattore di scala della faccia
-  /*   let k = (coordinateLivelli[zoomScena[scena][0]].max - coordinateLivelli[zoomScena[scena][1]].min)/unit;
-    console.log("dimensione facce rapporto "+k);
-    let nuovaDimensione = k*dimensioneFacce;
-    obj.setAttribute("width",nuovaDimensione);
-    obj.setAttribute("height",nuovaDimensione);
-    obj.setAttribute("x",-nuovaDimensione/2);
-    obj.setAttribute("y",-nuovaDimensione/2); */
 
     // traslo la faccia
     obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)'; 
