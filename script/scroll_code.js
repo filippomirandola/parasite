@@ -208,6 +208,10 @@ function handleProgress(response) {
         inizioLinea(9,5,3,response);
         mostraDopoTempo("linea_5_P9",5,13,response);
         mostraDopoTempo("gruppo-faccia9",5,13,response);
+        if (response.index > 7) {
+            document.getElementById("linea_"+response.index+"_P9").style.visibility = "hidden";
+        }
+
     }
 
 // PIETRA
@@ -484,7 +488,7 @@ if(response.progress > calcolaPercentualeTempo(8,14)-0.02 && response.progress <
             // torta. jessica(3) da 9,3 a 9,13
 
             mostraTraPunti("torta",3,1,2,response);
-            animations.muoviOggetto("torta", response, 3,translation,dim*0.8,dim*0.1); //capire se farlo sparire o no 
+            animations.muoviOggetto("torta", response, 3,translation,dim*0.8,0); //capire se farlo sparire o no 
 
 // PIETRA
 mostraTraProgressN("pietra",calcolaPercentualeTempo(9,0),calcolaPercentualeTempo(9,2),response);
@@ -816,8 +820,8 @@ function nascondiLineaTutta(personaggio, scena, nascondiFaccia) {
     let idLinea = "linea_"+scena+"_P"+personaggio;
     let linea = document.getElementById(idLinea);
 
-    nascondi(linea);
-
+     nascondi(linea);
+  //  document.getElementById()
     if (nascondiFaccia) {
         let idFaccia = "gruppo-faccia"+personaggio;
         let faccia = document.getElementById(idFaccia);
