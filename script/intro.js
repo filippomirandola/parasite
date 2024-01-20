@@ -184,4 +184,4 @@ tipoLineeG.append("image")
          .attr("fill","white"); */
 
 d3.select("#legenda-tipolinee").append("div").attr("id","testo-legenda").attr("width","50%").attr("height","100%")
-.html("The characters’ paths are indicated by lines.</br></br>The dashed line represents the path we imagined for the character </br> when the movie didn't show us.");
+.html("The characters’ paths are indicated by lines.</br></br>The dashed line represents the path we imagined for the character </br> when the movie didn't show us.</br></br>The crossed icon simbolizes the death of a character.");

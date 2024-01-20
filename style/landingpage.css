@@ -1,17 +1,21 @@
 /* stile del testo principale*/
 @font-face {
-    font-family: "Futura";
-    src: url("../assets/font/Futura.ttc");
+    font-family: "Jost-Medium";
+    src: url("../assets/font/Jost-Medium.ttf");
+}
+@font-face {
+    font-family: "Jost-MediumItalic";
+    src: url("../assets/font/Jost-MediumItalic.ttf");
 }
 
+
 body {
-    font-family: "Futura","futura-pt-bold", sans-serif;
+    font-family: "Jost-Medium", sans-serif;
     font-weight: 700;
     font-style: normal;
     font-size: 1.2em;
     background-color: #121A1C;
     color: #C1976B;
-    font-family:'Futura', sans-serif; 
     margin:0%;
     }
 
@@ -19,7 +23,13 @@ body {
     display:flex;
     align-items: center;
 }
-
+/*#rigasotto {
+    font-family: "Jost-Medium-", sans-serif;
+}*/
+#maiuscoletto {
+    font-size: 0.9em;
+    font-family: "Jost-Medium", sans-serif;
+}
 
 /* stile dell'immagine di copertina*/
 #parasiteimg, #morsefinal {
@@ -62,8 +72,8 @@ body {
 .quoteText {
     text-align: right;
     margin: 15%;
-    font-style: italic;
-    font-size: 1.3em;
+    font-family: "Jost-MediumItalic", sans-serif;
+    font-size: 1.4em;
     color: #C1976B;
 }
 /* stile dell'immagine che spiega la viz*/
