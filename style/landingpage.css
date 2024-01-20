@@ -4,8 +4,8 @@
     src: url("../assets/font/Jost-Medium.ttf");
 }
 @font-face {
-    font-family: "Jost-MediumItalic";
-    src: url("../assets/font/Jost-MediumItalic.ttf");
+    font-family: "Jost-Bold";
+    src: url("../assets/font/Jost-Bold.ttf");
 }
 
 
@@ -29,6 +29,7 @@ body {
 #maiuscoletto {
     font-size: 0.9em;
     font-family: "Jost-Medium", sans-serif;
+    font-style: normal;
 }
 
 /* stile dell'immagine di copertina*/
@@ -72,7 +73,8 @@ body {
 .quoteText {
     text-align: right;
     margin: 15%;
-    font-family: "Jost-MediumItalic", sans-serif;
+   /* font-family: "Jost-MediumItalic", sans-serif;*/
+   font-style: italic;
     font-size: 1.4em;
     color: #C1976B;
 }

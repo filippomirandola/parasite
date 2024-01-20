@@ -165,7 +165,7 @@ export function mostraEtichettaTraTempi(response,t0,t1,idTxt){
 
     if(idTxt==2) {
         containerEtichette.setAttribute("style","margin-top: "+(altezzaPagina-unit)+"px");
-    }
+    } else containerEtichette.setAttribute("style","");
 
     let mostra = false;
     let testo = "";

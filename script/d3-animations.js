@@ -1440,7 +1440,7 @@ let txtP = intro.append("text")
 let r3 = txtP.append("tspan")
         .attr("x",xTesto)
         .attr("y","50%")
-        .attr("dy","1.2em")
+        .attr("dy","-0.6em")
         .html("The visualization will expand horizontally but");
 let r4 = txtP.append("tspan")
         .attr("x",xTesto)
