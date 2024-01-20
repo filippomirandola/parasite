@@ -304,9 +304,9 @@ function handleProgress(response) {
            // AUTO va al padreParks dal t12 al t13
 
             if (response.progress <= calcolaPercentualeTempo(2,12)) {  
-                animations.muoviOggetto("auto", response, 11 ,translation,-dim*0.2,dim*0.2); // aggancia a jessica
+                animations.muoviOggetto("auto", response, 11 ,translation,-dim*0.75,dim*0.2); // aggancia a jessica
                // aggancia a papà parks
-            } else    animations.muoviOggetto("auto", response, 3,translation,-dim*0.2,dim*0.2);    // a Jessica dal 13 al 16
+            } else    animations.muoviOggetto("auto", response, 3,translation,-dim*0.75,dim*0.2);    // a Jessica dal 13 al 16
 
                           // anima
                           if(response.progress > calcolaPercentualeTempo(2,12)-0.02 && response.progress < calcolaPercentualeTempo(2,12)+0.02) {
@@ -329,7 +329,7 @@ function handleProgress(response) {
       // AUTO va al padreKim dal t3 al t17
 
             mostraTraPunti("auto",6,1,4,response);
-            animations.muoviOggetto("auto", response, 6,translation,-dim*0.2,dim*0.2);
+            animations.muoviOggetto("auto", response, 6,translation,-dim*0.75,dim*0.2);
 
 
             
@@ -384,7 +384,7 @@ function handleProgress(response) {
              // A TUTTI I PARKS (1,7,11,2)
 
              mostraTraProgressN("auto",calcolaPercentualeTempo(5,6),1,response);  
-            animations.muoviOggetto("auto", response, 11 ,translation,-dim*0.2,dim*0.2); 
+            animations.muoviOggetto("auto", response, 11 ,translation,-dim*0.75,dim*0.2); 
 
              // AUTO
 
@@ -425,7 +425,7 @@ function handleProgress(response) {
                  // A TUTTI I PARKS (1,7,11,2)
 // AUTO 
                  mostraTraProgressN("auto",0,calcolaPercentualeTempo(6,10),response);  
-                 animations.muoviOggetto("auto", response, 11 ,translation,-dim*0.2,dim*0.2); 
+                 animations.muoviOggetto("auto", response, 11 ,translation,-dim*0.75,dim*0.2); 
     
 
             break;

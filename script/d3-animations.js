@@ -44,6 +44,7 @@ export var zoomScena = [
     [0,4]
  ];
  var modificatoriZoom = [3,1.2,1.2,1.2,1.2,1.2,1,1,1,2.7,1,1];
+ var modificatoriZoomOgg = [2,1.1,1.1,1.1,1.1,1.1,1,1,1,2,1,1];
 
 // Dataset piani  bunker / casaPoveri / strada / casaRicchi1 / casaRicchi2
 const livelli = [6,5,4,9,5];
@@ -175,13 +176,13 @@ const oggetti = [
         i: 0,
         id: "auto",
         src: "./assets/oggetti/auto.svg",
-        dimensione: 1.5
+        dimensione: 1.5 //1.5
     },
     {
         i: 1,
         id: "bicchiere",
         src: "./assets/oggetti/bicchiere.svg",
-        dimensione: 1.3
+        dimensione: 1.3 //1.3
     },
     {
         i: 2,
@@ -205,25 +206,25 @@ const oggetti = [
         i: 5,
         id: "coltello-bunkerbro",
         src: "./assets/oggetti/coltello.svg",
-        dimensione: 3
+        dimensione: 3 //3
     },
     {
         i: 6,
         id: "coltello-jessica",
         src: "./assets/oggetti/coltello.svg",
-        dimensione: 3
+        dimensione: 3 //3
     },
     {
         i: 7,
         id: "coltello-papaparks",
         src: "./assets/oggetti/coltello.svg",
-        dimensione: 3
+        dimensione: 3 //3
     },
     {
         i: 8,
         id: "lotta",
         src: "./assets/oggetti/lotta.svg",
-        dimensione: 1.5
+        dimensione: 1.5 //1.5
     },
     {
         i: 9,
@@ -247,7 +248,7 @@ const oggetti = [
         i: 12,
         id: "pietra",
         src: "./assets/oggetti/pietra.svg",
-        dimensione: 1
+        dimensione: 0.8
     },
     {
         i: 13,
@@ -259,13 +260,13 @@ const oggetti = [
         i: 14,
         id: "torta",
         src: "./assets/oggetti/torta.svg",
-        dimensione: 2
+        dimensione: 1 //2
     },
     {
         i: 15,
         id: "valigia1",
         src: "./assets/oggetti/valigia.svg",
-        dimensione: 0.9
+        dimensione: 0.9 //0.9
     },
     {
         i: 16,
@@ -1612,12 +1613,12 @@ export function impostaZoomFacce(rapporto,modificatoreFacce, scena){
     
 }
 
-export function impostaZoomOggetti(rapporto, scena){ 
+export function impostaZoomOggetti(rapporto, scena, modificatoreOggetti){ 
    // let dimensione = dimensioneFacce*2*modificatoriZoom[scena]/rapporto;
    console.log("oggetti zoom "+rapporto);
     for (let i = 0; i<oggetti.length; i++) {
-        let dimensione = dimensioneOggetti/rapporto*oggetti[i].dimensione;
-        dimensione=dimensione*oggetti[i].dimensione;
+        let dimensione = dimensioneOggetti*oggetti[i].dimensione*modificatoreOggetti/rapporto;
+      //  dimensione=dimensione*oggetti[i].dimensione;
 
         let obj = document.getElementById(oggetti[i].id);
         obj.setAttribute("width",dimensione);
@@ -1678,7 +1679,7 @@ export function calcolaZoom(progresso, scena, nuovo, vecchio) {
     traslazioneX = - ((xMaschera)-(xMaschera/rapporto));
 
     impostaZoomSfondo(rapporto,traslazioneY,traslazioneX);
-    impostaZoomOggetti(rapporto,scena);
+    impostaZoomOggetti(rapporto,scena,modificatoreFacce);
     impostaZoomFacce(rapporto,modificatoreFacce,scena);
     impostaZoomIntro(rapporto,0,0);
 } 
