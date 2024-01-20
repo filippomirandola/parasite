@@ -23,9 +23,9 @@ body {
     display:flex;
     align-items: center;
 }
-/*#rigasotto {
-    font-family: "Jost-Medium-", sans-serif;
-}*/
+#rigasotto {
+    font-size: 0.9em;
+}
 #maiuscoletto {
     font-size: 0.9em;
     font-family: "Jost-Medium", sans-serif;
@@ -70,7 +70,8 @@ body {
     margin-top: -10.5%;
     margin-bottom: 6%;
 }
-.quoteText {
+
+.quoteText p{
     text-align: right;
     margin: 15%;
    /* font-family: "Jost-MediumItalic", sans-serif;*/
@@ -90,11 +91,14 @@ tspan {
 
 /*stile titolo*/
 .titolo {
-    margin-left: 5%;
+   /* margin-left: 5%; */
+   text-align: right;
+   position: relative;
+   right: 62%;
 }
 
 #legenda-tipolinee {
-    margin-top: 5em;
+    margin-top: 2em;
     display: flex;
 }
 

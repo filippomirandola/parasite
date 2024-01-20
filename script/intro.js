@@ -107,6 +107,8 @@ let tipoLinee = d3.select("#legenda-tipolinee").append("svg")
 .attr("width","50%")
 .attr("height",altezza+"em");
 
+
+
 let tipoLineeG = tipoLinee.append("g").attr("width","100%");
 
 tipoLineeG.append("line")
@@ -184,4 +186,4 @@ tipoLineeG.append("image")
          .attr("fill","white"); */
 
 d3.select("#legenda-tipolinee").append("div").attr("id","testo-legenda").attr("width","40%").attr("height","100%").attr("style","padding-right:15%")
-.html("The characters’ paths are indicated by lines.</br></br>The dashed line represents the path we imagined for the character when the movie didn't show us.</br></br>The crossed icon simbolizes the death of a character.");
+.html("The characters’ paths are indicated by lines.</br></br>The dashed line represents the path we imagined for the character when the movie didn't show us.</br></br>The crossed icon symbolizes the death of a character.");

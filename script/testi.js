@@ -14,7 +14,7 @@ containerTesti.setAttribute("id","testi");
 
 containerTesti.innerHTML = "";
 containerTesti.classList.add("nascondiTxt");
-let etichette = ["KIMS'", "PARKS'","BUNKER"];
+let etichette = ["KIMS' HOUSE", "PARKS' HOUSE","BUNKER"];
 
 
 
