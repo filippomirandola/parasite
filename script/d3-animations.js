@@ -18,7 +18,7 @@ const zoomX = ampiezzaStep * 2;
 export const zoomProgressoFinale = 0.2;
 export const dimensioneFacce = altezzaPagina/50;
 let dimensioneNomi = 0.85;
-let paddingNomi = 10;
+let paddingNomi = 20;
 let dimensioneOggetti = 30;
 let kMaschera = 2.3;
 
@@ -1617,7 +1617,7 @@ export function impostaZoomFacce(rapporto,modificatoreFacce, scena){
         else {
             txt.setAttribute("font-size",(dimensioneNomi/3)+"em");
         }
-        txt.setAttribute("x",dimensioneFacce+paddingNomi/rapporto);
+        txt.setAttribute("x",dimensioneFacce/2+paddingNomi/rapporto);
 
     }
     
