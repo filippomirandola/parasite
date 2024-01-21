@@ -74,7 +74,6 @@ body {
 .quoteText p{
     text-align: right;
     margin: 15%;
-   /* font-family: "Jost-MediumItalic", sans-serif;*/
    font-style: italic;
     font-size: 1.4em;
     color: #C1976B;
@@ -91,7 +90,6 @@ tspan {
 
 /*stile titolo*/
 .titolo {
-   /* margin-left: 5%; */
    text-align: right;
    position: relative;
    right: 62%;

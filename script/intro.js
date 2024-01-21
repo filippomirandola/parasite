@@ -21,10 +21,6 @@ let nomeFamiglia = ["THE PARKS","THE KIMS","",""]
 
 let personaggiLinee = [personaggiL0,personaggiL1,personaggiL2,personaggiL3];
 
-function creaFacciaNome(idPersonaggio){
-
-}
-
 
 let larghezzaFaccia = 80;
 
@@ -62,7 +58,6 @@ function creaLineaLegenda(idLinea) {
             .attr("fill","#C1976b")
             .attr("text-anchor","end")  
             .attr("dominant-baseline","central"); 
-          //  .attr("transform","translate(0,"+spessoreLinea/2+")");
 
 
     let personaggiL=personaggiLinee[idLinea];
@@ -163,27 +158,6 @@ tipoLineeG.append("image")
     .attr("transform","translate("+-larghezzaFacciaX/2+","+-larghezzaFacciaX/2+")");
 
 
-/*     tipoLineeG.append("text")
-    .text("The characters’ paths are indicated by lines.")
-         .attr("x","100%")
-         .attr("y",altezza/4+"em")
-         .attr("text-anchor","middle")
-         .attr("fill","white");
-
-    tipoLineeG.append("text")
-    .text("The dashed line represents the path we imagined for the character. when the movie didn't show us.")
-         .attr("x","100%")
-         .attr("y",2*altezza/4+"em")
-         .attr("text-anchor","middle")
-         .attr("fill","white");
-
-
-    tipoLineeG.append("text")
-    .text("Il morto.")
-         .attr("x","100%")
-         .attr("y",3*altezza/4+"em")
-         .attr("text-anchor","middle")
-         .attr("fill","white"); */
 
 d3.select("#legenda-tipolinee").append("div").attr("id","testo-legenda").attr("width","40%").attr("height","100%").attr("style","padding-right:15%")
 .html("The characters’ paths are indicated by lines.</br></br>The dashed line represents the path we imagined for the character when the movie didn't show us.</br></br>The crossed icon symbolizes the death of a character.");

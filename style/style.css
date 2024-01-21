@@ -120,14 +120,6 @@ figure p {
   position: fixed;
 }
 
-/* #intro {
-height: 100vh;
-width: 100%;
-position: fixed;
- z-index:100;
- visibility: hidden;
- 
-} */
 
 #textIntro {
   vertical-align: middle;
@@ -146,9 +138,6 @@ article {
   transform: translateX(-1px);
 }
 
-/* #linee path {
-  filter: drop-shadow(0px 0px 10px rgb(250, 250, 250)); 
-} */
 
 #container {
   transition: opacity 0.5s linear;
@@ -210,7 +199,6 @@ article {
 
 .blurred :not(.forzaNoBlur) {
   filter: blur(4px) brightness(65%);
-/*  transform: translate3d(0, 0, 0); */
 
 }
 
@@ -290,9 +278,6 @@ img#morsefinal {
 
 
 /* NOMI FACCE */
-/* image[id^="faccia"]:hover + text[id^="nome-faccia"] {
-  opacity: 0.5;
-} */
 
 .copri {
   opacity: 0.3;
@@ -305,11 +290,6 @@ img#morsefinal {
 text[id^="nome-faccia"].mostra {
   opacity: 1;
 }
-/*
-[id^="gruppo-faccia"]:hover > text {
-  opacity: 1;
-}
- */
 
 
 
@@ -318,10 +298,6 @@ text[id^="nome-faccia"].mostra {
   fill:white;
   opacity: 1;
 }
-
-/* .linea:hover {
-  opacity: 0;
-} */
 
 
 .linea_P9 {

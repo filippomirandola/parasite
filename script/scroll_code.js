@@ -1,7 +1,3 @@
-//pietra scompare a 1,17
-//e ricompare 7,18
-//
-
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import * as animations from "./d3-animations.js";
 import * as pioggia from "./pioggia.js";
@@ -49,8 +45,6 @@ var scroller = scrollama();
 // generic window resize listener event
 function handleResize() {
     // 1. update height of step elements
-//    var stepH = Math.floor(window.innerHeight * 4);
-//    step.style("height", stepH + "px");
 
     var stepH = Math.floor(250 * ampiezzaScene[0]);
     step.style("height", stepH + "px");
@@ -59,8 +53,6 @@ function handleResize() {
 
     var figureHeight = window.innerHeight;
     var figureMarginTop = 2*window.innerHeight ;
-
-    // animations.resize();
 
 
     figure
@@ -75,15 +67,8 @@ function handleResize() {
 // scrollama event handlers
 
 function handleProgress(response) {
-    console.log("indice "+response.index);
-   //  d3.select("#pietra").style.display = "hidden";
     if (response.index <= 11 ) {
 
-
-
-
-    // nascondiLineaTutta(12,response.index,true);
-    console.log("indice: "+response.index);
     // CALCOLO TRASLAZIONE
     var translation = (response.progress) * animations.stabilisciAmpiezzaLinea(response.index);
 
@@ -100,7 +85,6 @@ function handleProgress(response) {
     };
 
     for (let idPersonaggio=1; idPersonaggio<=numPersonaggi; idPersonaggio++){
-        console.log("idPersonaggio "+idPersonaggio);
         traslaLinea("linea_"+response.index+"_P"+idPersonaggio, -translation); // l'id viene calcolato come composizione di stringhe
         if (response.index != 0 ) { // continua a traslare la linea precedente di un modulo in più
             traslaLinea("linea_"+(response.index-1)+"_P"+idPersonaggio, (-translation)-(animations.stabilisciAmpiezzaLinea(response.index-1)));
@@ -114,16 +98,11 @@ function handleProgress(response) {
 
         // APPLICO TRASLAZIONE A INTRO
         var introSVG = d3.select("#introSVG");
-        // introSVG.style("transform", "scale("+0.2+") translate(" + -translation + "px "+ animations.getCoordinateLivelli(1).min +"px)");
         introSVG.style("transform", "translateX(" + -translation*3 + "px)");
 
 
     // FUNZIONE PER RICHIAMARE GLI ZOOM in "up" e in "down"
     function zoom() {
-    
-    //  if (response.progress <= animations.zoomProgressoFinale) {
-        //   console.log("dentro zoom");
-        // nuovoZoom = [pianoInferiore, pianoSuperiore];
 
         nuovoZoom = zoomScena[response.index];
 
@@ -214,16 +193,6 @@ function handleProgress(response) {
 
     }
 
-// PIETRA
- /*    if (response.index <=7) {
-        fineLinea(12,0,6,response);
-    } 
-    if (response.index >=8) {
-        fineLinea(12,8,7,response);
-    } 
- */
-// mostraTestoTraProgress(10,60,response);
-
     switch (response.index) {
 
    
@@ -240,7 +209,6 @@ function handleProgress(response) {
 
             }
 
-            //A SCATTI animations.impostaZoom(3,3);
             if (response.progress <= 0.9) {
                 mostra(document.getElementById("introSVG"));
             } else {
@@ -248,18 +216,11 @@ function handleProgress(response) {
 
             }
 
-           // mostra(document.getElementById("testo0"));
-
-           /*  if (response.direction === "up" && response.progress <0.9) {
-                mostra(document.getElementById("introSVG"));
-            }  */
-
 
 
 
 
             // PIETRA
-            // mostraTraPunti("pietra",9,0,1,response);
            mostraTraProgressN("pietra",calcolaPercentualeTempo(0,1),calcolaPercentualeTempo(0,19),response);
             if (response.progress <= calcolaPercentualeTempo(0,12)) {              // animations.ottieniProgresso(5,response.index,2)prima del primo vertice di min
                 animations.muoviOggetto("pietra", response, 5 ,translation,dim*0.7,dim*0.2); // aggancia a min
@@ -275,8 +236,6 @@ function handleProgress(response) {
             } else if(response.progress > calcolaPercentualeTempo(0,16)-0.02 && response.progress < calcolaPercentualeTempo(0,16)+0.02) {
                 d3.select("#pietra").classed("anima",true);
             } else d3.select("#pietra").classed("anima",false);
-
-            //animations.bloccaElemento("pietra",8,0,1,response,-dim*0.5,dim*0.2);
             
 
 
@@ -288,23 +247,11 @@ function handleProgress(response) {
             testi.mostraEtichettaTraTempi(response,3,10,1);
             if(response.direction=="down") nascondi(document.getElementById("pietra"));
 
-
-
-
-           //  mostraDopoSoglia("intro", response, 0.5);
-         //   
-            //mostraTraProgress("mutande",0.5, 0.7, response);
-         //   mostraTraPunti("mutande",12,1,2,response);
-
-            // MOS
-          
             break;
         case 2:
             zoom();
             testi.mostraTestiTraTempi(response,0,10,2,13,19,3);
 
-
-          //   mostraTraPunti("auto",3,6,8,response);
           mostraTraProgressN("auto",calcolaPercentualeTempo(2,11),calcolaPercentualeTempo(2,15)-0.05,response);
            // AUTO va al padreParks dal t12 al t13
 
@@ -355,7 +302,6 @@ function handleProgress(response) {
                 d3.select("#pesca").classed("anima",true);
             } else d3.select("#pesca").classed("anima",false);   
 
-         //   animations.bloccaElemento("pesca",9,3,2,response,-dim*0.2,dim*0.2);
 
 
             break;
@@ -407,8 +353,6 @@ function handleProgress(response) {
             testi.mostraEtichettaTraTempi(response,5,15,2);
 
 
-            console.log(translation+" "+animations.stabilisciAmpiezzaLinea(6));
-            console.log(-translation+animations.stabilisciAmpiezzaLinea(5));   // CORREGGERE
             posizionaOggetto("bicchiere",5,12,3,6,-translation-animations.stabilisciAmpiezzaLinea(6),0); // RICORDA DI ALZARE
             posizionaOggetto("campanello1",5,13,3,6,-translation-animations.stabilisciAmpiezzaLinea(6),0); // RICORDA DI ALZARE
             posizionaOggetto("campanello2",6,10,3,6,-translation,0); // RICORDA DI ALZARE
@@ -530,13 +474,10 @@ animations.bloccaElemento("pietra",4,9,1,response,-dim*0.5,dim*0.2);
 
 
 function handleStepEnter(response) {
-    // setTesto(response);
-    console.log("scena "+response.index);
     switch (response.index) {
 
    
         case 0:
-        //    mostra(document.getElementById("introSVG"));
             document.getElementById("container").classList.add("mostra");
             document.getElementById("introSVG").style.visibility="visible";
 
@@ -618,39 +559,6 @@ function handleStepExit(response) {
             if(response.direction==="down") document.getElementById("introSVG").style.visibility="hidden";
 
             break;
-        case 1:
-  
-
-            break;
-        case 2:
-    
-             
-            break;
-        case 3:
-        
-            break;
-        case 4:
-           
-            break;
-        case 5:
-
-            break;
-        case 6:
-            break;
-        case 7:
-            break;
-        case 8: 
-            break;
-        case 9:
-            break;
-        case 10:
-
-            break;
-        case 11:
-       //     d3.select("#parent").classed("blur",false);
-       //     d3.select("#parent").classed("noblur",true);
-
-            break;
         case 13:
             finale.nascondiCredits();
             break;
@@ -710,12 +618,8 @@ function nascondi(obj) {
 
 function mostraTraProgress(id, p0, p1, response) {
     let obj = document.getElementById(id);
-    console.log("mostra p0 "+p0);
-    console.log("mostra p1 "+p1);
-    console.log("mostra prog "+response.progress);
-
+   
     if ((response.progress*100) >= p0 && (response.progress*100) < p1) {
-        console.log("mostra in "+id);
         mostra(obj);
     } else {
         nascondi(obj);
@@ -734,10 +638,8 @@ function mostraTraProgressN(id, p0, p1, response) {
 }
 
 function mostraTraPunti(id, idPersonaggio, tempo0, tempo1, response) {
-    console.log("mostra "+id+" scena "+response.index+" tempo0 "+tempo0+" tempo1 "+tempo1);
     //TEMPO SONO IL NUMERO ORDINALE DI PUNTI DELLA SCENA!!
     let puntiScena = animations.datasetPerScena(animations.ottieniPuntiP(parseInt(idPersonaggio)),response.index);
- //   console.log(puntiScena);
     let p0 = puntiScena[tempo0].progresso;
     let p1 = puntiScena[tempo1].progresso;
 
@@ -747,13 +649,8 @@ function mostraTraPunti(id, idPersonaggio, tempo0, tempo1, response) {
 
 function mostraDopoSoglia(id, response, scena, soglia) {
 
-    console.log("mostra dopo "+id);
-
     let oggetto = document.getElementById(id);
-   /*  if (response.index < index) {
-        oggetto.style.visibility = "hidden";
-    } */
-
+ 
     if (response.progress > soglia || response.index > scena) {
         oggetto.style.opacity = 100;
         } 
@@ -762,21 +659,12 @@ function mostraDopoSoglia(id, response, scena, soglia) {
         oggetto.style.opacity = 0;
             } 
 
-        
-
-
-    /* if (response.index > index) {
-                oggetto.style.visibility = "visible";
-            } */
     }
 
     function mostraPrimaSoglia(id, response, scena, soglia) {
 
         let oggetto = document.getElementById(id);
-       /*  if (response.index < index) {
-            oggetto.style.visibility = "hidden";
-        } */
-    
+   
         if (response.progress <= soglia || response.index < scena) {
             oggetto.style.opacity = 100;
             } 
@@ -784,11 +672,7 @@ function mostraDopoSoglia(id, response, scena, soglia) {
         if (response.progress >= soglia && response.index >= scena) {
             oggetto.style.opacity = 0;
                 } 
-    
-    
-        /* if (response.index > index) {
-                    oggetto.style.visibility = "visible";
-                } */
+
         }
 
 function mostraDopoPunto(id, idPersonaggio, scena, tempo, response) {
@@ -805,14 +689,12 @@ function calcolaPercentualeTempo(scena, tempo) {
 function mostraDopoTempo(id, scena, tempo, response) {
     
     let p = calcolaPercentualeTempo(scena,tempo);
-    console.log("p obiettivo "+p+" p attuale "+response.progress);
     mostraDopoSoglia(id, response, scena, p);
 }
 
 function mostraPrimaTempo(id, scena, tempo, response) {
     
     let p = calcolaPercentualeTempo(scena,tempo);
-    console.log("p obiettivo "+p+" p attuale "+response.progress);
     mostraPrimaSoglia(id, response, scena, p);
 }
 
@@ -824,7 +706,6 @@ function nascondiLineaTutta(personaggio, scena, nascondiFaccia) {
     let linea = document.getElementById(idLinea);
 
      nascondi(linea);
-  //  document.getElementById()
     if (nascondiFaccia) {
         let idFaccia = "gruppo-faccia"+personaggio;
         let faccia = document.getElementById(idFaccia);
@@ -851,11 +732,6 @@ function mostraFaccia(personaggio) {
 
 // blocca oggetto o faccia in corrispondenza di un vertice di un personaggio
 
-/* function riprendiLinea(idPersonaggio,response) {
-    mostraLineaTutta(idPersonaggio,response.index);
-    animations
-} */
-
 function fineLinea(idPersonaggio, scena, indiceTempo, response) {
     if (response.index == scena) {
         animations.nascondiLineaFine(idPersonaggio, scena, indiceTempo);
@@ -873,25 +749,13 @@ function inizioLinea(idPersonaggio, scena, indiceTempo, response) {
     if (response.index < scena) {
         nascondiLineaTutta(idPersonaggio, response.index, false);
     }
-   // animations.bloccaElemento("gruppo-faccia"+idPersonaggio, idPersonaggio, scena, indiceTempo, response, 0, 0);
 }
 
-/* 
-function morte(idPersonaggio,scena,indiceTempo,response) {
-    animations.nascondiLineaFine(idPersonaggio,scena,indiceTempo);
-    if (response.progress >= animations.ottieniProgresso(idPersonaggio,scena,indiceTempo)) {// blocca solo dopo aver superato il punto
-        animations.bloccaElemento("gruppo-faccia"+idPersonaggio,idPersonaggio,scena,indiceTempo,response,0,0);
-        animations.cambiaFaccia(idPersonaggio,true);
-    }  else {
-        animations.cambiaFaccia(idPersonaggio,false);
-    }
-} */
 
 
 function morte(idPersonaggio,scena,indiceTempo,response) {
     fineLinea(idPersonaggio,scena, indiceTempo, response);
     if (response.index > scena || (response.index == scena && response.progress >= animations.ottieniPercX(idPersonaggio,scena,indiceTempo))) {// blocca solo dopo aver superato il punto
-      console.log("facciaIn")
         animations.cambiaFaccia(idPersonaggio,true);
     }  else {
         animations.cambiaFaccia(idPersonaggio,false);

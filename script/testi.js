@@ -36,51 +36,6 @@ testi[10] = "Ki Taek escapes and hides himself in the bunker.<br/><br/>Ki Woo, s
 testi[11] = "Ki Woo dreams about becoming rich enough to buy the Parks’ former house and then setting his father free.";
 
 
-/* 
-function setTesto(response) {
-    console.log("in testo "+response.index);
-    switch (response.index) {
-        case 0:
-            containerTesti.innerHTML= "The Kims struggle in a sub-basement apartment, folding pizza boxes to make ends meet.";
-            break;
-        case 1:
-            containerTesti.innerHTML="Ki Woo, the son, manages to get the chance to tutor the daughter of the wealthy Park family, thanks to his friend.";
-            break;
-        case 2:
-            containerTesti.innerHTML= "The infiltration begins: Ki Woo recommends his sister Ki Jeong as an art therapist for Da Song.";
-            break;
-        case 3:
-            containerTesti.innerHTML="The Parks’ chauffeur gets fired after the panty-scandal. Mr. Kim gets employed.";
-            break;
-        case 4:
-            containerTesti.innerHTML= "The Kims cause an allergic reaction to the housekeeper by using peach fuzz. She gets replaced by Chung Sook.";
-            break;
-        case 5:
-            containerTesti.innerHTML="Da Song notices the Kims have the same smell.<br/><br/>While the Parks leave for a camping trip, the Kims revel in their luxurious house.<br/><br/>Suddenly, the old housekeeper rings the intercom.";
-            break;
-        case 6:
-            containerTesti.innerHTML= "The Kims discover the underground bunker and who’s living in there.<br/><br/>A big fight follows and the Parks suddenly come back home, because of a storm.";
-            break;
-        case 7:
-            containerTesti.innerHTML="The former housekeeper dies. Mrs. Kim serves dinner to the Parks, while her family members hide under the coffee table.<br/><br/>They manage to escape, coming back to the Kim’s house. Ki Woo, during the flood, takes the stone with him.";
-            break;
-        case 8:
-            containerTesti.innerHTML= "While the Parks are organizing Da Song’s Birthday Party, tension escalates in the bunker, leading to a violent confrontation.<br/><br/>Geun Sae hits Ki Woo in the head, by using the stone.<br/><br/>The stone symbolizes privilege and ability to fulfill aspirations.<br/><br/>At the birthday party, Da Song recalls the traumatic memory correlated to his previous birthday.";
-            break;
-        case 9:
-            containerTesti.innerHTML="Then the violent aftermath begins: Geun Sae attacks Ki Jeong, and Ki Woo mortally wounds him with the stone.";
-            break;
-        case 10:
-            containerTesti.innerHTML= "Ki Taek escapes and hides himself in the bunker.<br/><br/>Ki Woo will come by the house several times, while his father communicates with him by using the morse code.";
-            break;
-        case 11:
-            containerTesti.innerHTML="Several years go by.<br/><br/>Ki Woo dreams about becoming rich enough to buy the Parks’ former house and then setting his father free.";
-            break;
-        
-        default: break;
-    }
-} */
-
 function mostraTesto(){
     containerTesti.classList.add("mostraTxt");
     containerTesti.classList.remove("nascondiTxt");
@@ -96,7 +51,6 @@ function nascondiTesto(){
 export function mostraTestoTraProgress(p0,p1,response){
 
     if ((response.progress*100) >= p0 && (response.progress*100) < p1) {
-        console.log("testo dentro");
         containerTesti.classList.add("mostraTxt");
         containerTesti.classList.remove("nascondiTxt");
 
@@ -181,7 +135,6 @@ export function mostraEtichettaTraTempi(response,t0,t1,idTxt){
 
     if (mostra) mostraEtichetta();
     else nascondiEtichetta();
-
 
 } 
 

@@ -1,59 +1,6 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-// import * as animations from "./d3-animations.js"
+
 import * as scrollCode from "./scroll_code.js"
-
-
-/* function creaCredits() {
-    let creditsDOM = document.getElementById("chart").appendChild(document.createElement("div"));
-    creditsDOM.setAttribute("id","credits");
-
-    let credits = d3.select("credits");
-    credits.html("CIAOOO");
-}
- */
-/* 
-export function creaFinale() {
-
-    // CREAZIONE HTML
-
-    var txtF = "SEE YOU SOON THEN";
-    let creaParent = document.getElementById("chart").appendChild(document.createElement("div"));
-    creaParent.setAttribute("id","container-finale");
-
-
-    let parent = d3.select("#container-finale");
-
-    let immagine = parent.append("img")
-        .attr("id","morsefinal")
-        .attr("src","assets/finale/finale-on.png")
-        .attr("alt","impossibile caricare l'immagine");
-
-    let container = parent.append("div")
-        .attr("id","testo-container");
-
-    let paragrafo = container.append("p")
-        .attr("id","testo");
-
-    let decodeTextDiv = container.append("div")
-        .attr("class","decode-text")
-        .attr("id","decode-text");
-
-    let c;
-
-    
-    for (let j = 0; j < txtF.length; j++) {
-        c = txtF[j];
-        if (c !== " ") {
-            let textAnimation = decodeTextDiv.append("div")
-                .attr("class","text-animation");
-            textAnimation.html(c);
-        } else {
-            decodeTextDiv.append("div")
-                .attr("class","space");
-        }
-    }
-
-} */
 
     // TYPEWRITER
 
@@ -66,24 +13,19 @@ export function creaFinale() {
      // \n = 500 buio
 
     function mettiLuce(luce) {
-        console.log("mettiLuce");
 
         document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-on.png");
         //mette il buio dopo il tempo luce
-        console.log("mettiLuceMessa");
         
 
     }
 
     function mettiBuio() {
-        console.log("mettiBuio");
         document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-off-scuro.png");
-        console.log("mettiBuioMesso");
     }
 
     function cambiaLuce(c) {
         let luce, buio;  
-        console.log("metti carattere "+c+" in cambiaLuce");
         if (c === "·") {
             luce = speedPunto;
             buio = speedPunto;
@@ -95,10 +37,7 @@ export function creaFinale() {
                 if (c === " ") {
                     luce = 0;
                     buio = 2*speedPunto; //50 già inclusi in quello precedente
-                } /* else {
-                    luce = 0;
-                    buio = 2.5*speedPunto;
-                } */
+                } 
             }
         }
         if (c === "P") {
@@ -122,7 +61,6 @@ export function creaFinale() {
     
             function typeWriter() {
                 if (i < txt.length) {
-                    console.log("metti carattere "+txt.charAt(i));
                     if (txt.charAt(i) === "P") {
                         document.getElementById("testo").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                     }
@@ -131,7 +69,6 @@ export function creaFinale() {
                     }
                 
                     let speed = cambiaLuce(txt.charAt(i));
-                    console.log("speed "+speed);
                     i++;
                     setTimeout(function(){
                         typeWriter();
@@ -153,11 +90,7 @@ export function creaFinale() {
 
      function decodeText(){
         var text = document.getElementById('decode-text');
-        console.log(text.children.length);
-        // debug with
-        // console.log(text, text.children.length);
 
-        // assign the placeholder array its places
         var state = [];
         for(var i = 0, j = text.children.length; i < j; i++ ){
             text.children[i].classList.remove('state-1','state-2','state-3');
@@ -169,7 +102,6 @@ export function creaFinale() {
     
         for(var i = 0, j = shuffled.length; i < j; i++ ){
             var child = text.children[shuffled[i]];
-            console.log(child);
             var classes = child.classList;
 
             // fire the first one at random times
@@ -228,12 +160,8 @@ export function creaFinale() {
 
 
 
-
-// setInterval(function(){ decodeText(); }, 10000);
-
 let parent = d3.select("#container-finale");
 
-//creaFinale();
 
 
 
@@ -249,7 +177,6 @@ export function mostraFinaleOpacita(response,p0,p1) {
             opacita = calcolaOpacita(response.progress);
         }
         else opacita = 1
-       //console.log("opacita "+opacita);
     } else opacita = 0;
     document.getElementById("container-finale").style.opacity = opacita;
 }
@@ -290,7 +217,6 @@ export function nascondiFinale() {
 }
 
 export function togliFinale(){
-    // nascondiFinale();
     d3.select("#container-finale").classed("togli",true);
     d3.select("#container-finale").style("");
 

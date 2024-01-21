@@ -18,8 +18,7 @@ for (let i = 0; i < counter; i++) {
     hrElement.style.animationDuration = 0.2 + Math.random() * 0.3 + "s";
     hrElement.style.animationDelay = Math.random() * 5 + "s";
  
- // document.getElementById("chart").appendChild(hrElement);
- containerPioggia.appendChild(hrElement);
+    containerPioggia.appendChild(hrElement);
 }
 
 let tuttaPioggia = d3.selectAll(".pioggia-el");
@@ -36,7 +35,6 @@ let livello = 2; // a che livello far arrivare
 let containerAcqua = d3.select("#acqua-parent");
 let altezzaMax = animations.getCoordinateLivelli(livello).min;
 
-console.log(altezzaMax);
 let calcolaAltezza = d3.scaleLinear().domain([0,progressoMax]).range([window.innerHeight,altezzaMax]);
 
 let acqua = containerAcqua.append("image")
@@ -44,7 +42,6 @@ let acqua = containerAcqua.append("image")
     .attr("width",2*window.innerWidth)
     .attr("x",0)
     .attr("y",window.innerHeight)
-//    .attr("opacity",0.5)
     .attr("href","./assets/oggetti/acqua.svg");
 
 export function calcolaAcqua(progresso) {

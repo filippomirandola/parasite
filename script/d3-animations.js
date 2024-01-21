@@ -1,12 +1,4 @@
-//bunkersis sparisce a 3,12
-// e riappare a 5,14 a piano 3,1
-
-// papaparks compare a 2,12
-
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-//import * as finale from "./finale.js";
-
-//import * as scrolling from "./scroll_code.js";
 
 export var altezzaPagina = window.innerHeight;
 export var larghezzaPagina = window.innerWidth;
@@ -51,7 +43,7 @@ export var zoomScena = [
 // Dataset piani  bunker / casaPoveri / strada / casaRicchi1 / casaRicchi2
 const livelli = [6,5,4,9,5];
 let coordinateLivelli = [];
-//const personaggi = [4];
+
 export const personaggi = [
     {
         i: 1,
@@ -146,31 +138,7 @@ export const personaggi = [
         morte: "./assets/facce/morti/papaParks-morto.svg",
         dimensione: 1.1
 
-    }/* ,
-    {
-        i: 12,
-        nome: "Pietra",
-        famiglia: "Pietra",
-        dataset: "./data/data_pietra.csv",
-        faccia: "./assets/oggetti/pietra.svg",
-        dimensione: 1
-    },
-    {
-        i: 13,
-        nome: "Auto",
-        famiglia: "Auto",
-        dataset: "./data/data_auto.csv",
-        faccia: "./assets/oggetti/auto.svg",
-        dimensione: 1
-    },
-    {
-        i: 14,
-        nome: "Pesca",
-        famiglia: "Auto",
-        dataset: "./data/data_pietra.csv",
-        faccia: "./assets/oggetti/pesca.svg",
-        dimensione: 1
-    } */
+    }
 ];
 
 const oggetti = [
@@ -186,12 +154,6 @@ const oggetti = [
         src: "./assets/oggetti/bicchiere.svg",
         dimensione: 1.3 //1.3
     },
-/*     {
-        i: 2,
-        id: "bottiglia",
-        src: "./assets/oggetti/bottiglia.svg",
-        dimensione: 1
-    }, */
     {
         i: 2,
         id: "campanello1",
@@ -234,12 +196,6 @@ const oggetti = [
         src: "./assets/oggetti/mutande.svg",
         dimensione: 1
     },
-/*     {
-        i: 10,
-        id: "nuvoletta",
-        src: "./assets/oggetti/nuvoletta.svg",
-        dimensione: 1
-    }, */
     {
         i: 9,
         id: "pesca",
@@ -252,12 +208,6 @@ const oggetti = [
         src: "./assets/oggetti/pietra.svg",
         dimensione: 0.8
     },
-/*     {
-        i: 13,
-        id: "puzza",
-        src: "./assets/oggetti/puzza.svg",
-        dimensione: 1
-    }, */
     {
         i: 11,
         id: "torta",
@@ -289,105 +239,7 @@ const oggetti = [
         dimensione: 0.9
     }
 ];
-/* 
-const testi = [
-    {
-        i: 0,
-        y: [2,2],
-        inizio: [0,0],
-        fine: [0,5],
-        txt: "The Kims struggle in a sub-basement apartment, folding pizza boxes to make ends meet.",
-    },
 
-    {
-        i: 1,
-        y: [3,2],
-        inizio: [1,0],
-        fine: [1,5],
-        txt: "BBBB",
-    },
-
-    {
-        i: 2,
-        y: [4,2],
-        inizio: [1,10],
-        fine: [1,15],
-        txt: "CCCC",
-    },
-    {
-        i: 3,
-        y: [2,2],
-        inizio: [0,0],
-        fine: [0,5],
-        txt: "AAAA",
-    },
-
-    {
-        i: 4,
-        y: [3,2],
-        inizio: [1,0],
-        fine: [1,5],
-        txt: "BBBB",
-    },
-
-    {
-        i: 5,
-        y: [4,2],
-        inizio: [1,10],
-        fine: [1,15],
-        txt: "CCCC",
-    },
-
-    {
-        i: 6,
-        y: [4,2],
-        inizio: [1,10],
-        fine: [1,15],
-        txt: "CCCC",
-    },
-    
-    {
-        i: 7,
-        y: [4,2],
-        inizio: [1,10],
-        fine: [1,15],
-        txt: "CCCC",
-    },
-    {
-        i: 8,
-        y: [3,2],
-        inizio: [1,0],
-        fine: [1,5],
-        txt: "BBBB",
-    },
-
-    {
-        i: 9,
-        y: [4,2],
-        inizio: [1,10],
-        fine: [1,15],
-        txt: "CCCC",
-    },
-
-    {
-        i: 10,
-        y: [4,2],
-        inizio: [1,10],
-        fine: [1,15],
-        txt: "CCCC",
-    },
-    
-    {
-        i: 11,
-        y: [4,2],
-        inizio: [1,10],
-        fine: [1,15],
-        txt: "CCCC",
-    }
-   
-   
-];
- */
 
 // Dataset personaggi: scena, tempo, livello, sottolivello
 const dataP1 = await d3.dsv(",",personaggi[0].dataset);
@@ -401,9 +253,7 @@ const dataP8 = await d3.dsv(",",personaggi[7].dataset);
 const dataP9 = await d3.dsv(",",personaggi[8].dataset);
 const dataP10 = await d3.dsv(",",personaggi[9].dataset);
 const dataP11 = await d3.dsv(",",personaggi[10].dataset);
-/* const dataP12 = await d3.dsv(",",personaggi[11].dataset);
-const dataP13 = await d3.dsv(",",personaggi[12].dataset);
-const dataP14 = await d3.dsv(",",personaggi[13].dataset); */
+
 
 
 const spessoreLinee = 5;
@@ -426,9 +276,6 @@ let puntiP8 = [];
 let puntiP9 = []; 
 let puntiP10 = []; 
 let puntiP11 = []; 
-/* let puntiP12 = []; 
-let puntiP13 = []; 
-let puntiP14 = [];  */
 
 
 
@@ -451,7 +298,6 @@ ampiezzaScene[3]=20;
 
 
 const numeroScene = ampiezzaScene.length;
-console.log(numeroScene);
 
 // calcola l'ampiezza della linea calcolando il multiplo dell'ampiezza del modulo dello sfondo più vicino (e maggiore) nell'ampiezza degli step * numero Step
 export function stabilisciAmpiezzaLinea(scena) {
@@ -463,9 +309,7 @@ export function stabilisciAmpiezzaLinea(scena) {
 
 // Scala X sulla base dell'ampiezzaX della linea di una scena
 export function calcolaScalaX(scena) {
-   // console.log("calcolaScene "+scena);
-  //  console.log(ampiezzaScene[scena]);
-    return d3.scaleLinear().range([xMaschera,xMaschera+stabilisciAmpiezzaLinea(scena)]).domain([0,ampiezzaScene[parseInt(scena)]-1]);
+      return d3.scaleLinear().range([xMaschera,xMaschera+stabilisciAmpiezzaLinea(scena)]).domain([0,ampiezzaScene[parseInt(scena)]-1]);
 }
 
 
@@ -518,9 +362,7 @@ function calcolaYLivelli() {
 }
 
 calcolaYLivelli();
-console.log("INNERHEIGHT: "+window.innerHeight);
-console.log("UNIT: "+unit);
-console.log(coordinateLivelli);
+
 // Funzione per calcolare la Y dei vari punti (compresa la strada)
 export function calcolaY(piano,livello) {
    
@@ -532,11 +374,9 @@ export function calcolaY(piano,livello) {
 
     livello = livello-1;
     if (piano !== "daCalcolare") {
-        console.log(coordinateLivelli[piano].max);
         return coordinateLivelli[piano].max - ((2*parseInt(livello)+1)*(coordinateLivelli[piano].delta / (2*livelli[piano])));
     }
     else {
-     //   console.log("calcolaY in");
         return "daCalcolare";
     }
 
@@ -554,9 +394,7 @@ function verificaDatabase(dataP) {
         let elemento;
         // AGGIUNGE PUNTI INIZIALI ASSENTI
         if (dataScena[0].tempo != 0) {
-          //  console.log("verifica 1 in");
-
-            elemento = 
+              elemento = 
                 {
                     scena: String(scena),
                     tempo: "0",
@@ -570,8 +408,7 @@ function verificaDatabase(dataP) {
 
         // CALCOLA PUNTI FINALI ASSENTI
          if (dataScena[dataScena.length-1].tempo != (ampiezzaScene[scena]-1)) {
-         //   console.log("verifica 2 in");
-
+  
             elemento = 
                 {
                     scena: String(scena),
@@ -597,15 +434,12 @@ function creaDatabase(dataPersonaggio, puntiPersonaggio){
         puntiPersonaggio.push({"scena":elem.scena,"x":calcolaScalaX(elem.scena)(elem.tempo), "y":calcolaY(elem.livello, parseInt(elem.sottolivello))});
      }
 
-     // console.log(puntiPersonaggio);
-
      // CALCOLA QUELLI DA CALCOLARE
      for (let i = 0; i < puntiPersonaggio.length; i++) {
         let punto = puntiPersonaggio[i];
         if (punto.y === "daCalcolare") {
             if (dataPersonaggio[i].tempo!=="0") {
                 // trova precedente
-               // console.log("nuovo dentro i = "+i);
             let iPrecedente = i;
 
             while(puntiPersonaggio[iPrecedente].y == "daCalcolare"){
@@ -630,10 +464,7 @@ function creaDatabase(dataPersonaggio, puntiPersonaggio){
             deltaX = punto.x - puntoP.x + puntoS.x - xMaschera;
             punto.y = puntoP.y + ((punto.x - puntoP.x)/deltaX)*(puntoS.y-puntoP.y);
 
-            //console.log("i = "+i+" y = "+punto.y);
-
             } else {
-                //console.log("ahaha in");
                 punto.y = puntiPersonaggio[i-1].y;
             }
         
@@ -656,13 +487,6 @@ verificaDatabase(dataP8);
 verificaDatabase(dataP9);
 verificaDatabase(dataP10);
 verificaDatabase(dataP11);
-/* verificaDatabase(dataP12);
-verificaDatabase(dataP13); */
-// verificaDatabase(dataP14);
-
-console.log(dataP1);
-
-//console.log(dataP5);
 
 creaDatabase(dataP1, puntiP1);
 creaDatabase(dataP2, puntiP2);
@@ -675,24 +499,6 @@ creaDatabase(dataP8, puntiP8);
 creaDatabase(dataP9, puntiP9);
 creaDatabase(dataP10, puntiP10);
 creaDatabase(dataP11, puntiP11);
-/* creaDatabase(dataP12, puntiP12);
-creaDatabase(dataP13, puntiP13); */
-// creaDatabase(dataP14, puntiP14);
-
-
-
-console.log("INIZIO PUNTI");
-console.log(dataP11);
-/* console.log(dataP12); */
-
-
-console.log("FINE PUNTI");
-
-
-/* creaDatabase(dataP3, puntiP3);
-creaDatabase(dataP4, puntiP4);
-creaDatabase(dataP5, puntiP5); */
-//console.log(puntiP5);
 
 
 export function ottieniPuntiP(id) {
@@ -709,15 +515,10 @@ export function ottieniPuntiP(id) {
         case 9: x = puntiP9; break;
         case 10: x = puntiP10; break;
         case 11: x = puntiP11; break;
-/*         case 12: x = puntiP12; break; */
     }
-    console.log(x);
     return x;
 }
 
-
-
-//...
 
 
 // ############################################################################
@@ -765,7 +566,6 @@ function generaSfondoModulo(rip) {
     .attr("width",unit*k)
     .attr("height",unit)
     .attr("href","./assets/sfondi/livello0.svg");
-    //.attr("href","./assets/sfondi/bunker.svg");
  
     gruppo
     .append("image")
@@ -777,8 +577,6 @@ function generaSfondoModulo(rip) {
     .attr("height",unit)
     .attr("href","./assets/sfondi/livello1.svg");
 
-  //  .attr("href","./assets/sfondi/casa-kim.svg");
-
     gruppo
     .append("image")
     .attr("class","sfondo-modulo livello2")
@@ -789,8 +587,6 @@ function generaSfondoModulo(rip) {
     .attr("height",altezzaPagina-4*unit)
     .attr("href","./assets/sfondi/livello2.svg");
 
-   // .attr("href","./assets/sfondi/strada.svg");
-
     gruppo
     .append("image")
     .attr("class","sfondo-modulo livello3")
@@ -800,7 +596,7 @@ function generaSfondoModulo(rip) {
     .attr("width",unit*k)
     .attr("height",unit)
     .attr("href","./assets/sfondi/livello3.svg");
-  //  .attr("href","./assets/sfondi/casa-park-1.svg");
+
     gruppo
     .append("image")
     .attr("class","sfondo-modulo livello4")
@@ -810,8 +606,6 @@ function generaSfondoModulo(rip) {
     .attr("width",unit*k)
     .attr("height",unit)
     .attr("href","./assets/sfondi/livello4.svg");
-
- //   .attr("href","./assets/sfondi/casa-park-2.svg");
  
 }
 
@@ -864,10 +658,8 @@ function generaSfondoFisso(l) {
 // genera gli sfondi in modo che si raggiunga almeno il doppio dell'ampiezza delle linee della scena più ampia
 function generaSfondi() {
   
- //   .attr("href","./assets/sfondi/casa-park-2.svg");
     let n = 0;
     while (n*unit*k <= 2*stabilisciAmpiezzaLinea(d3.maxIndex(ampiezzaScene))) {
-        //console.log("sfondo " +n);
         //generaSfondoModulo(n);
         n++;
     }
@@ -920,10 +712,8 @@ export function spegniLampada(){
 }
 
 let progressoLampada = (((1600/3040))*(unit*k))/stabilisciAmpiezzaLinea(10);
-console.log("progresso lampada "+progressoLampada);
 
 export function gestioneLampada(response,traslazione){
-    console.log("progresso "+response.progress);
     d3.selectAll('.lampada').attr('transform', "translate(0,0)");
     if (response.index == 10){
         if (response.progress > progressoLampada) {
@@ -934,7 +724,6 @@ export function gestioneLampada(response,traslazione){
 
     if (response.index == 11){
         accendiLampada();
-        console.log("ampiezza "+stabilisciAmpiezzaLinea(10)+" traslazione "+traslazione);
         d3.selectAll('.lampada').attr('transform', "translate("+-(stabilisciAmpiezzaLinea(11))+",0)");
     }
 
@@ -953,8 +742,15 @@ spegniLampada();
 
 // MASCHERA 
 
-let mascheraContainer = svg.append("clipPath").attr("id","myMask");
-let maschera = mascheraContainer.append("rect").attr("width",xMaschera).attr("height",window.innerHeight).attr("fill","black").attr("style","position: sticky;");
+// let mascheraContainer = svg.append("clipPath").attr("id","myMask");
+
+let mascheraGradient = svg.append("linearGradient").attr("id","gradientMaschera");
+mascheraGradient.append("stop").attr("offset","0.99").attr("stop-color","white");
+mascheraGradient.append("stop").attr("offset","0.995").attr("stop-color","black");
+
+let mascheraContainer = svg.append("mask").attr("id","myMask");
+
+let maschera = mascheraContainer.append("rect").attr("width",xMaschera).attr("height",window.innerHeight).attr("fill","url(#gradientMaschera)").attr("style","position: sticky;");
 
 
 // LINEE
@@ -966,7 +762,7 @@ var Gen = d3.line()
 
 
 // crea gruppo dei gruppi delle linee
-const gruppoLinee = svg.append("g").attr("id","linee").attr("clip-path","url(#myMask)");
+const gruppoLinee = svg.append("g").attr("id","linee").attr("mask","url(#myMask)");
 
 //inizializzo l'array che raccoglie la lunghezza di tutte le linee. 
 // l'indice dell'array è l'id della scena, e contiene al suo interno l'id del personaggio
@@ -974,7 +770,6 @@ let lunghezzaLinee = [];
 
 // crea un dataset per una singola scena
 export function datasetPerScena(dataset, numScena){
-   // console.log(d3.groups(dataset, d=>d.scena)[numScena]);
     let x = d3.groups(dataset, d=>d.scena)[numScena][1]; //raggruppo il dataset per il numero di scena e prendo l'array corrispondente
     return x; // riduci il dataset in base alla scena
 }
@@ -992,9 +787,6 @@ function creaLineeScena(gruppo, scena) {
      creaLineaScena(gruppo,"9", puntiP9, scena);
      creaLineaScena(gruppo,"10", puntiP10, scena);
      creaLineaScena(gruppo,"11", puntiP11, scena);
-/*      creaLineaScena(gruppo,"12", puntiP12, scena);
-     creaLineaScena(gruppo,"13", puntiP12, scena);
-     creaLineaScena(gruppo,"14", puntiP12, scena); */
 
 }
 
@@ -1131,7 +923,6 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
 // crea tutte le linee
 for (let scena = 0; scena<numeroScene; scena++) {
     let id = "linee_"+scena;
-    console.log(id);
     lunghezzaLinee[scena]=[]; //inizializza l'array della lunghezza delle linee per quella scena specifica
     let gruppoLineeScena = gruppoLinee.append("g").attr("id",id).attr("visibility","hidden");
     creaLineeScena(gruppoLineeScena, scena);
@@ -1141,7 +932,6 @@ for (let scena = 0; scena<numeroScene; scena++) {
 // FACCE
 
 function creaFaccia(idPersonaggio) {
-    //console.log(personaggi[idPersonaggio].faccia);
     let dimensione = dimensioneFacce * personaggi[parseInt(idPersonaggio)-1].dimensione;
     let gruppo = svg.append("g").attr("id","gruppo-faccia"+idPersonaggio).attr("class","P"+idPersonaggio+" gruppo-faccia");
     let faccia = gruppo
@@ -1166,34 +956,8 @@ function creaFaccia(idPersonaggio) {
 }
 
 
-/* function creaFaccia(idPersonaggio) {
-    //console.log(personaggi[idPersonaggio].faccia);
-    let dimensione = dimensioneFacce * personaggi[parseInt(idPersonaggio)-1].dimensione;
-    let faccia = svg
-        .append("image")
-        .attr("class","faccia")
-        .attr("id","faccia"+idPersonaggio)
-        .attr("width",dimensione)
-        .attr("height",dimensione)
-        .attr("x",-dimensione/2)
-        .attr("y",-dimensione/2)
-        .style("filter","drop-shadow(0px 0px 3px "+coloreLinea(idPersonaggio)+")")
-        .attr("href", personaggi[parseInt(idPersonaggio)-1].faccia);
-}
- */
-/* .append("image")
-.attr("class","livello2")
-.attr("id","livello0-"+rip)
-.attr("x",x)
-.attr("y",(percentualeAltezzaStanze)*altezzaPagina)
-.attr("width",unit*k)
-.attr("height",unit)
-.attr("href","./assets/casa-park-1.svg"); */
-
-
 // crea facce 
 function creaFacce (){
-    //console.log("personaggi: "+personaggi.length);
     for (let i = 1; i<=personaggi.length; i++) {
         creaFaccia(i);
     }
@@ -1208,42 +972,18 @@ function creaFacce (){
  function muoviFacciaDaX (idFaccia, puntiP, x, traslazione, scena, deltaX, deltaY) {
     let obj = document.getElementById(idFaccia);
     let numPunti = puntiP.length; // ottieni il numero di punti che definiscono la linea
-   // let ampiezza = puntiP[numPunti-1].x - puntiP[0].x; // ottieni l'ampiezza in x del progresso
     let pt = {}; // crea l'oggetto pt che definirà la posizione della faccia
-   // pt.x = puntiP[0].x + progresso * ampiezza;  x della faccia è proporzionale al progresso
     
     pt.x = x + deltaX;
     let xLinea = x + traslazione;
-    //console.log("dentro");
     let i = 0;
-    //console.log("x linea "+ xLinea);
-    //console.log("num punti: "+numPunti);
-
     // cerca i due punti tra cui è compresa la x
     while (i < numPunti-1 && puntiP[i].x < xLinea) { // esce quando x è maggiore (o quando la linea è finita)
         i++; 
     } 
 
-    /* if (idFaccia=="faccia11") {
-        console.log("il prossimo è "+ i);
-    }  */// il prossimo
-
     let pt0, pt1;
 
-   /*  if (i< (numPunti-1)) {
-         pt0 = puntiP[i-1]; //punto precedente
-         pt1 = puntiP[i]; //punto successivo
-    } */
-
-  /*   if (i< (numPunti-1)) {
-        pt0 = puntiP[i-1]; //punto precedente
-        pt1 = puntiP[i]; //punto successivo
-   }
-    else if (i == (numPunti-1)) {
-      //  console.log("in ultimo");
-         pt0 = puntiP[i];
-         pt1 = puntiP[i];
-    } */
     if (i>0) {
         pt0 = puntiP[i-1]; //punto precedente
         pt1 = puntiP[i]; //punto successivo
@@ -1256,15 +996,6 @@ function creaFacce (){
         // calcolo la y della faccia
         pt.y =  pt0.y + diffY + deltaY;
     
-    
-        // calcolo il fattore di scala della faccia
-      /*   let k = (coordinateLivelli[zoomScena[scena][0]].max - coordinateLivelli[zoomScena[scena][1]].min)/unit;
-        console.log("dimensione facce rapporto "+k);
-        let nuovaDimensione = k*dimensioneFacce;
-        obj.setAttribute("width",nuovaDimensione);
-        obj.setAttribute("height",nuovaDimensione);
-        obj.setAttribute("x",-nuovaDimensione/2);
-        obj.setAttribute("y",-nuovaDimensione/2); */
     } else {
         pt.y = puntiP[i].y;
     }
@@ -1288,11 +1019,6 @@ function creaFacce (){
     muoviFacciaDaX("gruppo-faccia9", datasetPerScena(puntiP9,scena), xMaschera, traslazione, scena, 0, 0); 
     muoviFacciaDaX("gruppo-faccia10", datasetPerScena(puntiP10,scena), xMaschera, traslazione, scena, 0, 0); 
     muoviFacciaDaX("gruppo-faccia11", datasetPerScena(puntiP11,scena), xMaschera, traslazione, scena, 0, 0); 
-/*     muoviFacciaDaX("gruppo-faccia12", datasetPerScena(puntiP12,scena), xMaschera, traslazione, scena, 0, 0); 
-    muoviFacciaDaX("gruppo-faccia13", datasetPerScena(puntiP13,scena), xMaschera, traslazione, scena, 0, 0);  */
-    // muoviFacciaDaX("gruppo-faccia14", datasetPerScena(puntiP14,scena), xMaschera, traslazione, scena, 0, 0); 
-
-    //...
    
  }
  
@@ -1382,7 +1108,6 @@ export function muoviOggetto(idOggetto, response, idPersonaggio, traslazione, de
     let scena = response.index;
     let puntiP;
     puntiP = ottieniPuntiP(parseInt(idPersonaggio));
-    // console.log(puntiP);
     muoviFacciaDaX(idOggetto, datasetPerScena(puntiP,scena), xMaschera, traslazione, scena, deltaX, deltaY);
 
 }
@@ -1431,12 +1156,7 @@ let rectIntro = intro.append("rect")
 let altezzaImg = 0.15*altezzaPagina;
 let xTesto = 0.3*larghezzaPagina;
 
-/*let imgIntro = intro.append("image")
-        .attr("id","introLines")
-        .attr("href","../assets/landing/introLines.png")
-        .attr("height",altezzaImg)
-        .attr("x",0)
-        .attr("y",0.5*altezzaPagina-(altezzaImg/2));*/
+
 
 let txtP = intro.append("text")
         .attr("id","textIntro")
@@ -1452,18 +1172,6 @@ let r4 = txtP.append("tspan")
         .attr("x",xTesto)
         .attr("dy","1.2em")
         .html("don't worry, just keep scrolling as you always do, and enjoy!");
-/*let r1 = txtP.append("tspan")
-.attr("x",xTesto)
-.attr("dy","-2.4em")
-.html("");*/
-
-/*let r2 = txtP.append("tspan")
-.attr("x",xTesto)
-.attr("dy","-1.2em")
-.html("The characters’ paths are indicated by lines.");*/
-
-
-// txtP.html("blabla");
 
 // ############################################################################
 // #########################         ACQUA         ############################
@@ -1552,10 +1260,6 @@ function creaCredits() {
     creditsDOM.setAttribute("class","forzaNoBlur");
 
     let credits = d3.select("#credits");
-  //  credits.html("Corso di Laurea di Design della Comunicazione</br>Laboratorio di Computer Grafica sez. C2</br>a.a. 2023/2024</br></br>Crimi Martina, Garcia Sanchez Thomas, Genovese Francesca, Mirandola Filippo, Romagnuolo Renata, Savoldi Elena, Sirtori Vittoria");
-/*     document.getElementById("credits").style.fontSize="1em"; 
-    document.getElementById("credits").style.textAlign="center"; 
-    document.getElementById("credits").style.paddingTop="20%"; */
 
     let creditsLogo = credits.append("div")
         .attr("id","logo-container")
@@ -1570,8 +1274,6 @@ function creaCredits() {
         .attr("id","credits-txt")
         .attr("class","forzaNoBlur")
         .html("Corso di Laurea in Design della Comunicazione</br>Laboratorio di Computer Grafica &ndash; C2</br>A.A. 2023/2024</br></br>Crimi Martina, Garcia Sanchez Thomas, Genovese Francesca, Mirandola Filippo, Romagnuolo Renata, Savoldi Elena, Sirtori Vittoria");
-       // .html("TESt");
-
 
 
 }
@@ -1588,19 +1290,15 @@ creaCredits();
 
 export function impostaZoomSfondo(rapporto,traslazioneY,traslazioneX) {
     svg
-  //  .attr("transform","scale("+rapporto+") "+"translate("+-100*(rapporto / 2)+" "+traslazioneY+") ");
   .attr("transform","scale("+rapporto+") "+"translate("+traslazioneX+" "+traslazioneY+") ");
 }
 
 export function impostaZoomFacce(rapporto,modificatoreFacce, scena){ 
-    console.log("zoom dentro facce "+rapporto);
-   // let dimensione = dimensioneFacce*2*modificatoriZoom[scena]/rapporto;
    let dimensione = dimensioneFacce*2*modificatoreFacce/rapporto;
-  //let dimensioneTxt = dimensioneFacce*2/rapporto
-    for (let i = 1; i<=personaggi.length; i++) {
+
+   for (let i = 1; i<=personaggi.length; i++) {
         dimensione=dimensione*personaggi[parseInt(i)-1].dimensione;
         let idFaccia="faccia"+i;
-        console.log(idFaccia);
 
         let obj = document.getElementById(idFaccia);
         obj.setAttribute("width",dimensione);
@@ -1609,7 +1307,6 @@ export function impostaZoomFacce(rapporto,modificatoreFacce, scena){
         obj.setAttribute("y",-dimensione/2);
 
 
-       //dimensione=dimensione/modificatoreFacce; //per i testi
         let txt = document.getElementById("nome-faccia"+i);
         if (rapporto < 3) {
             txt.setAttribute("font-size",(dimensioneNomi/rapporto)+"em");
@@ -1624,11 +1321,8 @@ export function impostaZoomFacce(rapporto,modificatoreFacce, scena){
 }
 
 export function impostaZoomOggetti(rapporto, scena, modificatoreOggetti){ 
-   // let dimensione = dimensioneFacce*2*modificatoriZoom[scena]/rapporto;
-   console.log("oggetti zoom "+rapporto);
     for (let i = 0; i<oggetti.length; i++) {
         let dimensione = dimensioneOggetti*oggetti[i].dimensione*modificatoreOggetti/rapporto;
-      //  dimensione=dimensione*oggetti[i].dimensione;
 
         let obj = document.getElementById(oggetti[i].id);
         obj.setAttribute("width",dimensione);
@@ -1657,26 +1351,24 @@ export function calcolaZoom(progresso, scena, nuovo, vecchio) {
 
     if (progresso <= zoomProgressoFinale) // quando deve progredire
      {
-      //  console.log("zoom in")
 
         let deltaAltezzaOld = coordinateLivelli[vecchio[0]].max - coordinateLivelli[vecchio[1]].min;
         let rapportoIniziale = altezzaPagina / deltaAltezzaOld;
-      //  console.log("zoom deltaAltezzaOld "+deltaAltezzaOld);
-      //  console.log("zoom rapporotiniziale "+rapportoIniziale);
+     
         if (progresso > zoomProgressoFinale*ritardoZoom){
             let calcolaRapporto = d3.scaleLinear().domain([zoomProgressoFinale*ritardoZoom,zoomProgressoFinale]).range([rapportoIniziale,rapportoFinale]);
             rapporto = calcolaRapporto(progresso);    
         } else {
             rapporto = rapportoIniziale;
         }
-     //   console.log("progresso zoom: "+rapporto);
+
         let calcolaTraslazioneY = d3.scaleLinear().domain([0,zoomProgressoFinale]).range([-coordinateLivelli[vecchio[1]].min, -coordinateLivelli[nuovo[1]].min]);
         if (scena != 0) {
             let calcolaModificatore = d3.scaleLinear().domain([0,zoomProgressoFinale]).range([modificatoriZoom[scena-1],modificatoriZoom[scena]]);
             modificatoreFacce = calcolaModificatore(progresso);
         }
         else modificatoreFacce = modificatoriZoom[0];
-        //rapporto = calcolaRapporto(progresso);    
+
         traslazioneY = calcolaTraslazioneY(progresso);
         traslazioneX = - ((xMaschera)-(xMaschera/rapporto));
 
@@ -1696,19 +1388,6 @@ export function calcolaZoom(progresso, scena, nuovo, vecchio) {
 
 
 calcolaZoom(0,0,[1,1],[1,1]);
-
-/* TRANSIZIONE (A SCATTI..)
-export function impostaZoom(progresso, pianoInferiore, pianoSuperiore) {
-    let deltaAltezza = coordinateLivelli[pianoInferiore].max - coordinateLivelli[pianoSuperiore].min;
-    let rapportoFinale = altezzaPagina / deltaAltezza;
- 
-    let yCentrale = coordinateLivelli[pianoSuperiore].min + (deltaAltezza / 2);
-    svg
-        .transition()
-        .duration(200)
-        .attr("transform","scale("+rapporto+") "+"translate("+-100*(rapporto / 2)+" "+-coordinateLivelli[pianoSuperiore].min+") ");
-    svg.attr("transform","scale("+2+")");
-} */
 
 export function mostraLineeScena(scena, direzione) {
     d3.select("#linee_"+scena).attr("visibility","visible");
@@ -1746,11 +1425,8 @@ function tratteggio(personaggio, punti, scena, idInizio, idFine, trattiMultipli,
 
 
     var l = lunghezzaLinee[scena][personaggio];
- //   console.log("tratt lunghezza tot: "+l);
     //lunghezza per i punti
-   /*  var a = l * sottoarray[idInizio].progresso/100;
-    var b = l * sottoarray[idFine].progresso/100; */
-
+  
     if (trattiMultipli === false) {
         var a = l * sottoarray[idInizio].progresso/100;
         var b = l * sottoarray[idFine].progresso/100;
@@ -1762,7 +1438,6 @@ function tratteggio(personaggio, punti, scena, idInizio, idFine, trattiMultipli,
             usedlen += tratt+trattS;
         }
         dasharray += tratt + " " + (l-b);
-       console.log("tratteggio: "+ dasharray);
     }
 
     if (trattiMultipli === true) {
@@ -1784,8 +1459,6 @@ function tratteggio(personaggio, punti, scena, idInizio, idFine, trattiMultipli,
         }
 
         dasharray += tratt + " " + (l-d);
-
-       console.log("tratteggio: "+ dasharray);
     }
 
     return dasharray;    
@@ -1793,26 +1466,20 @@ function tratteggio(personaggio, punti, scena, idInizio, idFine, trattiMultipli,
 }
 
 
-// ############################################################################
+// #####################################################################################
 // #########################        NASCONDI LINEE        ##############################
-// ############################################################################
+// #####################################################################################
 
 
 
 // nasconde parte iniziale linea e fa comparire faccia
 export function nascondiLineaInizio(personaggio, scena, puntoInizio){
     let id = "linea_"+scena+"_P"+personaggio;
-    console.log(id);
     let linea = document.getElementById(id);
 
     var punti = ottieniPuntiP(parseInt(personaggio));
     var sottoarray = punti.filter(el => el.scena == scena);
-    console.log(sottoarray);
     var l = lunghezzaLinee[scena][personaggio];
- //   console.log("tratt lunghezza tot: "+l);
-    //lunghezza per i punti
-   /*  var a = l * sottoarray[idInizio].progresso/100;
-    var b = l * sottoarray[idFine].progresso/100; */
 
     var a = l * sottoarray[parseInt(puntoInizio)].progresso/100;
 
@@ -1829,17 +1496,11 @@ export function nascondiLineaInizio(personaggio, scena, puntoInizio){
 
 export function nascondiLineaFine(personaggio, scena, puntoInizio){
     let id = "linea_"+scena+"_P"+personaggio;
-    console.log(id);
     let linea = document.getElementById(id);
 
     var punti = ottieniPuntiP(parseInt(personaggio));
     var sottoarray = punti.filter(el => el.scena == scena);
-    console.log(sottoarray);
     var l = lunghezzaLinee[scena][personaggio];
- //   console.log("tratt lunghezza tot: "+l);
-    //lunghezza per i punti
-   /*  var a = l * sottoarray[idInizio].progresso/100;
-    var b = l * sottoarray[idFine].progresso/100; */
 
     var a = l * sottoarray[parseInt(puntoInizio)].progresso/100;
 
@@ -1863,7 +1524,7 @@ export function cambiaFaccia(idPersonaggio,diventaMorto) {
     let obj = document.getElementById(id);
     if (diventaMorto === true) {
         obj.setAttribute("href",personaggi[idPersonaggio-1].morte);
-       // obj.setAttribute("style", "rotate(45) "+obj.getAttribute("style")); //slice(0,-1) toglie l'ultimo carattere della stringa
+
     }
     else {
         obj.setAttribute("href",personaggi[idPersonaggio-1].faccia);
@@ -1879,13 +1540,11 @@ export function cambiaFaccia(idPersonaggio,diventaMorto) {
 
 export function ottieniProgresso(idPersonaggio, scena, indice) {
     let puntiScena = datasetPerScena(ottieniPuntiP(parseInt(idPersonaggio)),scena);
-    console.log(puntiScena);
     return puntiScena[indice].progresso/100;
 }
 
 export function ottieniX(idPersonaggio, scena, indice) {
     let puntiScena = datasetPerScena(ottieniPuntiP(parseInt(idPersonaggio)),scena);
-    console.log(puntiScena);
     return puntiScena[indice].x;
 }
 
@@ -1896,31 +1555,6 @@ export function ottieniPercX(idPersonaggio, scena, indiceTempo) {
     return percX;
 }
 
-/* export function bloccaElemento(idElemento, idPersonaggio, scena, indiceTempo, response, deltaX, deltaY) {
-    if (response.index > scena || (response.index == scena && response.progress > ottieniProgresso(idPersonaggio,scena, indiceTempo))) {  // blocca solo dopo aver superato il punto
-        console.log("blocca "+idElemento);
-        
-        let translationAttuale = (response.progress) * stabilisciAmpiezzaLinea(scena) + (response.index-scena)*(stabilisciAmpiezzaLinea(scena)); // il secondo addendo permette di continuare la traslazione dopo aver cambiato scena "togliendo" la traslazione data dal nuovo progress
-       //  console.log("prog :"+ ottieniProgresso(idPersonaggio,scena, indiceTempo));
-        // let translationPunto = (ottieniProgresso(idPersonaggio,scena, indiceTempo))*stabilisciAmpiezzaLinea(scena);
-        let translationPunto = ottieniX(idPersonaggio,scena, indiceTempo);
-        // let traslazione = translationAttuale - translationPunto;
-        let traslazione = translationPunto - translationAttuale;
-        console.log("traslaz: "+traslazione);
-
-        let obj = document.getElementById(idElemento);
-        let pt = {};
-        let puntiScena = datasetPerScena(ottieniPuntiP(parseInt(idPersonaggio)),scena);
-       // pt.x = xMaschera - traslazione + deltaX;
-       pt.x = xMaschera - translationAttuale + deltaX;
-        pt.y = puntiScena[indiceTempo].y + deltaY;
-        console.log(pt.y);
-
-        console.log("posizione nuova: "+pt.x+" "+pt.y);
-        obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)'; 
-    }
-}
- */
 
 export function bloccaElemento(idElemento, idPersonaggio, scena, indiceTempo, response, deltaX, deltaY) {
     let percX = ottieniPercX(idPersonaggio,scena,indiceTempo);
@@ -1933,9 +1567,8 @@ export function bloccaElemento(idElemento, idPersonaggio, scena, indiceTempo, re
 
        pt.x = xMaschera - ((response.progress-percX)*stabilisciAmpiezzaLinea(scena)) - (response.index-scena)*(stabilisciAmpiezzaLinea(scena)); // il secondo addendo permette di continuare la traslazione dopo aver cambiato scena "togliendo" la traslazione data dal nuovo progress;
         pt.y = puntiScena[indiceTempo].y + deltaY;
-        console.log(pt.y);
 
-        console.log("posizione nuova: "+pt.x+" "+pt.y);
+        
         obj.style.webkitTransform = 'translate3d('+pt.x+'px,'+pt.y+'px, 0)'; 
     }
 }
@@ -1952,12 +1585,9 @@ export function calcolaPercentualeTempo(scena, tempo) {
 
 
 
-// ############################################################################
+// ###################################################################
 // #####################        HOVER       ##########################
-// ############################################################################
-
-//class linea_P9 #gruppo-faccia4
-//document.getElementById("gruppo-faccia4")addEventListener()
+// ###################################################################
 
 function nascondiTutto(x){
     for(let i = 1; i <= personaggi.length; i++){
