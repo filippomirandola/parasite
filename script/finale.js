@@ -77,7 +77,7 @@ export function creaFinale() {
 
     function mettiBuio() {
         console.log("mettiBuio");
-        document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-off.png");
+        document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-off-scuro.png");
         console.log("mettiBuioMesso");
     }
 

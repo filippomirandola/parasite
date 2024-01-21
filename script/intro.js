@@ -11,7 +11,7 @@ let svg = d3.select("#legenda-parent").append("svg")
     .attr("width","100%")
     .attr("height",altezza+"em");
 
-let personaggiL0=[1,2,7,11];
+let personaggiL0=[7,11,1,2];
 let personaggiL1=[8,6,3,4];
 let personaggiL2=[9,10];
 let personaggiL3=[5];
