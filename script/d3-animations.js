@@ -1273,7 +1273,7 @@ function creaCredits() {
     let creditsTxt = credits.append("div")
         .attr("id","credits-txt")
         .attr("class","forzaNoBlur")
-        .html("Corso di Laurea in Design della Comunicazione</br>Laboratorio di Computer Grafica &ndash; C2</br>A.A. 2023/2024</br></br>Martina Crimi, Thomas Garcia Sanchez, Francesca Genovese, Filippo Mirandola, Renata Romagnuolo, Elena Savoldi, Vittoria Sirtori");
+        .html("Corso di Laurea in Design della Comunicazione</br>Laboratorio di Computer Grafica &ndash; C2</br>A.A. 2023/2024</br></br>Martina Crimi, Thomas Garcia Sanchez, Francesca Genovese, Filippo Mirandola,</br>Renata Romagnuolo, Elena Savoldi, Vittoria Sirtori");
 
 
 }
