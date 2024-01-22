@@ -1079,14 +1079,14 @@ function creaOggetto(id) {
     let dimensione = dimensioneOggetti*oggetti[id].dimensione;
     let oggetto = svg
         .append("image")
-        .attr("class","oggetto")
+        .attr("class","oggetto nascondi")
         .attr("id",oggetti[parseInt(id)].id)
         .attr("width",dimensione)
         .attr("height",dimensione)
         .attr("x",-dimensione/2)
         .attr("y",-dimensione/2)
-        .attr("href", oggetti[parseInt(id)].src)
-        .attr("style","opacity: 0");
+        .attr("href", oggetti[parseInt(id)].src);
+      //  .attr("style","opacity: 0");
 }
 
 for (let i = 0; i < oggetti.length; i++){
@@ -1592,8 +1592,10 @@ export function calcolaPercentualeTempo(scena, tempo) {
 function nascondiTutto(x){
     for(let i = 1; i <= personaggi.length; i++){
         if (i != x) {
+            console.log("nascondi "+i);
             d3.selectAll(".P"+i).classed("copri",true);
         } else {
+            console.log("mostra "+i);
             d3.selectAll(".P"+i).classed("copri",false);
             d3.select("#nome-faccia"+i).classed("mostra",true);
     }

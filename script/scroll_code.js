@@ -158,8 +158,8 @@ function handleProgress(response) {
     fineLinea(8,11,1, response); 
 
 
- 
-
+   // console.log("bunkerSis: "+document.getElementById("gruppo-faccia9").classList.value);
+console.log("ciao");
     
 // BUNKERSIS
 
@@ -608,12 +608,18 @@ init();
 // FUNZIONI
 
 function mostra(obj) {
-    obj.style.opacity = 100;
+ //   obj.style.opacity = 100;
+ obj.classList.remove("nascondi");
+ obj.classList.add("mostra");
 }
 
 
 function nascondi(obj) {
-    obj.style.opacity = 0;
+  //  obj.style.opacity = 0;
+  obj.classList.remove("mostra");
+  obj.classList.add("nascondi");
+
+
 }
 
 function mostraTraProgress(id, p0, p1, response) {
@@ -652,11 +658,13 @@ function mostraDopoSoglia(id, response, scena, soglia) {
     let oggetto = document.getElementById(id);
  
     if (response.progress > soglia || response.index > scena) {
-        oggetto.style.opacity = 100;
+       // oggetto.style.opacity = 100;
+       mostra(oggetto);
         } 
     
     if ((response.index < scena)||(response.progress <= soglia && response.index == scena)) {
-        oggetto.style.opacity = 0;
+     //   oggetto.style.opacity = 0;
+     nascondi(oggetto);
             } 
 
     }
@@ -666,11 +674,13 @@ function mostraDopoSoglia(id, response, scena, soglia) {
         let oggetto = document.getElementById(id);
    
         if (response.progress <= soglia || response.index < scena) {
-            oggetto.style.opacity = 100;
+         //   oggetto.style.opacity = 100;
+         mostra(oggetto);
             } 
         
         if (response.progress >= soglia && response.index >= scena) {
-            oggetto.style.opacity = 0;
+          //  oggetto.style.opacity = 0;
+          nascondi(oggetto);
                 } 
 
         }

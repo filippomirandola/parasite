@@ -9,10 +9,6 @@ body {
   padding: 0;
 }
 
-.mostra{
-  opacity: 1;
-}
-
 .sfondo-fisso {
   position: relative;
   z-index: -1;
@@ -23,6 +19,22 @@ body {
   height:100vw;
   background-color: red;
 }
+
+
+
+.mostra{
+  opacity: 1;
+}
+
+.copri {
+  opacity: 0.3;
+}
+
+
+.nascondi {
+  opacity: 0;
+}
+
 
 .faccia {
   
@@ -279,9 +291,7 @@ img#morsefinal {
 
 /* NOMI FACCE */
 
-.copri {
-  opacity: 0.3;
-}
+
 
  text[id^="nome-faccia"] {
   opacity: 0;
@@ -320,3 +330,5 @@ text[id^="nome-faccia"].mostra {
   color:"green";
   position: absolute;
 }
+
+
