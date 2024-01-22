@@ -158,9 +158,7 @@ function handleProgress(response) {
     fineLinea(8,11,1, response); 
 
 
-   // console.log("bunkerSis: "+document.getElementById("gruppo-faccia9").classList.value);
-console.log("ciao");
-    
+
 // BUNKERSIS
 
     if (response.index <4) {
