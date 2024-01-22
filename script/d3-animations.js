@@ -842,7 +842,6 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
                 .attr("stroke", coloreLinea(idPersonaggio))
                 .attr("fill", "none")
                 .attr("stroke-width", spessoreLinee)
-              //  .attr("pointer-events","visibleStroke")
                 .style("filter","drop-shadow(0px 0px 2px "+coloreLinea(idPersonaggio)+")");
                
 
@@ -1592,10 +1591,8 @@ export function calcolaPercentualeTempo(scena, tempo) {
 function nascondiTutto(x){
     for(let i = 1; i <= personaggi.length; i++){
         if (i != x) {
-            console.log("nascondi "+i);
             d3.selectAll(".P"+i).classed("copri",true);
         } else {
-            console.log("mostra "+i);
             d3.selectAll(".P"+i).classed("copri",false);
             d3.select("#nome-faccia"+i).classed("mostra",true);
     }
