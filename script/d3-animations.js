@@ -1224,7 +1224,7 @@ function creaFinale() {
 
     let immagine = parent.append("img")
         .attr("id","morsefinal")
-        .attr("src","assets/finale/finale-on.png")
+        .attr("src","assets/finale/finale-off-scuro-new.png")
         .attr("alt","impossibile caricare l'immagine");
 
     let container = parent.append("div")
@@ -1273,7 +1273,7 @@ function creaCredits() {
     let creditsTxt = credits.append("div")
         .attr("id","credits-txt")
         .attr("class","forzaNoBlur")
-        .html("Corso di Laurea in Design della Comunicazione</br>Laboratorio di Computer Grafica &ndash; C2</br>A.A. 2023/2024</br></br>Crimi Martina, Garcia Sanchez Thomas, Genovese Francesca, Mirandola Filippo, Romagnuolo Renata, Savoldi Elena, Sirtori Vittoria");
+        .html("Corso di Laurea in Design della Comunicazione</br>Laboratorio di Computer Grafica &ndash; C2</br>A.A. 2023/2024</br></br>Martina Crimi, Thomas Garcia Sanchez, Francesca Genovese, Filippo Mirandola, Renata Romagnuolo, Elena Savoldi, Vittoria Sirtori");
 
 
 }

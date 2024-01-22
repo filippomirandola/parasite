@@ -14,14 +14,14 @@ import * as scrollCode from "./scroll_code.js"
 
     function mettiLuce(luce) {
 
-        document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-on.png");
+        document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-on-new.png");
         //mette il buio dopo il tempo luce
         
 
     }
 
     function mettiBuio() {
-        document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-off-scuro.png");
+        document.getElementById("morsefinal").setAttribute("src","assets/finale/finale-off-scuro-new.png");
     }
 
     function cambiaLuce(c) {
@@ -53,6 +53,7 @@ import * as scrollCode from "./scroll_code.js"
         return luce+buio;
     }
 
+    var finito = true; // variabile che verifica che l'animazione sia finita
     function initTypewriter() {
         document.getElementById("testo").innerHTML="";
         var i = 0;
@@ -60,6 +61,7 @@ import * as scrollCode from "./scroll_code.js"
            
     
             function typeWriter() {
+                finito = false;
                 if (i < txt.length) {
                     if (txt.charAt(i) === "P") {
                         document.getElementById("testo").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -74,10 +76,13 @@ import * as scrollCode from "./scroll_code.js"
                         typeWriter();
                     }, speed);
                 }
-
+                if (i>=txt.length) finito = true;
             }
+
         typeWriter();
+
     }
+
 
 
 
@@ -198,13 +203,18 @@ export function avviaFinale(){
     d3.select("#decode-text").classed("visibile",false); 
     d3.select("#testo").classed("visibile",true); 
 
-    initTypewriter();
-    setTimeout(function() {
-      d3.select("#testo").classed("visibile",false);  // nascondi il testo Morse
-       d3.select("#decode-text").classed("visibile",true);  // mostra il testo "see you soon then"
-      decodeText(); //avvia il decode
-    
-    }, 10000)
+    if (finito == true) { // riavvia solo se è finito
+
+        initTypewriter();
+        setTimeout(function() {
+            d3.select("#testo").classed("visibile",false);  // nascondi il testo Morse
+             d3.select("#decode-text").classed("visibile",true);  // mostra il testo "see you soon then"
+            decodeText(); //avvia il decode
+          
+          }, 10000)
+      
+    } 
+
 }
 export function mostraFinale() { 
     d3.select("#container-finale").classed("visibile",true);
