@@ -711,15 +711,6 @@ export function spegniLampada(){
     d3.selectAll(".lampada").classed("accesa",false);
 }
 
-// let progressoLampada = (((1436/3040))*(unit*k))/stabilisciAmpiezzaLinea(10);
-/* console.log("xMaschera: " + xMaschera);
-console.log("numero moduli: " + stabilisciAmpiezzaLinea(10)/(unit*k));
-console.log("larghezza totale: " + stabilisciAmpiezzaLinea(10));
-console.log("larghezza modulo: "+(unit*k));
-console.log("pL: "+(unit*k)*(2728/3040));*/
-
-
-
 
 export function gestioneLampada(response,traslazione){
     d3.selectAll('.lampada').attr('transform', "translate(0,0)");
