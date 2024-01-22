@@ -711,12 +711,25 @@ export function spegniLampada(){
     d3.selectAll(".lampada").classed("accesa",false);
 }
 
-let progressoLampada = (((1600/3040))*(unit*k))/stabilisciAmpiezzaLinea(10);
+// let progressoLampada = (((1436/3040))*(unit*k))/stabilisciAmpiezzaLinea(10);
+/* console.log("xMaschera: " + xMaschera);
+console.log("numero moduli: " + stabilisciAmpiezzaLinea(10)/(unit*k));
+console.log("larghezza totale: " + stabilisciAmpiezzaLinea(10));
+console.log("larghezza modulo: "+(unit*k));
+console.log("pL: "+(unit*k)*(2728/3040));*/
+
+
+
 
 export function gestioneLampada(response,traslazione){
     d3.selectAll('.lampada').attr('transform', "translate(0,0)");
+    let larghezzaLampada = document.getElementById("lampada-luce").getBoundingClientRect().width;
+    let kLampada = (1436/3040)*larghezzaLampada;
+    let xLampada = document.getElementById("lampada-luce").getBoundingClientRect().x;
+    let xLampione = xLampada+kLampada;
+
     if (response.index == 10){
-        if (response.progress > progressoLampada) {
+        if (xLampione <= xMaschera) {
             accendiLampada();
         }
         else spegniLampada();

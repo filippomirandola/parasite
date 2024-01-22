@@ -453,6 +453,7 @@ animations.bloccaElemento("pietra",4,9,1,response,-dim*0.5,dim*0.2);
             break;
         case 10:
             zoom();
+
             testi.mostraTestoTraTempi(response,1,10,10);
 
             animations.gestioneLampada(response,translation);
