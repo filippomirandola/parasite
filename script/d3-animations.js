@@ -842,7 +842,7 @@ function creaLineaScena(gruppo, idPersonaggio, puntiP, scena) {
                 .attr("stroke", coloreLinea(idPersonaggio))
                 .attr("fill", "none")
                 .attr("stroke-width", spessoreLinee)
-                .attr("pointer-events","visibleStroke")
+              //  .attr("pointer-events","visibleStroke")
                 .style("filter","drop-shadow(0px 0px 2px "+coloreLinea(idPersonaggio)+")");
                
 
